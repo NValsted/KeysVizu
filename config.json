@@ -1,0 +1,10 @@
+{
+    "main" :
+    {
+        "kv_location" : "kvs/keysvizu.kv"
+    },
+    "theory":
+    {
+        "note_lookup_location": "theory/note_lookup.json"
+    }
+}
