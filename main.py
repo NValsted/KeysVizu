@@ -4,6 +4,7 @@ from kivy.properties import NumericProperty, ReferenceListProperty, ObjectProper
     StringProperty, ListProperty
 from kivy.core.window import Window
 from kivy.clock import Clock
+from kivy.graphics import Color, Rectangle
 #from kivy.lang import Builder
 
 import c_utils
@@ -13,11 +14,14 @@ from midi_handling import schedules
 config = c_utils.load_config()
 #Builder.load_file(config['main']['kv_location'])
 
-class WhiteKey(Widget):
+class PianoKey(Widget):
     note = StringProperty(None)
 
-class BlackKey(Widget):
-    note = StringProperty(None)
+class BlackKey(PianoKey):
+    standard_color = [0.1,0.1,0.1]
+
+class WhiteKey(PianoKey):
+    standard_color = [1,1,1]
 
 class Keybed(Widget):
     note_lookup = c_utils.load_json(config['theory']['note_lookup_location'])
@@ -102,14 +106,31 @@ class Keybed(Widget):
                 
                 next_bk_pos = next_wk_pos + 1/(52*2)
 
+    def update(self,dt):
+        pass
+
 class PianoNote(Widget):
     note = StringProperty(None)
+    key_idx = NumericProperty(None)
+
+    def is_dormant(self,keybed):
+        return (self.y + self.height) < keybed.height
+
+    def hits_keybed(self,keybed):
+        return self.y < keybed.height
 
 class PianoRoll(Widget):
+    note_lookup = c_utils.load_json(config['theory']['note_lookup_location'])
+    
     NS = None
     pianonote = None
 
     def init_schedule(self,k):
+        """
+        TODO:
+        need to fix notes' behaviour when resizing.
+        """
+
         self.NS = schedules.NoteSchedule('midi_data/test_midi.mid')
         
         for channel in self.NS.channels.values():
@@ -121,6 +142,10 @@ class PianoRoll(Widget):
 
                 pianonote = PianoNote()
                 
+                key_idx = (note.note-9)
+                pianonote.key_idx = key_idx
+                pianonote.note = self.note_lookup['12-tone_scale'][key_idx % 12]
+
                 norm_time = note.norm_time(self.NS.schedule_meta_data.ticks_per_beat)
                 
                 pianonote.width = corresponding_key.width 
@@ -134,9 +159,24 @@ class PianoRoll(Widget):
         pass
 
     def update(self,dt):
-        TPS = self.NS.schedule_meta_data.ticks_per_beat * self.NS.get_BPM() / 60 # With norm_time 96 should be used as ticks per beat
+        TPS = self.NS.schedule_meta_data.ticks_per_beat * self.NS.get_BPM() / 60 # With norm_time, 96 should be used as ticks per beat
         
-        for child in self.children:
+
+        for child in self.children: # Can also add lines that indicate bar and beats.
+            corresponding_key = self.parent.keybed.keys[child.key_idx]
+
+            if child.is_dormant(self.parent.keybed):
+                self.remove_widget(child) #BUG: Whenever a child is removed, some notes don't get their y updated
+
+                with corresponding_key.canvas: # # breaks when resizing
+                    Color(*corresponding_key.standard_color)
+                    Rectangle(size=corresponding_key.size,pos=corresponding_key.pos)
+            
+            elif child.hits_keybed(self.parent.keybed):
+                with corresponding_key.canvas: # breaks when resizing
+                    Color(0.2,0.5,0.9)
+                    Rectangle(size=corresponding_key.size,pos=corresponding_key.pos)
+
             child.y -= TPS*dt # Use this to adjust speed and then use fixed note size
 
 class Stage(Widget):
@@ -160,6 +200,7 @@ class Stage(Widget):
 
     def update(self,dt):
         self.pianoroll.update(dt)
+        self.keybed.update(dt)
 
 class Workbench(Widget): #Could be root widget with stage as one primary child and some other widget for tuning parameters and loading midi file
     pass
