@@ -1,7 +1,7 @@
 from kivy.app import App
 from kivy.uix.widget import Widget
 from kivy.properties import NumericProperty, ReferenceListProperty, ObjectProperty, \
-    StringProperty
+    StringProperty, ListProperty
 from kivy.core.window import Window
 from kivy.clock import Clock
 #from kivy.lang import Builder
@@ -91,7 +91,7 @@ class Keybed(Widget):
 
                 key.center_x = self.width*next_wk_pos + key.width/2
                 
-                next_wk_pos += 1/52
+                next_wk_pos += 1/52+0.01
                 next_bk_pos = next_wk_pos
             else:
                 key.width = self.width/80
@@ -106,7 +106,38 @@ class PianoNote(Widget):
     note = StringProperty(None)
 
 class PianoRoll(Widget):
-    pass
+    NS = None
+    pianonote = None
+
+    def init_schedule(self,k):
+        self.NS = schedules.NoteSchedule('midi_data/test_midi.mid')
+        
+        for channel in self.NS.channels.values():
+            channel.sort()
+            
+            for note in channel:
+                
+                corresponding_key = self.parent.keybed.keys[note.note-9]
+
+                pianonote = PianoNote()
+                
+                norm_time = note.norm_time(self.NS.schedule_meta_data.ticks_per_beat)
+                
+                pianonote.width = corresponding_key.width 
+                pianonote.height = ( norm_time[1] - norm_time[0] ) # Norm time might be unnecessary since ticks per beat is also used in update which should compensate for any differences
+                
+                pianonote.y = self.height + norm_time[0]
+                pianonote.x = corresponding_key.x #self.width * ((note.note-9) / 88)
+                self.add_widget(pianonote)
+
+    def resize_children(self):
+        pass
+
+    def update(self,dt):
+        TPS = self.NS.schedule_meta_data.ticks_per_beat * self.NS.get_BPM() / 60 # With norm_time 96 should be used as ticks per beat
+        
+        for child in self.children:
+            child.y -= TPS*dt # Use this to adjust speed and then use fixed note size
 
 class Stage(Widget):
     keybed = ObjectProperty(None)
@@ -128,7 +159,7 @@ class Stage(Widget):
                 pass
 
     def update(self,dt):
-        pass
+        self.pianoroll.update(dt)
 
 class Workbench(Widget): #Could be root widget with stage as one primary child and some other widget for tuning parameters and loading midi file
     pass
@@ -140,8 +171,11 @@ class KeysVizuApp(App):
         
         stage = Stage()
         
-        Clock.schedule_interval(stage.update, 1.0/10.0)
         Clock.schedule_once(stage.keybed.draw_keybed)
+        Clock.schedule_once(stage.pianoroll.init_schedule)
+
+        Clock.schedule_interval(stage.update, 1.0/60.0)
+        
         return stage
 
 def main():

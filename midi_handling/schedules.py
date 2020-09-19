@@ -19,6 +19,8 @@ class ScheduleMetaData():
         pass
 
 class Note():
+    norm_TPB = 96
+
     def __init__(self,note,time,velocity):
         self.note = note # integer representation of note
         self.time = time # [time_start, time_stop]
@@ -26,7 +28,15 @@ class Note():
 
     def time_in_seconds(self,TPB,BPM):
         conversion_factor = 60 / (TPB*BPM)
-        return [self.time[0]*conversion_factor, self.time[1]*conversion_factor] 
+        return [self.time[0]*conversion_factor, self.time[1]*conversion_factor]
+
+    def norm_time(self,TPB):
+        conversion_factor = self.norm_TPB / TPB
+        time = [t * conversion_factor for t in self.time] 
+        return time
+
+    def __lt__(self,other):
+        return self.time[0] < other.time[0] 
 
 class NoteSchedule():
     """
