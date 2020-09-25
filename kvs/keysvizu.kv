@@ -2,20 +2,22 @@
 
 <BlackKey>:
     note: self.note
+    standard_color: self.standard_color
 
     canvas:
         Color:
-            rgb: (0.1,0.1,0.1)
+            rgb: self.standard_color
         Rectangle:
             size: self.width,self.height #self.parent.width/88, self.parent.height*0.8
             pos: self.pos
 
 <WhiteKey>:
     note: self.note
-    
+    standard_color: self.standard_color
+
     canvas:
         Color:
-            rgb: (1,1,1)
+            rgb: self.standard_color
         Rectangle:
             size: self.width,self.height #self.parent.width/88, self.parent.height
             pos: self.pos
@@ -35,6 +37,13 @@
 <Keybed>:
     size: self.parent.width, self.parent.height*0.2
     
+    canvas:
+        Color:
+            rgb: (0,0,0)
+        Rectangle:
+            size: self.width,self.height
+            pos: self.pos
+
     #FloatLayout:
     #    size: self.width, self.height*0.25
 
@@ -45,11 +54,18 @@
     pianoroll: pianoroll
     keybed: keybed
 
+    size: self.parent.width*0.8, self.parent.height*0.8
+        
     PianoRoll:
         id: pianoroll
 
     Keybed:
         id: keybed
 
-    FloatLayout:
-        size: root.width, root.height
+<WorkBench>:
+    stage: stage
+
+    size: root.width, root.height
+
+    Stage:
+        id: stage

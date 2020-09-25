@@ -18,10 +18,10 @@ class PianoKey(Widget):
     note = StringProperty(None)
 
 class BlackKey(PianoKey):
-    standard_color = [0.1,0.1,0.1]
+    standard_color = ListProperty([0.1,0.1,0.1])
 
 class WhiteKey(PianoKey):
-    standard_color = [1,1,1]
+    standard_color = ListProperty([1,1,1])
 
 class Keybed(Widget):
     note_lookup = c_utils.load_json(config['theory']['note_lookup_location'])
@@ -53,7 +53,7 @@ class Keybed(Widget):
                 next_bk_pos = next_wk_pos
 
                 self.keys.append(key)
-                #self.add_widget(key)
+                self.add_widget(key,index=-1)
         
             else:
                 key = BlackKey()
@@ -67,8 +67,8 @@ class Keybed(Widget):
                 next_bk_pos = next_wk_pos + 1/(52*2)
 
                 self.keys.append(key)
-                #self.add_widget(key)
-        
+                self.add_widget(key)
+        """
         for i in range(88):
             note = self.note_lookup['12-tone_scale'][i % 12]
             if len(note) == 1:
@@ -78,6 +78,7 @@ class Keybed(Widget):
             note = self.note_lookup['12-tone_scale'][i % 12]
             if len(note) == 2:
                 self.add_widget(self.keys[i])
+        """
 
     def resize_children(self):
         """
@@ -153,45 +154,46 @@ class PianoRoll(Widget):
                 
                 pianonote.y = self.height + norm_time[0]
                 pianonote.x = corresponding_key.x #self.width * ((note.note-9) / 88)
-                self.add_widget(pianonote)
+                self.add_widget(pianonote) # TODO work on not adding every note widget until needed
 
     def resize_children(self):
         pass
 
-    def update(self,dt):
+    def scroll_schedule(self,dt):
         TPS = self.NS.schedule_meta_data.ticks_per_beat * self.NS.get_BPM() / 60 # With norm_time, 96 should be used as ticks per beat
-        
+
+        children_to_remove = []
 
         for child in self.children: # Can also add lines that indicate bar and beats.
             corresponding_key = self.parent.keybed.keys[child.key_idx]
 
             if child.is_dormant(self.parent.keybed):
-                self.remove_widget(child) #BUG: Whenever a child is removed, some notes don't get their y updated
-
-                with corresponding_key.canvas: # # breaks when resizing
-                    Color(*corresponding_key.standard_color)
-                    Rectangle(size=corresponding_key.size,pos=corresponding_key.pos)
+                children_to_remove.append(child)
+                
+                corresponding_key.canvas.clear()
+                corresponding_key.canvas.add(Color(*corresponding_key.standard_color) ) # breaks when resizing    
+                corresponding_key.canvas.add(Rectangle(size=corresponding_key.size,pos=corresponding_key.pos))
             
             elif child.hits_keybed(self.parent.keybed):
-                with corresponding_key.canvas: # breaks when resizing
-                    Color(0.2,0.5,0.9)
-                    Rectangle(size=corresponding_key.size,pos=corresponding_key.pos)
+                
+                corresponding_key.canvas.clear()
+                corresponding_key.canvas.add(Color(0.2,0.5,0.9)) # breaks when resizing
+                corresponding_key.canvas.add(Rectangle(size=corresponding_key.size,pos=corresponding_key.pos))
 
             child.y -= TPS*dt # Use this to adjust speed and then use fixed note size
+
+        while children_to_remove:
+            self.remove_widget(children_to_remove[-1])
+            children_to_remove.pop()
+
+    def update(self,dt):
+        self.scroll_schedule(dt)
 
 class Stage(Widget):
     keybed = ObjectProperty(None)
     pianoroll = ObjectProperty(None)
-    
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        Window.maximize()
-        Window.bind(on_resize=self.on_window_resize)
 
-    def on_window_resize(self, window, width, height):
-        Clock.schedule_once(self.resize_children,0)
-
-    def resize_children(self,k):
+    def resize_children(self):
         for child in self.children:
             try:
                 child.resize_children()
@@ -202,22 +204,45 @@ class Stage(Widget):
         self.pianoroll.update(dt)
         self.keybed.update(dt)
 
-class Workbench(Widget): #Could be root widget with stage as one primary child and some other widget for tuning parameters and loading midi file
+class Menu(Widget):
     pass
+
+class Workbench(Widget):
+    stage = ObjectProperty(None)
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        Window.maximize()
+        Window.bind(on_resize=self.on_window_resize)
+
+        self.init_stage()
+
+    def on_window_resize(self, window, width, height):
+        Clock.schedule_once(self.resize_children,0)
+
+    def init_stage(self):
+        Clock.schedule_once(self.stage.keybed.draw_keybed)
+        Clock.schedule_once(self.stage.pianoroll.init_schedule)
+
+        Clock.schedule_interval(self.stage.update, 1.0/60.0)
+
+    def resize_children(self,k):
+        for child in self.children:
+            try:
+                child.resize_children()
+            except AttributeError:
+                pass
+
+    def update(self,dt):
+        pass
 
 class KeysVizuApp(App):
 
     def build(self):
         self.load_kv(config['main']['kv_location'])
         
-        stage = Stage()
-        
-        Clock.schedule_once(stage.keybed.draw_keybed)
-        Clock.schedule_once(stage.pianoroll.init_schedule)
-
-        Clock.schedule_interval(stage.update, 1.0/60.0)
-        
-        return stage
+        workbench = Workbench()
+        return workbench
 
 def main():
     KeysVizu = KeysVizuApp()
