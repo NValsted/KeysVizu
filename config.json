@@ -3,6 +3,12 @@
     {
         "kv_location" : "kvs/keysvizu.kv"
     },
+    "video":
+    {
+        "tmp_imgs_location" : "video_tools/tmp_imgs/",
+        "vid_output_location" : "video_tools/videos/",
+        "default_vid_name" : "default.avi"
+    },
     "theory":
     {
         "note_lookup_location": "theory/note_lookup.json"

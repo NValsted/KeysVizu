@@ -1,0 +1,25 @@
+#:kivy 2.0.0
+
+<TabbedPanelHeader>:
+    background_normal: 'UI/menu/testB.png'
+    background_down: 'UI/menu/test2.png'
+
+<Menu>:
+    TabbedPanel:
+        do_default_tab: False
+        tab_pos: 'left_top'
+        tab_width: self.height/len(self.tab_list)
+
+        size: self.parent.size
+        pos: self.parent.pos
+
+        TabbedPanelItem:
+            text: "Bingo"
+            Button:
+                text: "Bingo"
+
+        TabbedPanelItem:
+            text: "Bongo"
+            Label:
+                text: "Bongo"
+            

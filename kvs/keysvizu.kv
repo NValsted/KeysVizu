@@ -1,71 +1,33 @@
 #:kivy 2.0.0
-
-<BlackKey>:
-    note: self.note
-    standard_color: self.standard_color
-
-    canvas:
-        Color:
-            rgb: self.standard_color
-        Rectangle:
-            size: self.width,self.height #self.parent.width/88, self.parent.height*0.8
-            pos: self.pos
-
-<WhiteKey>:
-    note: self.note
-    standard_color: self.standard_color
-
-    canvas:
-        Color:
-            rgb: self.standard_color
-        Rectangle:
-            size: self.width,self.height #self.parent.width/88, self.parent.height
-            pos: self.pos
-
-<PianoNote>:
-    note: self.note
-    key_idx: self.key_idx
-    
-    canvas:
-        Color:
-            rgb: (0.2,0.3,0.9)
-        RoundedRectangle:
-            size: self.width,self.height
-            pos: self.pos
-            radius: 5, 5, 2.5, 2.5
-
-<Keybed>:
-    size: self.parent.width, self.parent.height*0.2
-    
-    canvas:
-        Color:
-            rgb: (0,0,0)
-        Rectangle:
-            size: self.width,self.height
-            pos: self.pos
-
-    #FloatLayout:
-    #    size: self.width, self.height*0.25
-
-<PianoRoll>:
-    size: self.parent.width, self.parent.height
-
-<Stage>:
-    pianoroll: pianoroll
-    keybed: keybed
-
-    size: self.parent.width*0.8, self.parent.height*0.8
-        
-    PianoRoll:
-        id: pianoroll
-
-    Keybed:
-        id: keybed
+#:include kvs/menu.kv
+#:include kvs/stage.kv
+#:include kvs/timeline.kv
 
 <WorkBench>:
     stage: stage
-
+    menu: menu
     size: root.width, root.height
 
-    Stage:
-        id: stage
+    BoxLayout:
+        orientation: 'horizontal'
+        size: self.parent.width, self.parent.height
+        
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint_x: 1 - menu.size_hint_x
+            
+            Stage:
+                id: stage
+                size_hint_y: ((self.parent.width*9/16) / self.parent.height)
+
+            Button:
+                text: "Timeline"
+                size_hint_y: (1 - stage.size_hint_y) / 2
+            
+            Button:
+                text: "Misc. bar (e.g. progress bar when exporting vid and tooltips when working)"
+                size_hint_y: (1 - stage.size_hint_y) / 2
+                
+        Menu:
+            id: menu
+            size_hint_x: 0.2

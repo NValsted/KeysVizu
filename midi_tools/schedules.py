@@ -91,7 +91,7 @@ class NoteSchedule():
                 elif msg.type == "note_off":
                     #print(msg)
                     
-                    n, t, v = notes[msg.note]
+                    n, t, v = notes[msg.note] # Fix bug when another note is triggered at same key before previous note is inactive.
                     new_note = Note(n,[t,time],v)
                     
                     if msg.channel in self.channels.keys():
@@ -100,7 +100,7 @@ class NoteSchedule():
                         self.channels[msg.channel] = [new_note]
                     
                     del notes[msg.note]
-
+                    
     def get_BPM(self):
         """
         Convert tempo from microseconds per beat to beats per minute

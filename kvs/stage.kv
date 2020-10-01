@@ -1,0 +1,63 @@
+#:kivy 2.0.0
+
+<BlackKey>:
+    note: self.note
+    standard_color: self.standard_color
+
+    canvas:
+        Color:
+            rgb: self.standard_color
+        Rectangle:
+            size: self.width,self.height #self.parent.width/88, self.parent.height*0.8
+            pos: self.pos
+
+<WhiteKey>:
+    note: self.note
+    standard_color: self.standard_color
+
+    canvas:
+        Color:
+            rgb: self.standard_color
+        Rectangle:
+            size: self.width,self.height #self.parent.width/88, self.parent.height
+            pos: self.pos
+
+<PianoNote>:
+    note: self.note
+    key_idx: self.key_idx
+    
+    canvas:
+        Color:
+            rgb: (0.2,0.3,0.9)
+        RoundedRectangle:
+            size: self.width,self.height
+            pos: self.pos
+            radius: 5, 5, 2.5, 2.5
+
+<Keybed>:
+    size: self.parent.width, self.parent.height*0.2
+    pos: self.parent.pos
+
+    canvas:
+        Color:
+            rgb: (0,0,0)
+        Rectangle:
+            size: self.width,self.height
+            pos: self.pos
+
+<PianoRoll>:
+    size: self.parent.width, self.parent.height
+    pos: self.parent.pos
+
+<Stage>:
+    pianoroll: pianoroll
+    keybed: keybed
+
+    size: self.size
+    pos: self.pos
+
+    PianoRoll:
+        id: pianoroll
+
+    Keybed:
+        id: keybed
