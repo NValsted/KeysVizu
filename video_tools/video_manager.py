@@ -13,6 +13,7 @@ class VideoManager():
                  "height": 1080,
                  "FPS"   : 30.0,
                  "fourcc": cv2.VideoWriter_fourcc(*'XVID')}
+    verbose = 0
 
     def __init__(self,tmp_imgs_path,**kwargs):
         self.tmp_imgs_path = tmp_imgs_path
@@ -72,18 +73,24 @@ class VideoManager():
                                 self.meta_data["height"] )
                                 )
         
+        counter = 0
         for img in source_imgs:
+            if self.verbose:
+                print(f"{round(counter/len(source_imgs)*100,1)}% done")
+            
             video.write(cv2.imread(img))
+            counter += 1
 
         cv2.destroyAllWindows()
         video.release()
 
         self.clean_tmp_imgs()
 
-    
-
 def main():
-    pass
+    VM = VideoManager('video_tools/tmp_imgs/',
+                                    width=1920,
+                                    height=1080)
+    VM.export_video('manual_export.avi')
 
 if __name__ == '__main__':
     main()

@@ -25,14 +25,34 @@
 <PianoNote>:
     note: self.note
     key_idx: self.key_idx
-    
+    channel: self.channel
+    color: self.color
+    stroke_color: self.stroke_color
+
     canvas:
         Color:
-            rgb: (0.2,0.3,0.9)
+            rgba: self.color
         RoundedRectangle:
             size: self.width,self.height
             pos: self.pos
             radius: 5, 5, 2.5, 2.5
+        
+        Color:
+            rgba: self.stroke_color
+        Line:
+            width: 1.5
+            rounded_rectangle: (*self.pos,*self.size,5)
+
+<GuideLine>:
+    standard_color: self.standard_color
+    points: self.points
+
+    canvas:
+        Color:
+            rgb: self.standard_color
+        Line:
+            points: self.points
+            width: 1
 
 <Keybed>:
     size: self.parent.width, self.parent.height*0.2

@@ -1,4 +1,5 @@
 import mido
+from collections import deque
 
 class TimeSignature():
     def __init__(self,numerator,denominator):
@@ -86,20 +87,19 @@ class NoteSchedule():
                     #print(msg)
                     
                     if msg.note not in notes:
-                        notes[msg.note] = [msg.note, time, msg.velocity]
+                        notes[msg.note] = deque()
+                    
+                    notes[msg.note].append([msg.note, time, msg.velocity])
                 
                 elif msg.type == "note_off":
-                    #print(msg)
                     
-                    n, t, v = notes[msg.note] # Fix bug when another note is triggered at same key before previous note is inactive.
+                    n, t, v = notes[msg.note].popleft()
                     new_note = Note(n,[t,time],v)
                     
                     if msg.channel in self.channels.keys():
                         self.channels[msg.channel].append(new_note)
                     else:
                         self.channels[msg.channel] = [new_note]
-                    
-                    del notes[msg.note]
                     
     def get_BPM(self):
         """
