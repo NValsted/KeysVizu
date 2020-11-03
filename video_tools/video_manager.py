@@ -13,7 +13,7 @@ class VideoManager():
                  "height": 1080,
                  "FPS"   : 30.0,
                  "fourcc": cv2.VideoWriter_fourcc(*'XVID')}
-    verbose = 0
+    verbose = 1
 
     def __init__(self,tmp_imgs_path,**kwargs):
         self.tmp_imgs_path = tmp_imgs_path

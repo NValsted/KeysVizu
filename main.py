@@ -160,9 +160,7 @@ class PianoRoll(Widget):
     NS = None
     note_widgets = None
     ticks_passed = 0
-    velocity_intensity_scale = 1.5
-
-    song_ended = False
+    velocity_intensity_scale = 1
 
     def init_schedule(self,k):
         """
@@ -170,7 +168,7 @@ class PianoRoll(Widget):
         need to fix notes' behaviour when resizing.
         """
 
-        self.NS = schedules.NoteSchedule('midi_data/ATC_TWSU_MIDI.mid')
+        self.NS = schedules.NoteSchedule('midi_data/Endless time MIDI.mid')
         
         self.note_widgets = deque() # Might implement custom deque to not rely on overloading __lt__
         pianonotes = []
@@ -180,11 +178,11 @@ class PianoRoll(Widget):
             
             for note in channel:
                 
-                corresponding_key = self.parent.keybed.keys[note.note-9]
+                corresponding_key = self.parent.keybed.keys[note.note-21]
 
                 pianonote = PianoNote()
                 
-                key_idx = (note.note-9)
+                key_idx = (note.note-21)
                 pianonote.key_idx = key_idx
                 pianonote.note = self.note_lookup['12-tone_scale'][key_idx % 12]
                 pianonote.start_time = note.time[0]
@@ -192,9 +190,9 @@ class PianoRoll(Widget):
 
                 velocity_intensity = note.velocity / (127*self.velocity_intensity_scale) + (1 - 1/self.velocity_intensity_scale)
                 if channelID == 0:
-                    pianonote.color = [0.8,0.2,0.2,velocity_intensity]
+                    pianonote.color = [0.2,0.3,0.9,velocity_intensity]
                 else:
-                    pianonote.color = [0.9,0.4,0.1,velocity_intensity]
+                    pianonote.color = [0.4,0.9,0.3,velocity_intensity]
 
                 norm_time = note.norm_time(self.NS.schedule_meta_data.ticks_per_beat)
                 
@@ -224,9 +222,6 @@ class PianoRoll(Widget):
         TPS = self.NS.schedule_meta_data.ticks_per_beat * self.NS.get_BPM() / 60 # With norm_time, 96 should be used as ticks per beat
         
         self.add_notes()
-
-        if not len(self.note_widgets) and not self.song_ended:
-            self.song_ended = True
 
         dormant_children = []
 
@@ -269,7 +264,8 @@ class Stage(Widget):
 
     VM = video_manager.VideoManager(config['video']['tmp_imgs_location'],
                                     width=1920,
-                                    height=1080)
+                                    height=1080,
+                                    FPS=60.0)
 
     def resize_children(self):
         for child in self.children:
@@ -279,10 +275,10 @@ class Stage(Widget):
     def update(self,dt):
         self.pianoroll.update(self.VM.meta_data['refresh_rate']) #self.pianoroll.update(dt)
         self.keybed.update(dt)
-        self.VM.add_image(self)
+        #self.VM.add_image(self)
 
         if global_flag: #(time.time() - self.start_time) > 30:
-            self.VM.export_video(f"{config['video']['vid_output_location']}{config['video']['default_vid_name']}")
+            #self.VM.export_video(f"{config['video']['vid_output_location']}{config['video']['default_vid_name']}")
             exit()
         
 class Menu(Widget):
