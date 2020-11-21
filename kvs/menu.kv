@@ -5,11 +5,15 @@
     background_down: 'UI/menu/test2.png'
 
 <FileBrowser>:
+    filter_strings: self.filter_strings
+
     BoxLayout:
         pos: root.pos
         orientation: "vertical"
-        FileChooserIconView:
+        FileChooserListView:
             id: filechooser
+            filters: root.filter_strings
+            on_submit: root.load(filechooser.path, filechooser.selection)
 
         BoxLayout:
             size_hint_y: 0.2
@@ -26,27 +30,35 @@
     standard_color: self.standard_color
     hover_color: self.hover_color
 
+<SettingsTab>:
+    tab_title: "SettingsTab"
+    orientation: "vertical"
+    tab_info_BoxL: tab_info_BoxL
+
+    BoxLayout:
+        id: tab_info_BoxL
+        orientation: 'vertical'
+        size_hint_y: 0.075
+        
+        Label:
+            text: root.tab_title
+            font_size: 30
+
 <ProjectSettings>:
     midi_load_button: midi_load_button
+    midi_text_button: midi_text_button
+    settings_tab: settings_tab
     text: "Project"
         
-    BoxLayout:
-        orientation: 'vertical'
-        size: self.size
-        
-        BoxLayout:
-            id: project_BoxL
-            orientation: 'vertical'
-            size_hint_y: 0.25
-            
-            Label:
-                text: "Project settings" 
+    SettingsTab:
+        id: settings_tab
+        tab_title: "Project Settings"
 
         BoxLayout:
-            id: midi_BoxL
+            id: tab_content_BoxL
             orientation: 'vertical'
-            size_hint_y: 1-project_BoxL.size_hint_y
-            
+            size_hint_y: 1-settings_tab.tab_info_BoxL.size_hint_y
+
             Label:
                 id: midi_file_selection_title
                 text: "MIDI file"
@@ -61,11 +73,15 @@
                     id: midi_load_button
                     text: "L"
                     size_hint_x: 0.2
-                    on_press: self.show_file_chooser()
+                    on_press: root.load_schedule_location()
 
-                Label:
-                    text: "Dis midi"
+                Button:
+                    id: midi_text_button
+                    text: "Select MIDI File"
                     size_hint_x: 0.8
+                    background_color: (0,0,0,0)
+                    
+                    on_press: root.load_schedule_location()
 
             Label:
                 text: "bonk"
@@ -87,5 +103,6 @@
 
         TabbedPanelItem:
             text: "Style"
+
             Label:
-                text: "Bongo"
+                text: "wassup"

@@ -15,6 +15,7 @@ from kivy.app import App
 from kivy.uix.button import Button
 from kivy.uix.widget import Widget
 from kivy.uix.floatlayout import FloatLayout
+from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.popup import Popup
 from kivy.uix.tabbedpanel import TabbedPanelItem
 from kivy.properties import NumericProperty, ReferenceListProperty, ObjectProperty, \
@@ -31,53 +32,6 @@ from collections import deque
 # Custom libraries
 from midi_tools import schedules
 from video_tools import video_manager
-
-class FileBrowser(FloatLayout):
-    load = ObjectProperty(None)
-    cancel = ObjectProperty(None)
-
-class HoverButton(Button):
-    standard_color = ListProperty([1,1,1])
-    hover_color = ListProperty([0.6,0.7,1])
-
-    def __init__(self, **kwargs):
-        super(HoverButton, self).__init__(**kwargs)
-        
-        Window.bind(mouse_pos = self.on_mouse_pos)
-
-    def on_mouse_pos(self, window, pos):
-        if not self.get_root_window():
-            return
-
-        if self.collide_point(*pos):
-            Clock.schedule_once(self._mouse_enter,0)
-        else:
-            Clock.schedule_once(self._mouse_leave,0)
-    
-    def _mouse_enter(self,k):
-        self.color = self.hover_color
-    
-    def _mouse_leave(self,k):
-        self.color = self.standard_color
-
-    def dismiss_popup(self):
-        self.popup_window.dismiss()
-
-    def show_file_chooser(self):
-        content = FileBrowser(load = self.load, cancel = self.dismiss_popup)
-        self.popup_window = Popup(title = "File browser",
-                                  content = content,
-                                  size_hint = (0.5,0.5) )
-        self.popup_window.open()
-
-    def load(self,path,filename):
-        print(os.path.join(path, filename[0]))
-        self.popup_window.dismiss()
-
-# work on migrating code from ProjectSettings into a parent class "Settings" which also has code for popups that currently resides in HoverButton.
-
-class ProjectSettings(TabbedPanelItem):
-    midi_load_button = ObjectProperty(None)
 
 class PianoKey(Widget):
     note = StringProperty(None)
@@ -223,13 +177,13 @@ class PianoRoll(Widget):
     ticks_passed = 0
     velocity_intensity_scale = 1
 
-    def init_schedule(self,k):
+    def init_schedule(self,midi_location):
         """
         TODO:
         need to fix notes' behaviour when resizing.
         """
 
-        self.NS = schedules.NoteSchedule('midi_data/ATC_In_Our_Bones.mid')
+        self.NS = schedules.NoteSchedule(midi_location)
         
         self.note_widgets = deque() # Might implement custom deque to not rely on overloading __lt__
         pianonotes = []
@@ -341,7 +295,76 @@ class Stage(Widget):
         if global_flag: #(time.time() - self.start_time) > 30:
             #self.VM.export_video(f"{config['video']['vid_output_location']}{config['video']['default_vid_name']}")
             exit()
+
+class FileBrowser(FloatLayout):
+    load = ObjectProperty(None)
+    cancel = ObjectProperty(None)
+    filter_strings = ListProperty(['*'])
+
+class HoverButton(Button):
+    standard_color = ListProperty([1,1,1])
+    hover_color = ListProperty([0.6,0.7,1])
+
+    def __init__(self, **kwargs):
+        super(HoverButton, self).__init__(**kwargs)
         
+        Window.bind(mouse_pos = self.on_mouse_pos)
+
+    def on_mouse_pos(self, window, pos):
+        if not self.get_root_window():
+            return
+
+        if self.collide_point(*pos):
+            Clock.schedule_once(self._mouse_enter,0)
+        else:
+            Clock.schedule_once(self._mouse_leave,0)
+    
+    def _mouse_enter(self,k):
+        self.color = self.hover_color
+    
+    def _mouse_leave(self,k):
+        self.color = self.standard_color
+
+class SettingsTab(BoxLayout):
+    def dismiss_popup(self):
+        self.popup_window.dismiss()
+
+    def show_file_chooser(self, filter_strings = ['*'], callback = None):
+        content = FileBrowser(load = self.load, cancel = self.dismiss_popup)
+        content.filter_strings = filter_strings
+
+        if callback is not None:
+            content.callback = callback
+        
+        self.popup_window = Popup(title = "File browser",
+                                  content = content,
+                                  size_hint = (0.5,0.5) )
+        self.popup_window.open()
+
+    def load(self,path,filename):
+        if 'callback' in self.popup_window.content.__dir__():
+            self.popup_window.content.callback(os.path.join(path, filename[0]))
+        else:
+            print(os.path.join(path, filename[0]))
+
+        self.popup_window.dismiss()
+
+class ProjectSettings(TabbedPanelItem):
+    settings_tab = ObjectProperty(None)
+
+    midi_load_button = ObjectProperty(None)
+    midi_text_button = ObjectProperty(None)
+
+    pianoroll = ObjectProperty(None)
+
+    def load_schedule_location(self):
+        self.settings_tab.show_file_chooser(filter_strings = ['*.mid'],
+                                            callback = self.load_schedule)
+
+    def load_schedule(self,filename):
+        self.pianoroll.init_schedule(filename)
+        self.midi_text_button.text = filename.split("/")[-1]
+
 class Menu(Widget):
     project_settings = ObjectProperty(None)
     
@@ -352,12 +375,16 @@ class Workbench(Widget):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         Window.bind(on_resize=self.on_window_resize)
-
+        
+        self.pass_references_to_menu()
         self.init_stage()
 
     def on_window_resize(self, window, width, height):
         Clock.schedule_once(self.resize_children,0)
     
+    def pass_references_to_menu(self):
+        self.menu.project_settings.pianoroll = self.stage.pianoroll
+
     def init_stage(self):
         Clock.schedule_once(self.stage.keybed.draw_keybed)
         #Clock.schedule_once(self.stage.pianoroll.init_schedule)
