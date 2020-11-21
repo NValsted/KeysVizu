@@ -1,22 +1,83 @@
+# Configuration
+import c_utils
+from kivy.config import Config
+
+# Global scope
+config = c_utils.load_config()
+
+global_flag = False
+
+# Kivy config variables
+Config.read(config["main"]["kivy_config"])
+
+# Kivy-specific imports
 from kivy.app import App
+from kivy.uix.button import Button
 from kivy.uix.widget import Widget
+from kivy.uix.floatlayout import FloatLayout
+from kivy.uix.popup import Popup
+from kivy.uix.tabbedpanel import TabbedPanelItem
 from kivy.properties import NumericProperty, ReferenceListProperty, ObjectProperty, \
     StringProperty, ListProperty
 from kivy.core.window import Window
 from kivy.clock import Clock
 from kivy.graphics import Color, Rectangle
 
+# Built-in python libraries
+import os
 import time
 from collections import deque
 
-import c_utils
+# Custom libraries
 from midi_tools import schedules
 from video_tools import video_manager
 
-#Global scope
-config = c_utils.load_config()
+class FileBrowser(FloatLayout):
+    load = ObjectProperty(None)
+    cancel = ObjectProperty(None)
 
-global_flag = False
+class HoverButton(Button):
+    standard_color = ListProperty([1,1,1])
+    hover_color = ListProperty([0.6,0.7,1])
+
+    def __init__(self, **kwargs):
+        super(HoverButton, self).__init__(**kwargs)
+        
+        Window.bind(mouse_pos = self.on_mouse_pos)
+
+    def on_mouse_pos(self, window, pos):
+        if not self.get_root_window():
+            return
+
+        if self.collide_point(*pos):
+            Clock.schedule_once(self._mouse_enter,0)
+        else:
+            Clock.schedule_once(self._mouse_leave,0)
+    
+    def _mouse_enter(self,k):
+        self.color = self.hover_color
+    
+    def _mouse_leave(self,k):
+        self.color = self.standard_color
+
+    def dismiss_popup(self):
+        self.popup_window.dismiss()
+
+    def show_file_chooser(self):
+        content = FileBrowser(load = self.load, cancel = self.dismiss_popup)
+        self.popup_window = Popup(title = "File browser",
+                                  content = content,
+                                  size_hint = (0.5,0.5) )
+        self.popup_window.open()
+
+    def load(self,path,filename):
+        print(os.path.join(path, filename[0]))
+        self.popup_window.dismiss()
+
+# work on migrating code from ProjectSettings into a parent class "Settings" which also has code for popups that currently resides in HoverButton.
+
+class ProjectSettings(TabbedPanelItem):
+    midi_load_button = ObjectProperty(None)
 
 class PianoKey(Widget):
     note = StringProperty(None)
@@ -168,7 +229,7 @@ class PianoRoll(Widget):
         need to fix notes' behaviour when resizing.
         """
 
-        self.NS = schedules.NoteSchedule('midi_data/Endless time MIDI.mid')
+        self.NS = schedules.NoteSchedule('midi_data/ATC_In_Our_Bones.mid')
         
         self.note_widgets = deque() # Might implement custom deque to not rely on overloading __lt__
         pianonotes = []
@@ -190,9 +251,9 @@ class PianoRoll(Widget):
 
                 velocity_intensity = note.velocity / (127*self.velocity_intensity_scale) + (1 - 1/self.velocity_intensity_scale)
                 if channelID == 0:
-                    pianonote.color = [0.2,0.3,0.9,velocity_intensity]
+                    pianonote.color = [0.2,0.2,0.8,velocity_intensity]
                 else:
-                    pianonote.color = [0.4,0.9,0.3,velocity_intensity]
+                    pianonote.color = [0.8,0.3,0.4,velocity_intensity]
 
                 norm_time = note.norm_time(self.NS.schedule_meta_data.ticks_per_beat)
                 
@@ -282,8 +343,8 @@ class Stage(Widget):
             exit()
         
 class Menu(Widget):
-    pass
-
+    project_settings = ObjectProperty(None)
+    
 class Workbench(Widget):
     stage = ObjectProperty(None)
     menu = ObjectProperty(None)
@@ -296,12 +357,12 @@ class Workbench(Widget):
 
     def on_window_resize(self, window, width, height):
         Clock.schedule_once(self.resize_children,0)
-
+    
     def init_stage(self):
         Clock.schedule_once(self.stage.keybed.draw_keybed)
-        Clock.schedule_once(self.stage.pianoroll.init_schedule)
+        #Clock.schedule_once(self.stage.pianoroll.init_schedule)
 
-        Clock.schedule_interval(self.stage.update, 1.0/60.0)
+        #Clock.schedule_interval(self.stage.update, 1.0/60.0)
 
     def resize_children(self,k):
         for child in self.children:
@@ -314,16 +375,17 @@ class Workbench(Widget):
 class KeysVizuApp(App):
 
     def build(self):
-        
         self.load_kv(config['main']['kv_location'])
-        Window.maximize()
+        #Window.maximize() # The whole maximization thing is a mess. Currently only scales window to Full HD resolution. 
         
         workbench = Workbench()
+        
         return workbench
 
 def main():
     KeysVizu = KeysVizuApp()
     KeysVizu.run()
+    
 
 if __name__ == '__main__':
     main()

@@ -4,7 +4,76 @@
     background_normal: 'UI/menu/testB.png'
     background_down: 'UI/menu/test2.png'
 
+<FileBrowser>:
+    BoxLayout:
+        pos: root.pos
+        orientation: "vertical"
+        FileChooserIconView:
+            id: filechooser
+
+        BoxLayout:
+            size_hint_y: 0.2
+
+            Button:
+                text: "Load"
+                on_release: root.load(filechooser.path, filechooser.selection)
+
+            Button:
+                text: "Cancel"
+                on_release: root.cancel()
+
+<HoverButton>:
+    standard_color: self.standard_color
+    hover_color: self.hover_color
+
+<ProjectSettings>:
+    midi_load_button: midi_load_button
+    text: "Project"
+        
+    BoxLayout:
+        orientation: 'vertical'
+        size: self.size
+        
+        BoxLayout:
+            id: project_BoxL
+            orientation: 'vertical'
+            size_hint_y: 0.25
+            
+            Label:
+                text: "Project settings" 
+
+        BoxLayout:
+            id: midi_BoxL
+            orientation: 'vertical'
+            size_hint_y: 1-project_BoxL.size_hint_y
+            
+            Label:
+                id: midi_file_selection_title
+                text: "MIDI file"
+                size_hint_y: 0.05
+            
+            BoxLayout:
+                id: midi_file_selection
+                orientation: 'horizontal'
+                size_hint_y: 0.05
+
+                HoverButton:
+                    id: midi_load_button
+                    text: "L"
+                    size_hint_x: 0.2
+                    on_press: self.show_file_chooser()
+
+                Label:
+                    text: "Dis midi"
+                    size_hint_x: 0.8
+
+            Label:
+                text: "bonk"
+                size_hint_y: 1 - midi_file_selection.size_hint_y - midi_file_selection_title.size_hint_y
+
 <Menu>:
+    project_settings: project_settings
+
     TabbedPanel:
         do_default_tab: False
         tab_pos: 'left_top'
@@ -13,13 +82,10 @@
         size: self.parent.size
         pos: self.parent.pos
 
-        TabbedPanelItem:
-            text: "Bingo"
-            Button:
-                text: "Bingo"
+        ProjectSettings:
+            id: project_settings
 
         TabbedPanelItem:
-            text: "Bongo"
+            text: "Style"
             Label:
                 text: "Bongo"
-            

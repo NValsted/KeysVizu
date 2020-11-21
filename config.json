@@ -1,7 +1,8 @@
 {
     "main" :
     {
-        "kv_location" : "kvs/keysvizu.kv"
+        "kv_location" : "kvs/keysvizu.kv",
+        "kivy_config" : "kivy_config.ini"
     },
     "video":
     {
