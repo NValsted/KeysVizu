@@ -1,0 +1,25 @@
+#:kivy 2.0.0
+
+<FileBrowser>:
+    filter_strings: self.filter_strings
+    initial_directory: self.initial_directory
+
+    BoxLayout:
+        pos: root.pos
+        orientation: "vertical"
+        FileChooserListView:
+            id: filechooser
+            path: root.initial_directory
+            filters: root.filter_strings
+            on_submit: root.load(filechooser.path, filechooser.selection)
+
+        BoxLayout:
+            size_hint_y: 0.2
+
+            Button:
+                text: "Load"
+                on_release: root.load(filechooser.path, filechooser.selection)
+
+            Button:
+                text: "Cancel"
+                on_release: root.cancel()

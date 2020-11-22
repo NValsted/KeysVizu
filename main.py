@@ -296,10 +296,24 @@ class Stage(Widget):
             #self.VM.export_video(f"{config['video']['vid_output_location']}{config['video']['default_vid_name']}")
             exit()
 
+class ProjectTimeline(Widget):
+    stage = ObjectProperty(None)
+    play_button = ObjectProperty(None)
+    stop_button = ObjectProperty(None)
+    
+    stage_update_event = None
+
+    def toggle_play(self):
+        if self.play_button.state == "down":
+            self.stage_update_event = Clock.schedule_interval(self.stage.update, 1.0/60.0)
+        else:
+            self.stage_update_event.cancel()
+
 class FileBrowser(FloatLayout):
     load = ObjectProperty(None)
     cancel = ObjectProperty(None)
     filter_strings = ListProperty(['*'])
+    initial_directory = StringProperty("/")
 
 class HoverButton(Button):
     standard_color = ListProperty([1,1,1])
@@ -307,7 +321,6 @@ class HoverButton(Button):
 
     def __init__(self, **kwargs):
         super(HoverButton, self).__init__(**kwargs)
-        
         Window.bind(mouse_pos = self.on_mouse_pos)
 
     def on_mouse_pos(self, window, pos):
@@ -329,9 +342,10 @@ class SettingsTab(BoxLayout):
     def dismiss_popup(self):
         self.popup_window.dismiss()
 
-    def show_file_chooser(self, filter_strings = ['*'], callback = None):
+    def show_file_chooser(self, filter_strings = ['*'], initial_directory = "/", callback = None):
         content = FileBrowser(load = self.load, cancel = self.dismiss_popup)
         content.filter_strings = filter_strings
+        content.initial_directory = initial_directory
 
         if callback is not None:
             content.callback = callback
@@ -359,6 +373,7 @@ class ProjectSettings(TabbedPanelItem):
 
     def load_schedule_location(self):
         self.settings_tab.show_file_chooser(filter_strings = ['*.mid'],
+                                            initial_directory = './midi_data',
                                             callback = self.load_schedule)
 
     def load_schedule(self,filename):
@@ -370,6 +385,7 @@ class Menu(Widget):
     
 class Workbench(Widget):
     stage = ObjectProperty(None)
+    project_timeline = ObjectProperty(None)
     menu = ObjectProperty(None)
 
     def __init__(self, **kwargs):
@@ -384,6 +400,7 @@ class Workbench(Widget):
     
     def pass_references_to_menu(self):
         self.menu.project_settings.pianoroll = self.stage.pianoroll
+        self.project_timeline.stage = self.stage
 
     def init_stage(self):
         Clock.schedule_once(self.stage.keybed.draw_keybed)

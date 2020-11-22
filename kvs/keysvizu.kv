@@ -2,9 +2,11 @@
 #:include kvs/menu.kv
 #:include kvs/stage.kv
 #:include kvs/timeline.kv
+#:include kvs/tooltip_bar.kv
 
 <WorkBench>:
     stage: stage
+    project_timeline: project_timeline
     menu: menu
     size: root.width, root.height
 
@@ -20,12 +22,12 @@
                 id: stage
                 size_hint_y: ((self.parent.width*9/16) / self.parent.height)
 
-            Button:
-                text: "Timeline"
+            ProjectTimeline:
+                id: project_timeline
                 size_hint_y: (1 - stage.size_hint_y) / 2
             
             Button:
-                text: "Misc. bar (e.g. progress bar when exporting vid and tooltips when working)"
+                text: "Tooltip bar (e.g. progress bar when exporting vid and tooltips when working)"
                 size_hint_y: (1 - stage.size_hint_y) / 2
                 
         Menu:

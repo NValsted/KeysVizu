@@ -1,34 +1,10 @@
 #:kivy 2.0.0
+#:include kvs/misc/custom_buttons.kv
+#:include kvs/misc/file_browser.kv
 
 <TabbedPanelHeader>:
     background_normal: 'UI/menu/testB.png'
     background_down: 'UI/menu/test2.png'
-
-<FileBrowser>:
-    filter_strings: self.filter_strings
-
-    BoxLayout:
-        pos: root.pos
-        orientation: "vertical"
-        FileChooserListView:
-            id: filechooser
-            filters: root.filter_strings
-            on_submit: root.load(filechooser.path, filechooser.selection)
-
-        BoxLayout:
-            size_hint_y: 0.2
-
-            Button:
-                text: "Load"
-                on_release: root.load(filechooser.path, filechooser.selection)
-
-            Button:
-                text: "Cancel"
-                on_release: root.cancel()
-
-<HoverButton>:
-    standard_color: self.standard_color
-    hover_color: self.hover_color
 
 <SettingsTab>:
     tab_title: "SettingsTab"

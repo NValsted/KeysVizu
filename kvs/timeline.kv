@@ -1,1 +1,49 @@
 #:kivy 2.0.0
+
+<ProjectTimeline>:
+    play_button: play_button
+    stop_button: stop_button
+
+    size: self.size
+    pos: self.pos
+
+    BoxLayout:
+        orientation: 'horizontal'
+        pos: self.parent.pos
+        size: self.parent.size
+
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint_x: None
+            width: self.height/1.5
+
+            canvas:
+                Color:
+                    rgb: (0.7,0.7,0.7) 
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            ToggleButton:
+                id: play_button
+                background_normal: 'UI/menu/play_button.png'
+                background_down: 'UI/menu/pause_button.png'
+                size_hint_y: 0.5
+                on_press: root.toggle_play()
+
+            Button:
+                id: stop_button
+                size_hint_y: 0.5
+
+        Label:
+            text: "SCHEDULE"
+
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint_x: None
+            width: self.height/1.5
+
+            Button:
+                text: "+"
+            Button:
+                text: "-"
