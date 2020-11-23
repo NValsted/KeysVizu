@@ -44,6 +44,7 @@ class WhiteKey(PianoKey):
 
 class GuideLine(Widget):
     standard_color = ListProperty([0.15,0.15,0.15,0.5])
+    guideline_width = NumericProperty(1.5)
     points = ListProperty([None])
 
 class Keybed(Widget):
@@ -60,8 +61,8 @@ class Keybed(Widget):
         36 black keys
         """
         
-        next_wk_pos = self.x
-        next_bk_pos = self.x
+        next_wk_pos = 0
+        next_bk_pos = 0
         marker_keys = []
 
         for i in range(88):
@@ -73,7 +74,7 @@ class Keybed(Widget):
                 key.width = self.width/60
                 key.height = self.height
 
-                key.center_x = self.width*next_wk_pos + key.width/2
+                key.center_x = self.width*next_wk_pos + key.width/2 + self.x
                 key.y = self.y
                 
                 next_wk_pos += 1/52
@@ -91,7 +92,7 @@ class Keybed(Widget):
                 key.width = self.width/80
                 key.height = self.height*0.75
 
-                key.center_x = self.width*next_bk_pos
+                key.center_x = self.width*next_bk_pos + self.x
                 key.y = self.height - key.height + self.y
                 
                 next_bk_pos = next_wk_pos + 1/(52*2)
@@ -303,7 +304,7 @@ class ProjectTimeline(Widget):
     
     stage_update_event = None
 
-    def toggle_play(self):
+    def toggle_play(self): # Implemented checks to make sure stage_update_event isn't triggered when no schedule is loaded 
         if self.play_button.state == "down":
             self.stage_update_event = Clock.schedule_interval(self.stage.update, 1.0/60.0)
         else:
@@ -337,6 +338,17 @@ class HoverButton(Button):
     
     def _mouse_leave(self,k):
         self.color = self.standard_color
+
+class NoteStylePreview(Widget):
+    stage_preview = ObjectProperty(None)
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        
+        self.__initialize_preview()
+    
+    def __initialize_preview(self):
+        Clock.schedule_once(lambda dt: self.stage_preview.keybed.draw_keybed(dt),1)
 
 class SettingsTab(BoxLayout):
     def dismiss_popup(self):
@@ -380,8 +392,22 @@ class ProjectSettings(TabbedPanelItem):
         self.pianoroll.init_schedule(filename)
         self.midi_text_button.text = filename.split("/")[-1]
 
+class StyleSettings(TabbedPanelItem):
+    settings_tab = ObjectProperty(None)
+
 class Menu(Widget):
     project_settings = ObjectProperty(None)
+    style_setings = ObjectProperty(None)
+    tabbed_panel = ObjectProperty(None)
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+        Clock.schedule_once(lambda dt: self.__load_tabbed_panel_tabs(),1)
+
+    def __load_tabbed_panel_tabs(self):
+        for tab in reversed(self.tabbed_panel.tab_list):
+            self.tabbed_panel.switch_to(tab)
     
 class Workbench(Widget):
     stage = ObjectProperty(None)

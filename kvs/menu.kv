@@ -1,6 +1,7 @@
 #:kivy 2.0.0
 #:include kvs/misc/custom_buttons.kv
 #:include kvs/misc/file_browser.kv
+#:include kvs/misc/style_previews.kv
 
 <TabbedPanelHeader>:
     background_normal: 'UI/menu/testB.png'
@@ -28,7 +29,7 @@
         
     SettingsTab:
         id: settings_tab
-        tab_title: "Project Settings"
+        tab_title: "Project settings"
 
         BoxLayout:
             id: tab_content_BoxL
@@ -63,10 +64,54 @@
                 text: "bonk"
                 size_hint_y: 1 - midi_file_selection.size_hint_y - midi_file_selection_title.size_hint_y
 
+<StyleSettings>
+    settings_tab: settings_tab
+    text: "Style"
+
+    SettingsTab:
+        id: settings_tab
+        tab_title: "Style settings"
+
+        BoxLayout:
+            id: tab_content_BoxL
+            orientation: 'vertical'
+            size_hint_y: 1-settings_tab.tab_info_BoxL.size_hint_y
+
+            BoxLayout:
+                orientation: 'horizontal'
+
+                NoteStylePreview:
+                    id: bonk
+
+                BoxLayout:
+                    orientation: 'vertical'
+
+                    Label:
+                        text: "channel"
+
+                    BoxLayout:
+                        orientation: 'horizontal'
+
+                        Button:
+                            text: "color"
+
+                        Label:
+                            text: "notes"
+
+
+            Label:
+                text: "unleash the coloures"
+
+            ColorPicker:
+                on_color: pass
+
 <Menu>:
     project_settings: project_settings
+    style_settings: style_settings
+    tabbed_panel: tabbed_panel
 
     TabbedPanel:
+        id: tabbed_panel
         do_default_tab: False
         tab_pos: 'left_top'
         tab_width: self.height/len(self.tab_list)
@@ -74,11 +119,8 @@
         size: self.parent.size
         pos: self.parent.pos
 
+        StyleSettings:
+            id: style_settings
+
         ProjectSettings:
             id: project_settings
-
-        TabbedPanelItem:
-            text: "Style"
-
-            Label:
-                text: "wassup"

@@ -46,13 +46,14 @@
 <GuideLine>:
     standard_color: self.standard_color
     points: self.points
+    guideline_width: self.guideline_width
 
     canvas:
         Color:
             rgb: self.standard_color
         Line:
             points: self.points
-            width: 1.5
+            width: self.guideline_width
 
 <Keybed>:
     size: self.parent.width, self.parent.height*0.2
