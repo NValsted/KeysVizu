@@ -2,7 +2,8 @@
     "main" :
     {
         "kv_location" : "kvs/keysvizu.kv",
-        "kivy_config" : "kivy_config.ini"
+        "kivy_config" : "kivy_config.ini",
+        "init_update_freq" : 20
     },
     "video":
     {

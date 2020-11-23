@@ -51,68 +51,90 @@ class Keybed(Widget):
     note_lookup = c_utils.load_json(config['theory']['note_lookup_location'])
     keys = []
     marker_notes = {"C"} #{"C","F"}
+    
+    key_width_offset = 2
+    white_black_width_ratio = (7/8) / (15/32)
+    white_black_length_ratio = 4 / 3
 
-    def draw_keybed(self,k,key_range=["A0","C7"]):
+    def draw_keybed(self,key_range=["A0","C7"]):
         """
-        Ignoring key_range for now.
-        Could be nice to be able to specify which keys are shown
-        For 88 keys
-        52 white keys
-        36 black keys
+        Initializes the keybed from a given range of keys.
         """
         
+        # Should assert that key range never has black keys as endpoints. Could possible do this in GUI with a dropdown that only contains notes white keys.
+        keys,white_keys,black_keys = self.__keys_in_range(key_range)
+
         next_wk_pos = 0
         next_bk_pos = 0
         marker_keys = []
 
-        for i in range(88):
-            note = self.note_lookup['12-tone_scale'][i % 12]
+        for note in keys:
             if len(note) == 1:
-                
                 key = WhiteKey()
                 key.note = note
-                key.width = self.width/60
+                key.width = self.width/(len(white_keys)) - self.key_width_offset
                 key.height = self.height
 
-                key.center_x = self.width*next_wk_pos + key.width/2 + self.x
+                key.center_x = self.width*next_wk_pos + key.width/2 + self.key_width_offset/2 + self.x
                 key.y = self.y
                 
-                next_wk_pos += 1/52
+                next_wk_pos += 1/(len(white_keys))
                 next_bk_pos = next_wk_pos
 
                 self.keys.append(key)
                 self.add_widget(key,index=-1)
 
-                if note in self.marker_notes:
-                    marker_keys.append(key)
-        
             else:
                 key = BlackKey()
                 key.note = note
-                key.width = self.width/80
-                key.height = self.height*0.75
+                key.width = self.width/(len(white_keys)) / self.white_black_width_ratio
+                key.height = self.height / self.white_black_length_ratio
 
                 key.center_x = self.width*next_bk_pos + self.x
                 key.y = self.height - key.height + self.y
                 
-                next_bk_pos = next_wk_pos + 1/(52*2)
+                next_bk_pos = next_wk_pos + 1/(len(white_keys)*2)
 
                 self.keys.append(key)
                 self.add_widget(key)
-
+                
+            if note in self.marker_notes:
+                marker_keys.append(key)
+        
         self.__add_vertical_guidelines(marker_keys)
 
-        """
-        for i in range(88):
-            note = self.note_lookup['12-tone_scale'][i % 12]
-            if len(note) == 1:
-                self.add_widget(self.keys[i])
+    def __key_range_len(self,key_range): # Function is not quite right, since it assumes the labelling goes A0, A#, ... G#0, A1, ... 
+        # Should implement checks somewhere that note_0 is lower than note_1
+        note_0 = self.note_lookup['12-tone_to_int'][key_range[0][:-1]]
+        note_1 = self.note_lookup['12-tone_to_int'][key_range[1][:-1]]
+
+        octave_range = int(key_range[1][-1]) - int(key_range[0][-1])
+        if note_1 - note_0 < 0:
+            octave_range -= 1
+
+        base_interval = octave_range * 12
         
-        for i in range(88):
+        return base_interval + ((note_1 - note_0) % 12) + 1
+
+    def __keys_in_range(self,key_range):
+        white_keys = []
+        black_keys = []
+        keys = []
+
+        first_key_offset = self.__key_range_len(["A0",key_range[0]]) - 1
+        range_end = first_key_offset + self.__key_range_len(key_range)
+        
+        for i in range(first_key_offset,range_end):
             note = self.note_lookup['12-tone_scale'][i % 12]
-            if len(note) == 2:
-                self.add_widget(self.keys[i])
-        """
+            
+            if len(note) == 1: # Currently not using white_keys and black_keys lists for other than their length
+                white_keys.append(note)
+            else:
+                black_keys.append(note)
+            
+            keys.append(note)
+
+        return keys, white_keys, black_keys
 
     def __add_vertical_guidelines(self,marker_keys):
         for key in marker_keys: # Should tie together with options to choose keybed interval
@@ -124,30 +146,8 @@ class Keybed(Widget):
     def resize_children(self):
         """
         Resizes keys on window resize.
-        TODO: work on removing redundant code similar to draw_keybed function
-        Note, also doesn't work now with y coordinate
         """
-
-        next_wk_pos = self.x
-        next_bk_pos = self.x
-
-        for key in self.keys:
-            if len(key.note) == 1:
-                key.width = self.width/60
-                key.height = self.height
-
-                key.center_x = self.width*next_wk_pos + key.width/2
-                
-                next_wk_pos += 1/52+0.01
-                next_bk_pos = next_wk_pos
-            else:
-                key.width = self.width/80
-                key.height = self.height*0.75
-
-                key.center_x = self.width*next_bk_pos
-                key.y = self.height - key.height
-                
-                next_bk_pos = next_wk_pos + 1/(52*2)
+        pass
 
     def update(self,dt):
         pass
@@ -345,10 +345,14 @@ class NoteStylePreview(Widget):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         
-        self.__initialize_preview()
-    
+        self.init_preview_event = Clock.schedule_interval(lambda dt:
+                                                          self.__initialize_preview(),
+                                                          1/config['main']['init_update_freq'])
+        
     def __initialize_preview(self):
-        Clock.schedule_once(lambda dt: self.stage_preview.keybed.draw_keybed(dt),1)
+        if self.pos != [0,0]:
+            self.init_preview_event.cancel()
+            Clock.schedule_once(lambda dt: self.stage_preview.keybed.draw_keybed(key_range=["C0","B1"]))
 
 class SettingsTab(BoxLayout):
     def dismiss_popup(self):
@@ -394,6 +398,7 @@ class ProjectSettings(TabbedPanelItem):
 
 class StyleSettings(TabbedPanelItem):
     settings_tab = ObjectProperty(None)
+    note_style_preview = ObjectProperty(None)
 
 class Menu(Widget):
     project_settings = ObjectProperty(None)
@@ -402,13 +407,17 @@ class Menu(Widget):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-
-        Clock.schedule_once(lambda dt: self.__load_tabbed_panel_tabs(),1)
+        self.load_TPTs_event = Clock.schedule_interval(lambda dt:
+                                                       self.__load_tabbed_panel_tabs(),
+                                                       1/config['main']['init_update_freq'])
 
     def __load_tabbed_panel_tabs(self):
-        for tab in reversed(self.tabbed_panel.tab_list):
-            self.tabbed_panel.switch_to(tab)
-    
+        if len(self.tabbed_panel.tab_list) > 1:
+            self.load_TPTs_event.cancel()
+            
+            for tab in reversed(self.tabbed_panel.tab_list):
+                Clock.schedule_once(lambda dt: self.tabbed_panel.switch_to(tab))
+
 class Workbench(Widget):
     stage = ObjectProperty(None)
     project_timeline = ObjectProperty(None)
@@ -429,7 +438,7 @@ class Workbench(Widget):
         self.project_timeline.stage = self.stage
 
     def init_stage(self):
-        Clock.schedule_once(self.stage.keybed.draw_keybed)
+        Clock.schedule_once(lambda dt: self.stage.keybed.draw_keybed())
         #Clock.schedule_once(self.stage.pianoroll.init_schedule)
 
         #Clock.schedule_interval(self.stage.update, 1.0/60.0)
@@ -447,6 +456,7 @@ class KeysVizuApp(App):
     def build(self):
         self.load_kv(config['main']['kv_location'])
         #Window.maximize() # The whole maximization thing is a mess. Currently only scales window to Full HD resolution. 
+        # Could possibly implement functionality that checks the user's current resolution and updates the kivy_config.ini file.
         
         workbench = Workbench()
         
