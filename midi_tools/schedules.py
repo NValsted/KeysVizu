@@ -49,10 +49,13 @@ class NoteSchedule():
     channels = {}
 
     def __init__(self,midi_file_path):
+        self.note_tracks = []
+        self.channels = {}
+        
         self.midi_file = mido.MidiFile(midi_file_path)
         self.__scan_meta_data()
         self.__parse_note_tracks()
-    
+        
     def __scan_meta_data(self):
         for track in self.midi_file.tracks:
             for msg in track:

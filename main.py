@@ -49,14 +49,18 @@ class GuideLine(Widget):
 
 class Keybed(Widget):
     note_lookup = c_utils.load_json(config['theory']['note_lookup_location'])
-    keys = []
     marker_notes = {"C"} #{"C","F"}
     
     key_width_offset = 2
-    white_black_width_ratio = (7/8) / (15/32)
-    white_black_length_ratio = 4 / 3
+    white_black_width_ratio = (13/16) / (15/32)
+    white_black_length_ratio = 23 / 16
 
-    def draw_keybed(self,key_range=["A0","C7"]):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.keys = []
+        self.first_key_offset = 0 # Offset from A1
+
+    def draw_keybed(self,key_range=["A1","C8"]):
         """
         Initializes the keybed from a given range of keys.
         """
@@ -121,10 +125,10 @@ class Keybed(Widget):
         black_keys = []
         keys = []
 
-        first_key_offset = self.__key_range_len(["A0",key_range[0]]) - 1
-        range_end = first_key_offset + self.__key_range_len(key_range)
+        self.first_key_offset = self.__key_range_len(["A1",key_range[0]]) - 1
+        range_end = self.first_key_offset + self.__key_range_len(key_range)
         
-        for i in range(first_key_offset,range_end):
+        for i in range(self.first_key_offset,range_end):
             note = self.note_lookup['12-tone_scale'][i % 12]
             
             if len(note) == 1: # Currently not using white_keys and black_keys lists for other than their length
@@ -176,39 +180,47 @@ class PianoRoll(Widget):
     NS = None
     note_widgets = None
     ticks_passed = 0
-    velocity_intensity_scale = 1
 
-    def init_schedule(self,midi_location):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+    def init_schedule(self,midi_location,channel_styles):
         """
         TODO:
-        need to fix notes' behaviour when resizing.
+        need to properly reset all values and remove notes on screen when re-initializing schedule.
+        Might implement checks to see whether file was changed or if it's the same one. In the latter, case the schedule should resume at the same location.
         """
-
-        self.NS = schedules.NoteSchedule(midi_location)
         
+        self.NS = schedules.NoteSchedule(midi_location)
+        self.ticks_passed = 0
+
         self.note_widgets = deque() # Might implement custom deque to not rely on overloading __lt__
         pianonotes = []
-
+        
         for channelID,channel in self.NS.channels.items():
             channel.sort()
             
             for note in channel:
-                
-                corresponding_key = self.parent.keybed.keys[note.note-21]
-
                 pianonote = PianoNote()
                 
-                key_idx = (note.note-21)
+                key_idx = (note.note-(21+self.parent.keybed.first_key_offset))
                 pianonote.key_idx = key_idx
+                corresponding_key = self.parent.keybed.keys[key_idx]
+
                 pianonote.note = self.note_lookup['12-tone_scale'][key_idx % 12]
                 pianonote.start_time = note.time[0]
                 pianonote.channel = channelID
 
+                """
                 velocity_intensity = note.velocity / (127*self.velocity_intensity_scale) + (1 - 1/self.velocity_intensity_scale)
                 if channelID == 0:
                     pianonote.color = [0.2,0.2,0.8,velocity_intensity]
                 else:
                     pianonote.color = [0.8,0.3,0.4,velocity_intensity]
+                """
+
+                velocity_intensity = note.velocity / (127*channel_styles[channelID]['notes']['velocity_scaling']) + (1 - 1/channel_styles[channelID]['notes']['velocity_scaling'])
+                pianonote.color = [*channel_styles[channelID]['notes']['white_key_color'],velocity_intensity]
 
                 norm_time = note.norm_time(self.NS.schedule_meta_data.ticks_per_beat)
                 
@@ -341,6 +353,7 @@ class HoverButton(Button):
 
 class NoteStylePreview(Widget):
     stage_preview = ObjectProperty(None)
+    channel_styles = None
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -350,9 +363,13 @@ class NoteStylePreview(Widget):
                                                           1/config['main']['init_update_freq'])
         
     def __initialize_preview(self):
-        if self.pos != [0,0]:
+        if self.pos != [0,0] and self.channel_styles != None:
             self.init_preview_event.cancel()
-            Clock.schedule_once(lambda dt: self.stage_preview.keybed.draw_keybed(key_range=["C0","B1"]))
+            Clock.schedule_once(lambda dt: self.stage_preview.keybed.draw_keybed(key_range=["C2","B3"]))
+            
+            Clock.schedule_once(lambda dt: self.stage_preview.pianoroll.init_schedule("UI/menu/note_style_preview_MIDI.mid",
+                                                                                      self.channel_styles))
+            Clock.schedule_once(lambda dt: self.stage_preview.pianoroll.scroll_schedule(1/2))
 
 class SettingsTab(BoxLayout):
     def dismiss_popup(self):
@@ -393,16 +410,37 @@ class ProjectSettings(TabbedPanelItem):
                                             callback = self.load_schedule)
 
     def load_schedule(self,filename):
-        self.pianoroll.init_schedule(filename)
+        self.pianoroll.init_schedule(filename,
+                                     self.menu.style_settings.channel_styles)
+        
         self.midi_text_button.text = filename.split("/")[-1]
 
 class StyleSettings(TabbedPanelItem):
     settings_tab = ObjectProperty(None)
     note_style_preview = ObjectProperty(None)
+    channel_styles = {i : c_utils.load_json(f"{config['style']['presets_directory']}{config['style']['default_preset']}")
+                      for i in range(16)} # currently a bit wasteful since all 16 MIDI channels will practically never be used
+
+    pianoroll = ObjectProperty(None)
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+        self.preview_references_event = Clock.schedule_interval(lambda dt:
+                                                                self.__pass_references_to_preview(),
+                                                                1/config['main']['init_update_freq'])
+
+    def __pass_references_to_preview(self):
+        if self.note_style_preview != None:
+            self.note_style_preview.channel_styles = self.channel_styles
+            self.preview_references_event.cancel()
+
+    def bonk(self):
+        self.channel_styles[0]['notes']['white_key_color'] = [1,0.2,0.3]
 
 class Menu(Widget):
     project_settings = ObjectProperty(None)
-    style_setings = ObjectProperty(None)
+    style_settings = ObjectProperty(None)
     tabbed_panel = ObjectProperty(None)
 
     def __init__(self, **kwargs):
@@ -427,21 +465,20 @@ class Workbench(Widget):
         super().__init__(**kwargs)
         Window.bind(on_resize=self.on_window_resize)
         
-        self.pass_references_to_menu()
-        self.init_stage()
+        self.__pass_references_to_menu()
+        self.__init_stage()
 
     def on_window_resize(self, window, width, height):
         Clock.schedule_once(self.resize_children,0)
     
-    def pass_references_to_menu(self):
+    def __pass_references_to_menu(self):
         self.menu.project_settings.pianoroll = self.stage.pianoroll
+        self.menu.project_settings.menu = self.menu
+        self.menu.style_settings.pianoroll = self.stage.pianoroll
         self.project_timeline.stage = self.stage
 
-    def init_stage(self):
+    def __init_stage(self):
         Clock.schedule_once(lambda dt: self.stage.keybed.draw_keybed())
-        #Clock.schedule_once(self.stage.pianoroll.init_schedule)
-
-        #Clock.schedule_interval(self.stage.update, 1.0/60.0)
 
     def resize_children(self,k):
         for child in self.children:

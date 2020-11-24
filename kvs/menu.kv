@@ -80,24 +80,60 @@
 
             BoxLayout:
                 orientation: 'horizontal'
+                size_hint_y: 0.4
 
                 NoteStylePreview:
                     id: note_style_preview
+                    size_hint_x: 0.5
 
                 BoxLayout:
                     orientation: 'vertical'
 
-                    Label:
-                        text: "channel"
+                    BoxLayout:
+                        orientation: 'horizontal'
+
+                        BoxLayout:
+                            orientation: 'vertical'
+                            
+                            size_hint_x: None
+                            width: self.height
+                            
+                            Label:
+                                text: "number"
+                                
+                            BoxLayout:
+                                orientation: 'horizontal'
+                                
+                                Button:
+                                    text: "<"
+                                Button:
+                                    text: ">"
+
+                        Label:
+                            text: "channel"
 
                     BoxLayout:
                         orientation: 'horizontal'
 
                         Button:
                             text: "color"
+                            size_hint_x: None
+                            width: self.height
+                            on_press: root.bonk()
 
                         Label:
                             text: "notes"
+                    
+                    BoxLayout:
+                        orientation: 'horizontal'
+
+                        Button:
+                            text: "color"
+                            size_hint_x: None
+                            width: self.height
+
+                        Label:
+                            text: "background"
 
             Label:
                 text: "unleash the coloures"
