@@ -328,6 +328,10 @@ class FileBrowser(FloatLayout):
     filter_strings = ListProperty(['*'])
     initial_directory = StringProperty("/")
 
+class ColorBrowser(FloatLayout):
+    apply = ObjectProperty(None)
+    cancel = ObjectProperty(None)
+
 class HoverButton(Button):
     standard_color = ListProperty([1,1,1])
     hover_color = ListProperty([0.6,0.7,1])
@@ -367,6 +371,7 @@ class NoteStylePreview(Widget):
             self.init_preview_event.cancel()
             Clock.schedule_once(lambda dt: self.stage_preview.keybed.draw_keybed(key_range=["C2","B3"]))
             
+            # There is currently redundant code between these and the __update_preview method in StyleSettings
             Clock.schedule_once(lambda dt: self.stage_preview.pianoroll.init_schedule("UI/menu/note_style_preview_MIDI.mid",
                                                                                       self.channel_styles))
             Clock.schedule_once(lambda dt: self.stage_preview.pianoroll.scroll_schedule(1/2))
@@ -376,7 +381,7 @@ class SettingsTab(BoxLayout):
         self.popup_window.dismiss()
 
     def show_file_chooser(self, filter_strings = ['*'], initial_directory = "/", callback = None):
-        content = FileBrowser(load = self.load, cancel = self.dismiss_popup)
+        content = FileBrowser(load = self.load_file, cancel = self.dismiss_popup)
         content.filter_strings = filter_strings
         content.initial_directory = initial_directory
 
@@ -388,11 +393,31 @@ class SettingsTab(BoxLayout):
                                   size_hint = (0.5,0.5) )
         self.popup_window.open()
 
-    def load(self,path,filename):
+    def load_file(self,path,filename):
         if 'callback' in self.popup_window.content.__dir__():
             self.popup_window.content.callback(os.path.join(path, filename[0]))
         else:
             print(os.path.join(path, filename[0]))
+
+        self.popup_window.dismiss()
+
+    def show_color_chooser(self, callback = None):
+        content = ColorBrowser(apply = self.apply_color, cancel = self.dismiss_popup)
+
+        if callback is not None:
+            content.callback = callback
+
+        self.popup_window = Popup(title = "Color browser",
+                                  content = content,
+                                  size_hint = (0.5,0.5) )
+
+        self.popup_window.open()
+
+    def apply_color(self,color):
+        if 'callback' in self.popup_window.content.__dir__():
+            self.popup_window.content.callback(color)
+        else:
+            print(color)
 
         self.popup_window.dismiss()
 
@@ -418,9 +443,11 @@ class ProjectSettings(TabbedPanelItem):
 class StyleSettings(TabbedPanelItem):
     settings_tab = ObjectProperty(None)
     note_style_preview = ObjectProperty(None)
+    
     channel_styles = {i : c_utils.load_json(f"{config['style']['presets_directory']}{config['style']['default_preset']}")
                       for i in range(16)} # currently a bit wasteful since all 16 MIDI channels will practically never be used
-
+    active_channel = NumericProperty(0)
+    
     pianoroll = ObjectProperty(None)
 
     def __init__(self, **kwargs):
@@ -435,8 +462,26 @@ class StyleSettings(TabbedPanelItem):
             self.note_style_preview.channel_styles = self.channel_styles
             self.preview_references_event.cancel()
 
-    def bonk(self):
-        self.channel_styles[0]['notes']['white_key_color'] = [1,0.2,0.3]
+    def __update_preview(self):
+        self.note_style_preview.stage_preview.pianoroll.clear_widgets()
+        
+        self.note_style_preview.stage_preview.pianoroll.init_schedule("UI/menu/note_style_preview_MIDI.mid",
+                                                                      {0: self.channel_styles[self.active_channel]})
+        self.note_style_preview.stage_preview.pianoroll.scroll_schedule(1/2)
+
+    def change_channel(self,difference):
+        self.active_channel += difference
+        self.active_channel = self.active_channel % 16
+
+        self.__update_preview()
+
+    def load_color_wheel(self,callback):
+        self.settings_tab.show_color_chooser(callback)
+
+    def change_white_key_color(self,color):
+        self.channel_styles[self.active_channel]['notes']['white_key_color'] = color[:-1] # alpha is the last entry and is excluded for note color
+        
+        self.__update_preview()
 
 class Menu(Widget):
     project_settings = ObjectProperty(None)

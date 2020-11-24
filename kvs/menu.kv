@@ -1,6 +1,7 @@
 #:kivy 2.0.0
 #:include kvs/misc/custom_buttons.kv
 #:include kvs/misc/file_browser.kv
+#:include kvs/misc/color_browser.kv
 #:include kvs/misc/style_previews.kv
 
 <TabbedPanelHeader>:
@@ -67,6 +68,7 @@
 <StyleSettings>
     settings_tab: settings_tab
     note_style_preview: note_style_preview
+    active_channel: self.active_channel
     text: "Style"
 
     SettingsTab:
@@ -99,15 +101,17 @@
                             width: self.height
                             
                             Label:
-                                text: "number"
+                                text: str(root.active_channel)
                                 
                             BoxLayout:
                                 orientation: 'horizontal'
                                 
                                 Button:
                                     text: "<"
+                                    on_press: root.change_channel(-1)
                                 Button:
                                     text: ">"
+                                    on_press: root.change_channel(1)
 
                         Label:
                             text: "channel"
@@ -119,7 +123,7 @@
                             text: "color"
                             size_hint_x: None
                             width: self.height
-                            on_press: root.bonk()
+                            on_press: root.load_color_wheel(root.change_white_key_color)
 
                         Label:
                             text: "notes"
