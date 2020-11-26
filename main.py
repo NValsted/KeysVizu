@@ -22,6 +22,7 @@ from kivy.properties import NumericProperty, ReferenceListProperty, ObjectProper
     StringProperty, ListProperty
 from kivy.core.window import Window
 from kivy.clock import Clock
+from kivy.event import EventDispatcher
 from kivy.graphics import Color, Rectangle
 
 # Built-in python libraries
@@ -307,7 +308,7 @@ class Stage(Widget):
 
         if global_flag: #(time.time() - self.start_time) > 30:
             #self.VM.export_video(f"{config['video']['vid_output_location']}{config['video']['default_vid_name']}")
-            exit()
+            pass#exit()
 
 class ProjectTimeline(Widget):
     stage = ObjectProperty(None)
@@ -376,6 +377,15 @@ class NoteStylePreview(Widget):
                                                                                       self.channel_styles))
             Clock.schedule_once(lambda dt: self.stage_preview.pianoroll.scroll_schedule(1/2))
 
+class NumericSliderSetting(BoxLayout):
+    label_text = StringProperty(" ")
+    slider = ObjectProperty(None)
+    
+    step = NumericProperty(0.1)
+    slider_bounds = ListProperty([0,1])
+
+    callback = lambda *args : None
+
 class SettingsTab(BoxLayout):
     def dismiss_popup(self):
         self.popup_window.dismiss()
@@ -443,7 +453,8 @@ class ProjectSettings(TabbedPanelItem):
 class StyleSettings(TabbedPanelItem):
     settings_tab = ObjectProperty(None)
     note_style_preview = ObjectProperty(None)
-    
+    velocity_scaling_slider = ObjectProperty(None)
+
     channel_styles = {i : c_utils.load_json(f"{config['style']['presets_directory']}{config['style']['default_preset']}")
                       for i in range(16)} # currently a bit wasteful since all 16 MIDI channels will practically never be used
     active_channel = NumericProperty(0)
@@ -474,6 +485,7 @@ class StyleSettings(TabbedPanelItem):
         self.active_channel = self.active_channel % 16
 
         self.__update_preview()
+        self.velocity_scaling_slider.slider.value = self.channel_styles[self.active_channel]['notes']['velocity_scaling']
 
     def load_color_wheel(self,callback):
         self.settings_tab.show_color_chooser(callback)
@@ -481,6 +493,10 @@ class StyleSettings(TabbedPanelItem):
     def change_white_key_color(self,color):
         self.channel_styles[self.active_channel]['notes']['white_key_color'] = color[:-1] # alpha is the last entry and is excluded for note color
         
+        self.__update_preview()
+
+    def change_velocity_scaling(self):
+        self.channel_styles[self.active_channel]['notes']['velocity_scaling'] = self.velocity_scaling_slider.slider.value
         self.__update_preview()
 
 class Menu(Widget):

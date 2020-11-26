@@ -1,0 +1,42 @@
+#:kivy 2.0.0
+#:import math math
+#:import sys sys
+
+<NumericSliderSetting>:
+    orientation: 'horizontal'
+    size_hint_y: None
+    height: 50
+
+    label_text: self.label_text
+    slider: slider
+    
+    step: self.step
+    precision: math.floor(math.log(1 / (self.step+sys.float_info.epsilon),10)+1)
+    slider_bounds: self.slider_bounds
+    
+    callback: self.callback
+
+    Label:
+        text: root.label_text
+        
+    TextInput:
+        id: text_input
+        size_hint_x: 0.25
+
+        multiline: False
+        text_template: f"%.{root.precision}f"
+        
+        text: self.text_template % round(slider.value,root.precision)
+        on_text_validate: slider.value = max(min(float(self.text),root.slider_bounds[-1]),root.slider_bounds[0])
+    
+    Slider:
+        id: slider
+        
+        range: root.slider_bounds
+        step: root.step
+        on_value: root.callback()
+
+        value_track: True
+        value_track_color: (0,0,1,1)
+        
+        on_touch_up: text_input.text = text_input.text_template % round(self.value,root.precision)
