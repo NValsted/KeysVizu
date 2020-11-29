@@ -34,6 +34,14 @@ from collections import deque
 from midi_tools import schedules
 from video_tools import video_manager
 
+from misc.custom_buttons import *
+from misc.numeric_setting import *
+from misc.style_previews import *
+
+from settings_tabs.project_settings import ProjectSettings 
+from settings_tabs.style_settings import StyleSettings
+from settings_tabs.export_settings import ExportSettings
+
 class PianoKey(Widget):
     note = StringProperty(None)
 
@@ -317,187 +325,11 @@ class ProjectTimeline(Widget):
     
     stage_update_event = None
 
-    def toggle_play(self): # Implemented checks to make sure stage_update_event isn't triggered when no schedule is loaded 
+    def toggle_play(self): # Implement checks to make sure stage_update_event isn't triggered when no schedule is loaded 
         if self.play_button.state == "down":
             self.stage_update_event = Clock.schedule_interval(self.stage.update, 1.0/60.0)
         else:
             self.stage_update_event.cancel()
-
-class FileBrowser(FloatLayout):
-    load = ObjectProperty(None)
-    cancel = ObjectProperty(None)
-    filter_strings = ListProperty(['*'])
-    initial_directory = StringProperty("/")
-
-class ColorBrowser(FloatLayout):
-    apply = ObjectProperty(None)
-    cancel = ObjectProperty(None)
-
-class HoverButton(Button):
-    standard_color = ListProperty([1,1,1])
-    hover_color = ListProperty([0.6,0.7,1])
-
-    def __init__(self, **kwargs):
-        super(HoverButton, self).__init__(**kwargs)
-        Window.bind(mouse_pos = self.on_mouse_pos)
-
-    def on_mouse_pos(self, window, pos):
-        if not self.get_root_window():
-            return
-
-        if self.collide_point(*pos):
-            Clock.schedule_once(self._mouse_enter,0)
-        else:
-            Clock.schedule_once(self._mouse_leave,0)
-    
-    def _mouse_enter(self,k):
-        self.color = self.hover_color
-    
-    def _mouse_leave(self,k):
-        self.color = self.standard_color
-
-class NoteStylePreview(Widget):
-    stage_preview = ObjectProperty(None)
-    channel_styles = None
-
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        
-        self.init_preview_event = Clock.schedule_interval(lambda dt:
-                                                          self.__initialize_preview(),
-                                                          1/config['main']['init_update_freq'])
-        
-    def __initialize_preview(self):
-        if self.pos != [0,0] and self.channel_styles != None:
-            self.init_preview_event.cancel()
-            Clock.schedule_once(lambda dt: self.stage_preview.keybed.draw_keybed(key_range=["C2","B3"]))
-            
-            # There is currently redundant code between these and the __update_preview method in StyleSettings
-            Clock.schedule_once(lambda dt: self.stage_preview.pianoroll.init_schedule("UI/menu/note_style_preview_MIDI.mid",
-                                                                                      self.channel_styles))
-            Clock.schedule_once(lambda dt: self.stage_preview.pianoroll.scroll_schedule(1/2))
-
-class NumericSliderSetting(BoxLayout):
-    label_text = StringProperty(" ")
-    slider = ObjectProperty(None)
-    
-    step = NumericProperty(0.1)
-    slider_bounds = ListProperty([0,1])
-
-    callback = lambda *args : None
-
-class SettingsTab(BoxLayout):
-    def dismiss_popup(self):
-        self.popup_window.dismiss()
-
-    def show_file_chooser(self, filter_strings = ['*'], initial_directory = "/", callback = None):
-        content = FileBrowser(load = self.load_file, cancel = self.dismiss_popup)
-        content.filter_strings = filter_strings
-        content.initial_directory = initial_directory
-
-        if callback is not None:
-            content.callback = callback
-        
-        self.popup_window = Popup(title = "File browser",
-                                  content = content,
-                                  size_hint = (0.5,0.5) )
-        self.popup_window.open()
-
-    def load_file(self,path,filename):
-        if 'callback' in self.popup_window.content.__dir__():
-            self.popup_window.content.callback(os.path.join(path, filename[0]))
-        else:
-            print(os.path.join(path, filename[0]))
-
-        self.popup_window.dismiss()
-
-    def show_color_chooser(self, callback = None):
-        content = ColorBrowser(apply = self.apply_color, cancel = self.dismiss_popup)
-
-        if callback is not None:
-            content.callback = callback
-
-        self.popup_window = Popup(title = "Color browser",
-                                  content = content,
-                                  size_hint = (0.5,0.5) )
-
-        self.popup_window.open()
-
-    def apply_color(self,color):
-        if 'callback' in self.popup_window.content.__dir__():
-            self.popup_window.content.callback(color)
-        else:
-            print(color)
-
-        self.popup_window.dismiss()
-
-class ProjectSettings(TabbedPanelItem):
-    settings_tab = ObjectProperty(None)
-
-    midi_load_button = ObjectProperty(None)
-    midi_text_button = ObjectProperty(None)
-
-    pianoroll = ObjectProperty(None)
-
-    def load_schedule_location(self):
-        self.settings_tab.show_file_chooser(filter_strings = ['*.mid'],
-                                            initial_directory = './midi_data',
-                                            callback = self.load_schedule)
-
-    def load_schedule(self,filename):
-        self.pianoroll.init_schedule(filename,
-                                     self.menu.style_settings.channel_styles)
-        
-        self.midi_text_button.text = filename.split("/")[-1]
-
-class StyleSettings(TabbedPanelItem):
-    settings_tab = ObjectProperty(None)
-    note_style_preview = ObjectProperty(None)
-    velocity_scaling_slider = ObjectProperty(None)
-
-    channel_styles = {i : c_utils.load_json(f"{config['style']['presets_directory']}{config['style']['default_preset']}")
-                      for i in range(16)} # currently a bit wasteful since all 16 MIDI channels will practically never be used
-    active_channel = NumericProperty(0)
-    
-    pianoroll = ObjectProperty(None)
-
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-
-        self.preview_references_event = Clock.schedule_interval(lambda dt:
-                                                                self.__pass_references_to_preview(),
-                                                                1/config['main']['init_update_freq'])
-
-    def __pass_references_to_preview(self):
-        if self.note_style_preview != None:
-            self.note_style_preview.channel_styles = self.channel_styles
-            self.preview_references_event.cancel()
-
-    def __update_preview(self):
-        self.note_style_preview.stage_preview.pianoroll.clear_widgets()
-        
-        self.note_style_preview.stage_preview.pianoroll.init_schedule("UI/menu/note_style_preview_MIDI.mid",
-                                                                      {0: self.channel_styles[self.active_channel]})
-        self.note_style_preview.stage_preview.pianoroll.scroll_schedule(1/2)
-
-    def change_channel(self,difference):
-        self.active_channel += difference
-        self.active_channel = self.active_channel % 16
-
-        self.__update_preview()
-        self.velocity_scaling_slider.slider.value = self.channel_styles[self.active_channel]['notes']['velocity_scaling']
-
-    def load_color_wheel(self,callback):
-        self.settings_tab.show_color_chooser(callback)
-
-    def change_white_key_color(self,color):
-        self.channel_styles[self.active_channel]['notes']['white_key_color'] = color[:-1] # alpha is the last entry and is excluded for note color
-        
-        self.__update_preview()
-
-    def change_velocity_scaling(self):
-        self.channel_styles[self.active_channel]['notes']['velocity_scaling'] = self.velocity_scaling_slider.slider.value
-        self.__update_preview()
 
 class Menu(Widget):
     project_settings = ObjectProperty(None)

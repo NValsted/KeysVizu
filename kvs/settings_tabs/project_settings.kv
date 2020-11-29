@@ -1,0 +1,51 @@
+#:kivy 2.0.0
+
+<ProjectSettings>:
+    midi_load_button: midi_load_button
+    midi_text_button: midi_text_button
+    text: "Project"
+
+    BoxLayout:
+        orientation: 'vertical'
+
+        BoxLayout:
+            id: tab_title_BoxL
+            orientation: 'horizontal'
+            size_hint_y: 0.05
+
+            Label:
+                text: "Project settings"
+                font_size: root.tab_title_font_size
+
+        BoxLayout:
+            id: tab_content_BoxL
+            orientation: 'vertical'
+            size_hint_y: 1-tab_title_BoxL.size_hint_y
+
+            Label:
+                id: midi_file_selection_title
+                text: "MIDI file"
+                size_hint_y: 0.05
+            
+            BoxLayout:
+                id: midi_file_selection
+                orientation: 'horizontal'
+                size_hint_y: 0.05
+
+                HoverButton:
+                    id: midi_load_button
+                    text: "L"
+                    size_hint_x: 0.2
+                    on_press: root.load_schedule_location()
+
+                Button:
+                    id: midi_text_button
+                    text: "Select MIDI File"
+                    size_hint_x: 0.8
+                    background_color: (0,0,0,0)
+                    
+                    on_press: root.load_schedule_location()
+
+            Label:
+                text: "bonk"
+                size_hint_y: 1 - midi_file_selection.size_hint_y - midi_file_selection_title.size_hint_y

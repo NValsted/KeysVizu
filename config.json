@@ -15,9 +15,9 @@
     {
         "note_lookup_location": "theory/note_lookup.json"
     },
-    "style":
+    "project":
     {
-        "presets_directory": "style_presets/",
-        "default_preset": "default.json"
+        "projects_location": "projects/",
+        "default": "default.json"
     }
 }
