@@ -3,26 +3,62 @@
 <FileBrowser>:
     filter_strings: self.filter_strings
     initial_directory: self.initial_directory
+    filechooser: filechooser
 
     BoxLayout:
+        orientation: 'vertical'
         pos: root.pos
-        orientation: "vertical"
+        
         FileChooserListView:
             id: filechooser
             path: root.initial_directory
             filters: root.filter_strings
             on_submit: root.load(filechooser.path, filechooser.selection)
+            on_selection: root.selection_path_feedback(self.selection)
 
-        BoxLayout:
-            size_hint_y: 0.2
+<LoadDialog>:
+    filechooser: self.filechooser
 
-            Button:
-                text: "Load"
-                on_release: root.load(filechooser.path, filechooser.selection)
+    BoxLayout:
+        orientation: 'horizontal'
+        pos: root.pos
+        
+        size_hint_y: 0.2
 
-            Button:
-                text: "Cancel"
-                on_release: root.cancel()
+        Button:
+            text: "Load"
+            on_release: root.load(root.filechooser.path, root.filechooser.selection)
+
+        Button:
+            text: "Cancel"
+            on_release: root.cancel()
+
+<SaveDialog>:
+    path_input: path_input
+    
+    TextInput:
+        id: path_input
+
+        size_hint_y: 0.1
+        multiline: False
+
+        pos: root.pos
+        y: action_buttons.size_hint_y * root.height + root.y
+
+    BoxLayout:
+        id: action_buttons
+        orientation: 'horizontal'
+        pos: root.pos
+        
+        size_hint_y: 0.2
+
+        Button:
+            text: "Save"
+            on_release: root.save(root.filechooser.path, path_input.text)
+
+        Button:
+            text: "Cancel"
+            on_release: root.cancel()
 
 <ColorBrowser>:
     BoxLayout:

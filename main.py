@@ -5,8 +5,6 @@ from kivy.config import Config
 # Global scope
 config = c_utils.load_config()
 
-global_flag = False
-
 # Kivy config variables
 Config.read(config["main"]["kivy_config"])
 
@@ -37,6 +35,8 @@ from video_tools import video_manager
 from misc.custom_buttons import *
 from misc.numeric_setting import *
 from misc.style_previews import *
+from misc.linked_fields import *
+from misc.custom_dropdowns import *
 
 from settings_tabs.project_settings import ProjectSettings 
 from settings_tabs.style_settings import StyleSettings
@@ -255,7 +255,6 @@ class PianoRoll(Widget):
                 break
 
     def scroll_schedule(self,dt):
-        global global_flag
         TPS = self.NS.schedule_meta_data.ticks_per_beat * self.NS.get_BPM() / 60 # With norm_time, 96 should be used as ticks per beat
         
         self.add_notes()
@@ -276,7 +275,6 @@ class PianoRoll(Widget):
                 
                 corresponding_key.canvas.clear()
                 corresponding_key.canvas.add(Color(*child.color[:-1]) )
-                #corresponding_key.canvas.add(Color(0.2,0.5,0.9)) # breaks when resizing
                 corresponding_key.canvas.add(Rectangle(size=corresponding_key.size,pos=corresponding_key.pos))
 
             child.y -= TPS*dt # Use this to adjust speed and then use fixed note size
@@ -287,22 +285,13 @@ class PianoRoll(Widget):
             self.remove_widget(dormant_children[-1])
             dormant_children.pop()
 
-        if self.ticks_passed >= (TPS*(self.NS.schedule_meta_data.length+6)):
-            global_flag = True
-
     def update(self,dt):
         self.scroll_schedule(dt)
 
 class Stage(Widget):
     keybed = ObjectProperty(None)
     pianoroll = ObjectProperty(None)
-
-    start_time = time.time()
-
-    VM = video_manager.VideoManager(config['video']['tmp_imgs_location'],
-                                    width=1920,
-                                    height=1080,
-                                    FPS=60.0)
+    VM_reference = None
 
     def resize_children(self):
         for child in self.children:
@@ -310,13 +299,8 @@ class Stage(Widget):
                 child.resize_children()
 
     def update(self,dt):
-        self.pianoroll.update(self.VM.meta_data['refresh_rate']) #self.pianoroll.update(dt)
+        self.pianoroll.update(self.VM_reference.meta_data['refresh_rate']) #self.pianoroll.update(dt)
         self.keybed.update(dt)
-        #self.VM.add_image(self)
-
-        if global_flag: #(time.time() - self.start_time) > 30:
-            #self.VM.export_video(f"{config['video']['vid_output_location']}{config['video']['default_vid_name']}")
-            pass#exit()
 
 class ProjectTimeline(Widget):
     stage = ObjectProperty(None)
@@ -334,6 +318,7 @@ class ProjectTimeline(Widget):
 class Menu(Widget):
     project_settings = ObjectProperty(None)
     style_settings = ObjectProperty(None)
+    export_settings = ObjectProperty(None)
     tabbed_panel = ObjectProperty(None)
 
     def __init__(self, **kwargs):
@@ -367,8 +352,15 @@ class Workbench(Widget):
     def __pass_references_to_menu(self):
         self.menu.project_settings.pianoroll = self.stage.pianoroll
         self.menu.project_settings.menu = self.menu
+        
         self.menu.style_settings.pianoroll = self.stage.pianoroll
+        
+        self.menu.export_settings.stage = self.stage
+        self.menu.export_settings.menu = self.menu
+
         self.project_timeline.stage = self.stage
+        
+        self.stage.VM_reference = self.menu.export_settings.VM
 
     def __init_stage(self):
         Clock.schedule_once(lambda dt: self.stage.keybed.draw_keybed())

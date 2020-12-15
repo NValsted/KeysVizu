@@ -11,7 +11,8 @@ class ProjectSettings(SettingsTab):
     pianoroll = ObjectProperty(None)
 
     def load_schedule_location(self):
-        self.show_file_chooser(filter_strings = ['*.mid'],
+        self.show_file_chooser(dialog_type = "load",
+                               filter_strings = ['*.mid'],
                                initial_directory = './midi_data',
                                callback = self.load_schedule)
 

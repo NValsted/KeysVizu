@@ -13,8 +13,13 @@ class SettingsTab(TabbedPanelItem):
     def dismiss_popup(self):
         self.popup_window.dismiss()
 
-    def show_file_chooser(self, filter_strings = ['*'], initial_directory = "/", callback = None):
-        content = FileBrowser(load = self.load_file, cancel = self.dismiss_popup)
+    def show_file_chooser(self, dialog_type = "load", filter_strings = ['*'], initial_directory = "/", callback = None):
+        
+        if dialog_type == "load":
+            content = LoadDialog(load = self.load_file, cancel = self.dismiss_popup)
+        else:
+            content = SaveDialog(save = self.save_file, cancel = self.dismiss_popup)
+
         content.filter_strings = filter_strings
         content.initial_directory = initial_directory
 
@@ -31,6 +36,14 @@ class SettingsTab(TabbedPanelItem):
             self.popup_window.content.callback(os.path.join(path, filename[0]))
         else:
             print(os.path.join(path, filename[0]))
+
+        self.popup_window.dismiss()
+
+    def save_file(self,path,filename):
+        if 'callback' in self.popup_window.content.__dir__():
+            self.popup_window.content.callback(os.path.join(path, filename))
+        else:
+            print(os.path.join(path, filename))
 
         self.popup_window.dismiss()
 

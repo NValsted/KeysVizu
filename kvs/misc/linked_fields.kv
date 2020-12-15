@@ -1,0 +1,26 @@
+#:kivy 2.0.0
+
+<LinkedFieldsGroup>:
+    linked: self.linked
+    fields: self.fields
+
+    size_hint_y: None
+    size_hint_x: None
+    size: (0,0)
+
+<LinkedFieldsLock>:
+    state: 'down'
+    text: "lock"
+
+    on_press: self.toggle_lock()
+
+<LinkedNumericField>:
+    input_type: 'number'
+    input_filter: 'float'
+    
+    multiline: False
+
+    pos: root.pos
+    size: root.size
+
+    on_text_validate: self.group.update_group(self)

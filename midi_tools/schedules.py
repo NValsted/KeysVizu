@@ -10,6 +10,7 @@ class ScheduleMetaData():
     """
     Object for storing meta data of a note schedule
     """
+    file_path = None
     key_signature = None
     time_signature = None
     ticks_per_beat = None
@@ -53,6 +54,8 @@ class NoteSchedule():
         self.channels = {}
         
         self.midi_file = mido.MidiFile(midi_file_path)
+        self.schedule_meta_data.file_path = midi_file_path
+        
         self.__scan_meta_data()
         self.__parse_note_tracks()
         

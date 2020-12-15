@@ -1,0 +1,124 @@
+#:kivy 2.0.0
+
+<ExportSettings>:
+    text: "Export"
+    
+    wh_group: wh_group
+    export_path_icon_button: export_path_icon_button
+    export_path_text_button: export_path_text_button
+    
+    BoxLayout:
+        orientation: 'vertical'
+
+        BoxLayout:
+            id: tab_title_BoxL
+            orientation: 'horizontal'
+            size_hint_y: 0.05
+
+            Label:
+                text: "Export settings"
+                font_size: root.tab_title_font_size
+
+        BoxLayout:
+            id: tab_content_BoxL
+            orientation: 'vertical'
+            size_hint_y: 1-tab_title_BoxL.size_hint_y
+
+            BoxLayout:
+                orientation: 'horizontal'
+
+                LinkedFieldsGroup:
+                    id: wh_group
+
+                BoxLayout:
+                    orientation: 'vertical'
+
+                    Label:
+                        text: "Width:"
+
+                    Label:
+                        text: "Height:"
+
+                BoxLayout:
+                    orientation: 'vertical'
+
+                    LinkedNumericField:
+                        group: wh_group
+                        input_filter: 'int'
+                        
+                        value: root.VM.meta_data['width']
+                        text: str(self.value)
+
+                    LinkedNumericField:
+                        group: wh_group
+                        input_filter: 'int'
+                        
+                        value: root.VM.meta_data['height']
+                        text: str(self.value)
+
+                BoxLayout:
+                    orientation: 'vertical'
+
+                    Label:
+                        text: "px"
+
+                    Label:
+                        text: "px"
+
+                LinkedFieldsLock:
+                    group: wh_group
+
+            BoxLayout:
+                orientation: 'horizontal'
+
+                Label:
+                    text: "FPS:"
+                
+                TextInput:
+                    input_type: 'number'
+                    input_filter: 'float'
+
+                    text: str(root.VM.meta_data['FPS'])
+                    multiline: False
+
+                    on_text_validate: print("### remember to implement call to compute_derived_meta_data")
+
+            BoxLayout:
+                orientation: 'horizontal'
+
+                Label:
+                    text: "Format:"
+                
+                StaticDropdown:
+                    options: root.VM.formats
+
+            BoxLayout:
+                orientation: 'vertical'
+
+                Label:
+                    text: "EXPORT PATH"
+
+                BoxLayout:
+                    orientation: 'horizontal'
+
+                    HoverButton:
+                        id: export_path_icon_button
+                        text: "L"
+                        size_hint_x: 0.2
+                        on_press: root.select_export_path_location()
+
+                    Button:
+                        id: export_path_text_button
+                        text: root.export_path
+                        size_hint_x: 0.8
+                        background_color: (0,0,0,0)
+                        
+                        on_press: root.select_export_path_location()
+
+            Button:
+                size_hint_y: 3
+                text: "eyo"
+            
+            Button:
+                text: "Export"
+                on_release: root.export_video()

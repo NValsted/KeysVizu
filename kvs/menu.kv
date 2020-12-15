@@ -1,8 +1,11 @@
 #:kivy 2.0.0
+
 #:include kvs/misc/custom_buttons.kv
 #:include kvs/misc/browsers.kv
 #:include kvs/misc/numeric_setting.kv
 #:include kvs/misc/style_previews.kv
+#:include kvs/misc/linked_fields.kv
+#:include kvs/misc/custom_dropdowns.kv
 
 #:include kvs/settings_tabs/settings_tab.kv
 #:include kvs/settings_tabs/project_settings.kv
@@ -16,6 +19,7 @@
 <Menu>:
     project_settings: project_settings
     style_settings: style_settings
+    export_settings: export_settings
     tabbed_panel: tabbed_panel
 
     TabbedPanel:
@@ -29,6 +33,9 @@
 
         StyleSettings:
             id: style_settings
+
+        ExportSettings:
+            id: export_settings
 
         ProjectSettings:
             id: project_settings
