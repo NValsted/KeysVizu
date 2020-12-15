@@ -299,7 +299,7 @@ class Stage(Widget):
                 child.resize_children()
 
     def update(self,dt):
-        self.pianoroll.update(self.VM_reference.meta_data['refresh_rate']) #self.pianoroll.update(dt)
+        self.pianoroll.update(dt)
         self.keybed.update(dt)
 
 class ProjectTimeline(Widget):

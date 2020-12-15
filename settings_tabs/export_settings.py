@@ -22,7 +22,7 @@ class ExportSettings(SettingsTab):
     VM = video_manager.VideoManager(config['video']['tmp_imgs_location'],
                                     width=1920,
                                     height=1080,
-                                    FPS=10.0)#FPS=60.0)
+                                    FPS=60.0)
     VM.formats = [".avi",".bongo"] # temporary for testing the drop-down menu and similar functionality
 
     def select_export_path_location(self):
@@ -35,27 +35,22 @@ class ExportSettings(SettingsTab):
         self.export_path_text_button.text = export_path.split("/")[-1]
 
     def _update_stage(self,dt):
-        self.stage.update(dt)
+        self.stage.update(self.VM.meta_data['refresh_rate'])
         self.VM.add_image(self.stage)
-
-        self.TPS = self.stage.pianoroll.NS.schedule_meta_data.ticks_per_beat * self.stage.pianoroll.NS.get_BPM() / 60
+        
+        if self.stage.pianoroll.ticks_passed > (self.TPS*(self.stage.pianoroll.NS.schedule_meta_data.length+6)):
+            
+            self.stage_update_event.cancel()
+            self.VM.export_video(self.export_path)
+            print("Exporting finished")
 
     def export_video(self):
-        print("we exportin'")
+        print("Exporting...")
         
         self.stage.pianoroll.init_schedule(self.stage.pianoroll.NS.schedule_meta_data.file_path,
                                            self.menu.style_settings.channel_styles)
         
         self.VM.compute_derived_meta_data()
         
+        self.TPS = self.stage.pianoroll.NS.schedule_meta_data.ticks_per_beat * self.stage.pianoroll.NS.get_BPM() / 60
         self.stage_update_event = Clock.schedule_interval(self._update_stage, 1.0/60.0)
-        
-        self.TPS = 192
-        
-        while self.stage.pianoroll.ticks_passed < (self.TPS*(self.stage.pianoroll.NS.schedule_meta_data.length+6)):
-            pass
-        
-        self.stage_update_event.cancel()
-        self.VM.export_video(self.export_path)
-
-        print("we done")

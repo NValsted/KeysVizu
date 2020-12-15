@@ -29,17 +29,17 @@ class LinkedFieldsGroup(Widget):
         if self.linked:
             for field in self.fields:
                 if field != initiative_field: # needs to support float type as well
-                    field.value = self.update_rules[self.group_type](field.value,
-                                                                     initiative_field.value,
-                                                                     int(initiative_field.text))
+                    field.value[0] = self.update_rules[self.group_type](field.value[0],
+                                                                        initiative_field.value[0],
+                                                                        int(initiative_field.text))
                     
-                    field.value = int(round(field.value))
-                    field.text = str(field.value)
+                    field.value[0] = int(round(field.value[0]))
+                    field.text = str(field.value[0])
         else:
             print("not linked bro")
 
         #print(initiative_field.input_filter) # Could use this to support float type
-        initiative_field.value = int(initiative_field.text)
+        initiative_field.value[0] = int(initiative_field.text)
 
 class LinkedFieldsLock(ToggleButton):
     def toggle_lock(self):

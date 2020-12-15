@@ -20,12 +20,14 @@ class VideoManager():
         for k,v in kwargs.items():
             self.meta_data[k] = v
 
+        self.mutable_meta_data = {k:[v] for k,v in self.meta_data.items()}
         self.compute_derived_meta_data()
 
     def compute_derived_meta_data(self):
+        self.meta_data = {k:v[0] for k,v in self.mutable_meta_data.items()}
         self.meta_data["WH_ratio"] = self.meta_data["width"] // self.meta_data["height"]
         self.meta_data["refresh_rate"] = 1 / self.meta_data["FPS"]
-        
+
     def add_image(self,widget):
         filename = f"tmp_{self.img_counter}.png"
         output_size = (self.meta_data["width"], self.meta_data["height"])

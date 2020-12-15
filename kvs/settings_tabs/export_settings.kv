@@ -46,15 +46,15 @@
                         group: wh_group
                         input_filter: 'int'
                         
-                        value: root.VM.meta_data['width']
-                        text: str(self.value)
+                        value: root.VM.mutable_meta_data['width']
+                        text: str(self.value[0])
 
                     LinkedNumericField:
                         group: wh_group
                         input_filter: 'int'
                         
-                        value: root.VM.meta_data['height']
-                        text: str(self.value)
+                        value: root.VM.mutable_meta_data['height']
+                        text: str(self.value[0])
 
                 BoxLayout:
                     orientation: 'vertical'
@@ -78,10 +78,10 @@
                     input_type: 'number'
                     input_filter: 'float'
 
-                    text: str(root.VM.meta_data['FPS'])
+                    text: str(root.VM.mutable_meta_data['FPS'][0])
                     multiline: False
 
-                    on_text_validate: print("### remember to implement call to compute_derived_meta_data")
+                    on_text_validate: root.VM.mutable_meta_data['FPS'][0] = float(self.text)
 
             BoxLayout:
                 orientation: 'horizontal'
