@@ -387,7 +387,6 @@ class KeysVizuApp(App):
 def main():
     KeysVizu = KeysVizuApp()
     KeysVizu.run()
-    
 
 if __name__ == '__main__':
     main()
