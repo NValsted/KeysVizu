@@ -1,8 +1,5 @@
 # Implementation is based on Stam, J. (2003, March). Real-time fluid dynamics for games. In Proceedings of the game developer conference (Vol. 18, p. 25).
-# Memory and int-float conversion optimizations made based on section 5 of Possible optimizations to current technique in section 5 of Ash, M. (2005). Simulation and visualization of a 3d fluid. Master's thesis, Université d'Orléans France
-# These optimizations may not be directly transferable to Python. Need to check this.
-
-# Smoothed-particle hydrodynamics might be a viable improvement. Will have to look into it.
+import time
 
 class Fluid:
     N = None
@@ -62,8 +59,8 @@ class Fluid:
         recip_denom = 1 / (1 + 4*a)
 
         while iterations:
-            for j in range(1, self.N-1):
-                for i in range(1, self.N-1):
+            for i in range(1, self.N-1):
+                for j in range(1, self.N-1):
                     arr[i][j] = ( arr_prev[i][j] + a * ( arr[i-1][j] + arr[i+1][j]
                                                         +arr[i][j-1] + arr[i][j+1] ) ) * recip_denom
             self.__update_bounds(b,arr)
@@ -72,8 +69,8 @@ class Fluid:
     def __project(self): # Hodge decomposition black magic
         cell_length = 1/self.N
 
-        for j in range(1, self.N-1):
-            for i in range(1, self.N-1):
+        for i in range(1, self.N-1):
+            for j in range(1, self.N-1):
                 self.velocity_y_prev[i][j] = -0.5* ( self.velocity_x[i+1][j] - self.velocity_x[i-1][j]
                                                     +self.velocity_y[i][j+1] - self.velocity_y[i][j-1]) * cell_length
                 self.velocity_x_prev[i][j] = 0
@@ -82,8 +79,8 @@ class Fluid:
         self.__update_bounds(0, self.velocity_x_prev)
         self.__Gauss_Seidel(0, self.velocity_x_prev, self.velocity_y_prev, 1)
 
-        for j in range(1, self.N-1):
-            for i in range(1, self.N-1):
+        for i in range(1, self.N-1):
+            for j in range(1, self.N-1):
                 self.velocity_x[i][j] -= 0.5 * ( self.velocity_x_prev[i+1][j] - self.velocity_x_prev[i-1][j] ) * self.N
                 self.velocity_y[i][j] -= 0.5 * ( self.velocity_y_prev[i][j+1] - self.velocity_y_prev[i][j-1] ) * self.N
 
@@ -97,8 +94,8 @@ class Fluid:
     def __advect(self, b, arr, arr_prev):
         dt_scaled = self.dt * (self.N - 2)
 
-        for j in range(1, self.N-1):
-            for i in range(1, self.N-1):
+        for i in range(1, self.N-1):
+            for j in range(1, self.N-1):
                 x = i - dt_scaled * self.velocity_x[i][j]
                 y = j - dt_scaled * self.velocity_y[i][j]
                 
@@ -155,12 +152,11 @@ class Fluid:
         self.velocity_y, self.velocity_y_prev = self.velocity_y_prev, self.velocity_y #self.__swap(self.velocity_y, self.velocity_y_prev)
 
         self.__advect(1, self.velocity_x, self.velocity_x_prev)
-        self.__advect(1, self.velocity_y, self.velocity_y_prev)
+        self.__advect(2, self.velocity_y, self.velocity_y_prev)
 
         self.__project()
         
         # Update density field
-        
         self.density, self.density_prev = self.density_prev, self.density #self.__swap(self.density, self.density_prev)
         
         self.__diffuse(0, self.density, self.density_prev, self.diffusivity)
@@ -170,13 +166,17 @@ class Fluid:
         self.__advect(0, self.density, self.density_prev )
 
 def main():
-    FluidField = Fluid(5, 0.1, 0.1, 0.001)
+    FluidField = Fluid(64, 0.2, 0.1, 0.001)
     
-    for _ in range(5):
-        FluidField.add_velocity(2,2,1,1)
-        FluidField.iterate()
+    for u in range(5):
+        start = time.time()
 
-        print(FluidField.velocity_x)
+        for _ in range(100):
+            FluidField.add_velocity(31,31,100,100)
+            FluidField.add_density(31,31,2)
+            FluidField.iterate()
+
+        print(u, time.time()-start)
 
 if __name__ == '__main__':
     main()

@@ -18,7 +18,7 @@ class ParticleScene(FloatLayout):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         
-        self.FluidField = Fluid(32, 0.2, 0.001, 0.001)
+        self.FluidField = Fluid(32, 0.2, 0.1, 0.001)
         Clock.schedule_interval(lambda dt: self.update_field(),1/30)
 
     def update_field(self):
