@@ -3,17 +3,21 @@ cdef extern from "fluids_base.cpp":
 
 cdef extern from "fluids_base.h" namespace "fluid":
     cdef cppclass FluidField:
-        FluidField(int, double, double, double) except +
+        FluidField(int, double, double, double, double *) except +
         int N
         double diffusivity, viscosity, dt
-        double *density, *density_aux
-        double *velocity_x, *velocity_y
-        double *velocity_x_aux, *velocity_y_aux
+        double *density
+        double *density_aux
+        double *velocity_x
+        double *velocity_y
+        double *velocity_x_aux
+        double *velocity_y_aux
 
         int IDX(int, int)
         double getDensity(int, int)
         double getVelocityX(int, int)
         double getVelocityY(int, int)
+        void passArray(double *)
 
         void addDensity(int, int, double)
         void addVelocity(int, int, double, double)
