@@ -8,14 +8,14 @@ using namespace fluid;
 
 #define SWAP(arr_aux,arr) {double *tmp=arr_aux; arr_aux=arr; arr=tmp;}
 
-FluidField::FluidField(int a, double b, double c, double d, double *densityArray)
+FluidField::FluidField(int a, double b, double c, double d)
 {
     N = a;
     diffusivity = b;
     viscosity = c;
     dt = d;
 
-    density = densityArray;
+    density = new double[N*N];
     density_aux = new double[N*N];
 
     velocity_x = new double[N*N];
@@ -53,15 +53,6 @@ double FluidField::getVelocityX(int i, int j)
 double FluidField::getVelocityY(int i, int j)
 {
     return velocity_y[IDX(i,j)];
-};
-
-void FluidField::passArray(double *someArray)
-{
-    
-    for (int i = 0; i<5; i++)
-    {
-        someArray[i]++;
-    }
 };
 
 void FluidField::addDensity(int x, int y, double amount)

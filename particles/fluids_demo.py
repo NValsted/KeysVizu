@@ -11,28 +11,46 @@ from kivy.graphics import Color, Rectangle
 from base import fluids_base_ext
 
 import random
-globalFluidField = fluids_base_ext.pyFluidField(64,0.2,0.1,0.001)
 
-class ParticleScene(FloatLayout):
+N = 64
+globalFluidField = fluids_base_ext.pyFluidField(N,0.01,0.01,0.01)
+
+class FluidScene(FloatLayout):
     
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         
-        self.FluidField = globalFluidField #Fluid(32, 0.2, 0.1, 0.001)
+        self.FluidField = globalFluidField
         Clock.schedule_interval(lambda dt: self.update_field(),1/30)
+
+        self.square_val = {}
+        for j in range(N):
+            for i in range(N):
+                self.square_val[f"{i},{j}"] = 0
         
     def update_field(self):
-        self.FluidField.add_velocity(31,31,random.randint(-100,100),random.randint(-100,100))
-        self.FluidField.add_density(31,31,3)
-        self.FluidField.iterate() # Benchmark fps without drawing to gauge performance if get_density gets improved - https://gist.github.com/GaelVaroquaux/1249305
+        self.FluidField.add_velocity(N//2,N//2,random.randint(-100,100),random.randint(-100,100))
+        self.FluidField.add_density(N//2,N//2,10)
+        self.FluidField.iterate()
 
-        self.canvas.clear()
+        if random.randint(0,100) == 69:
+            self.canvas.clear()
+            for j in range(N):
+                for i in range(N):
+                    self.square_val[f"{i},{j}"] = 0
+
         with self.canvas:
-            for j in range(64):
-                for i in range(64):
-                    Color(0,0,self.FluidField.get_density(i,j),1)
-                    Rectangle(pos=(i*10,j*10),size=(10,10))
+            for j in range(N):
+                for i in range(N):
+                    # Look into this https://kivy.org/doc/stable/api-kivy.graphics.texture.html
+                    # Introduced a scuffed way to detect what rectangles change significantly and only redraw those
+                    if abs(self.FluidField.get_density(i,j) - self.square_val[f"{i},{j}"]) > 0.05:
+                        Color(0,0,self.FluidField.get_density(i,j),1) 
+                        Rectangle(pos=(i*10,j*10),size=(10,10))
+                        self.square_val[f"{i},{j}"] = self.FluidField.get_density(i,j)
+                    
     
+
     def on_touch_down(self,touch):
         self.touch_down_pos = touch.pos
 

@@ -13,14 +13,13 @@ namespace fluid {
             double *velocity_x, *velocity_y;
             double *velocity_x_aux, *velocity_y_aux;
 
-            FluidField(int a, double b, double c, double d, double *densityArray);
+            FluidField(int a, double b, double c, double d);
             ~FluidField();
 
             int IDX(int i, int j);
             double getDensity(int i, int j);
             double getVelocityX(int i, int j);
             double getVelocityY(int i, int j);
-            void passArray(double *someArray);
 
             void addDensity(int x, int y, double amount);
             void addVelocity(int x, int y, double amountX, double amountY);
