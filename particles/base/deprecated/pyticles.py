@@ -2,7 +2,7 @@ import numpy as np
 import time
 from collections import deque
 
-#import fluids
+from . import fluids
 
 class Particle:
     coords = [] # x,y
@@ -17,9 +17,10 @@ class Particle:
 
 class ParticleSystem:
     particles = deque()
+    fluid = None
 
-    def __init__(self):
-        pass
+    def __init__(self,fluid):
+        self.fluid = fluid
 
     def spawn_particles(self,N = 1,
                         angle = 0, speed = 1, size = 1,
@@ -47,11 +48,28 @@ class ParticleSystem:
         for particle in self.particles:
             if particle.age > 42:
                 to_be_popped_count += 1
-
+            
+            particle.velocity[0] += self.fluid.velocity_x[int(particle.coords[0])+32][int(particle.coords[1])+32]
+            particle.velocity[1] += self.fluid.velocity_y[int(particle.coords[0])+32][int(particle.coords[1])+32]
+            
             particle.velocity[0] -= (particle.velocity[0] * 0.05) # drag
-            particle.velocity[1] -= (particle.velocity[1] * 0.05) # drag
+            particle.velocity[1] -= (particle.velocity[1] * 0.05) # drag 
+
             particle.coords[0] += particle.velocity[0]
             particle.coords[1] += particle.velocity[1]
+            
+            if particle.coords[0] > 31:
+                particle.coords[0] = 31
+
+            if particle.coords[1] > 31:
+                particle.coords[1] = 31
+
+            if particle.coords[0] < -32:
+                particle.coords[0] = -32
+
+            if particle.coords[1] < -32:
+                particle.coords[1] = -32
+
             particle.age += 1
 
         while to_be_popped_count:
@@ -60,13 +78,11 @@ class ParticleSystem:
 
 
 def main():
-    FluidField = fluids.Fluid(32,0.01,0.01,0.01)
-    FluidField.iterate()
+    FluidField = fluids.Fluid(64,0.01,0.01,0.01)
 
-    particle_system = ParticleSystem()
+    particle_system = ParticleSystem(FluidField)
     particle_system.spawn_particles(N=3)
     for i in range(100):
-        
         
         print("At iteration:", i)
         for p in particle_system.particles:
