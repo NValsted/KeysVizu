@@ -1,7 +1,7 @@
 cdef extern from "fluids_base.cpp":
     pass
 
-cdef extern from "fluids_base.h" namespace "fluid":
+cdef extern from "fluids_base.h" namespace "fluids":
     cdef cppclass FluidField:
         FluidField(int, double, double, double) except +
         int N

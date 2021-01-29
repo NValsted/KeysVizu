@@ -4,7 +4,7 @@
 #include "fluids_base.h"
 
 using namespace std;
-using namespace fluid;
+using namespace fluids;
 
 #define SWAP(arr_aux,arr) {double *tmp=arr_aux; arr_aux=arr; arr=tmp;}
 
@@ -221,19 +221,3 @@ void FluidField::advect(int b, double *arr, double *arr_aux)
     }
     updateBounds(b,arr);
 };
-
-int main()
-{
-    /*
-    FluidField FF(32,0.2,0.1,0.001);
-    
-    for (int u = 0; u < 10; u++)
-    {
-        FF.addVelocity(15,15,0.5,0.5);    
-        FF.iterate();
-
-        cout << u << " " << FF.velocity_x[FF.IDX(15,15)] << '\n';
-    }
-    */
-    return 0;
-}

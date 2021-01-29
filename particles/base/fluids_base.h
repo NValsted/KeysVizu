@@ -1,7 +1,7 @@
 #ifndef FLUIDF
 #define FLUIDF
 
-namespace fluid {
+namespace fluids {
     class FluidField
     {
         public:

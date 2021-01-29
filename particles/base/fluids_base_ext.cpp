@@ -1350,7 +1350,7 @@ typedef npy_cdouble __pyx_t_5numpy_complex_t;
  */
 struct __pyx_obj_15fluids_base_ext_pyFluidField {
   PyObject_HEAD
-  fluid::FluidField *c_FF;
+  fluids::FluidField *c_FF;
 };
 
 /* #### Code section: utility_code_proto ### */
@@ -2707,7 +2707,7 @@ static int __pyx_pw_15fluids_base_ext_12pyFluidField_1__cinit__(PyObject *__pyx_
 static int __pyx_pf_15fluids_base_ext_12pyFluidField___cinit__(struct __pyx_obj_15fluids_base_ext_pyFluidField *__pyx_v_self, int __pyx_v_a, double __pyx_v_b, double __pyx_v_c, double __pyx_v_d) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
-  fluid::FluidField *__pyx_t_1;
+  fluids::FluidField *__pyx_t_1;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -2721,7 +2721,7 @@ static int __pyx_pf_15fluids_base_ext_12pyFluidField___cinit__(struct __pyx_obj_
  *     def __dealloc__(self):
  */
   try {
-    __pyx_t_1 = new fluid::FluidField(__pyx_v_a, __pyx_v_b, __pyx_v_c, __pyx_v_d);
+    __pyx_t_1 = new fluids::FluidField(__pyx_v_a, __pyx_v_b, __pyx_v_c, __pyx_v_d);
   } catch(...) {
     __Pyx_CppExn2PyErr();
     __PYX_ERR(1, 12, __pyx_L1_error)
