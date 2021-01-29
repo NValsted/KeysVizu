@@ -22,9 +22,9 @@ Particle::~Particle()
     //delete [] velocity;
 };
 
-ParticleSystem::ParticleSystem(fluids::FluidField *F, double d = 0.5)
+ParticleSystem::ParticleSystem(fluids::FluidField *FF, double d = 0.5)
 {
-    Fluid = F;
+    fluid = FF;
     drag_coef = d;
     randomGenerator.seed(time(nullptr));
 };
@@ -60,26 +60,27 @@ void ParticleSystem::spawnParticles(int N,
     }
 };
 
+
 void ParticleSystem::enforceBoundaries(Particle &p)
 {
-    if (p.coords[0] > ((Fluid->N) >> 1) ) { p.coords[0] = (Fluid->N) >> 1; } // might need ((Fluid->N) >> 1) - 1
-    if (p.coords[1] > ((Fluid->N) >> 1) ) { p.coords[1] = (Fluid->N) >> 1; }
-    if (p.coords[0] < -((Fluid->N) >> 1) ) { p.coords[0] = -(Fluid->N) >> 1; }
-    if (p.coords[1] < -((Fluid->N) >> 1) ) { p.coords[1] = -(Fluid->N) >> 1; }
+    if (p.coords[0] > ((fluid->N) >> 1) ) { p.coords[0] = (fluid->N) >> 1; } // might need ((fluid->N) >> 1) - 1
+    if (p.coords[1] > ((fluid->N) >> 1) ) { p.coords[1] = (fluid->N) >> 1; }
+    if (p.coords[0] < -((fluid->N) >> 1) ) { p.coords[0] = -(fluid->N) >> 1; }
+    if (p.coords[1] < -((fluid->N) >> 1) ) { p.coords[1] = -(fluid->N) >> 1; }
 };
 
 void ParticleSystem::updateVelocity(Particle &p)
 {
-    int i = int(p.coords[0]) + ( (Fluid->N) >> 1 );
-    int j = int(p.coords[1]) + ( (Fluid->N) >> 1 );
+    int i = int(p.coords[0]) + ( (fluid->N) >> 1 );
+    int j = int(p.coords[1]) + ( (fluid->N) >> 1 );
 
     // advection
-    p.velocity[0] += Fluid->velocity_x[ Fluid->IDX(i,j) ];
-    p.velocity[1] += Fluid->velocity_y[ Fluid->IDX(i,j) ];
+    p.velocity[0] += fluid->velocity_x[ fluid->IDX(i,j) ];
+    p.velocity[1] += fluid->velocity_y[ fluid->IDX(i,j) ];
 
     // drag
-    p.velocity[0] -= (p.velocity[0] * Fluid->viscosity * drag_coef);
-    p.velocity[1] -= (p.velocity[1] * Fluid->viscosity * drag_coef);
+    p.velocity[0] -= (p.velocity[0] * fluid->viscosity * drag_coef);
+    p.velocity[1] -= (p.velocity[1] * fluid->viscosity * drag_coef);
 };
 
 void ParticleSystem::updatePosition(Particle &p)
@@ -100,6 +101,9 @@ void ParticleSystem::removeDeadParticles(int n)
 void ParticleSystem::iterate()
 {
     int deadParticles = 0;
+
+    fluid->iterate();
+
     for (auto particle : particles)
     {
         if ((*particle).age > 42)
@@ -107,6 +111,7 @@ void ParticleSystem::iterate()
             deadParticles++;
             continue;
         }
+
         updateVelocity(*particle);
         updatePosition(*particle);
         (*particle).age++;
@@ -117,7 +122,7 @@ void ParticleSystem::iterate()
 
 int main()
 {
-    fluids::FluidField FF(32,0.01,0.01,0.01);
+    fluids::FluidField FF(32,0.1,0.1,0.1);
     ParticleSystem PS(&FF);
 
     PS.spawnParticles(3,0,1,1,0.1,0.1,0.1);
@@ -130,6 +135,5 @@ int main()
         cout << (*PS.particles[0]).coords[0] << endl;    
     }
     
-
     return 0;
 }

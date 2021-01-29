@@ -1,9 +1,9 @@
 #ifndef PARTICLESYS
 #define PARTICLESYS
 
-#include "base/fluids_base.h"
 #include <random>
 #include <deque>
+#include "base/fluids_base.h"
 
 namespace particles {
     
@@ -24,7 +24,7 @@ namespace particles {
         public:
             std::deque<Particle*> particles;
 
-            ParticleSystem(fluids::FluidField *F, double d);
+            ParticleSystem(fluids::FluidField *FF, double d);
             ~ParticleSystem();
 
             void spawnParticles(int N,
@@ -34,7 +34,7 @@ namespace particles {
             void iterate();
 
         private:
-            fluids::FluidField *Fluid;
+            fluids::FluidField *fluid;
             double drag_coef;
             std::default_random_engine randomGenerator;
 
