@@ -8,6 +8,7 @@
 			"args": [
 				"-g",
 				"${file}",
+				"${fileDirname}\\base\\fluids_base.cpp",
 				"-o",
 				"${fileDirname}\\${fileBasenameNoExtension}.exe"
 			],

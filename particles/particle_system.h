@@ -28,9 +28,9 @@ namespace particles {
             ~ParticleSystem();
 
             void spawnParticles(int N,
-                                double angle, double speed, double size,
-                                double angleSpread, double speedSpread,
-                                double sizeSpread, char distribution);
+                                double angle, double speed, double size, double position[2],
+                                double angleSpread, double speedSpread, double sizeSpread,
+                                double positionSpread[2], char distribution);
             void iterate();
 
         private:

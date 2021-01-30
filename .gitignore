@@ -130,7 +130,7 @@ dmypy.json
 
 # video files and temporary images
 /video_tools/tmp_imgs/*.png
-/video_tools/videos/*
+/video_tools/videos/*.*
 
 # midi files
 /midi_data/*.mid

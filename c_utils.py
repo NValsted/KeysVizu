@@ -1,3 +1,4 @@
+# This script should be renamed
 import json
 
 def load_json(filename):
