@@ -26,7 +26,11 @@ from kivy.graphics import Color, Rectangle
 # Built-in python libraries
 import os
 import time
+import random
 from collections import deque
+
+# Third-party libraries
+import numpy as np
 
 # Custom libraries
 from midi_tools import schedules
@@ -41,6 +45,7 @@ from misc.custom_dropdowns import *
 from settings_tabs.project_settings import ProjectSettings 
 from settings_tabs.style_settings import StyleSettings
 from settings_tabs.export_settings import ExportSettings
+from settings_tabs.particles_settings import ParticlesSettings
 
 class PianoKey(Widget):
     note = StringProperty(None)
@@ -185,10 +190,12 @@ class PianoNote(Widget):
 
 class PianoRoll(Widget):
     note_lookup = c_utils.load_json(config['theory']['note_lookup_location'])
-    
+
     NS = None
     note_widgets = None
     ticks_passed = 0
+
+    PSM_reference = None
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -276,6 +283,8 @@ class PianoRoll(Widget):
                 corresponding_key.canvas.clear()
                 corresponding_key.canvas.add(Color(*child.color[:-1]) )
                 corresponding_key.canvas.add(Rectangle(size=corresponding_key.size,pos=corresponding_key.pos))
+                
+                self.PSM_reference.spawn_particles((corresponding_key.center_x,corresponding_key.top))
 
             child.y -= TPS*dt # Use this to adjust speed and then use fixed note size
         
@@ -291,16 +300,47 @@ class PianoRoll(Widget):
 class Stage(Widget):
     keybed = ObjectProperty(None)
     pianoroll = ObjectProperty(None)
+    
+    #fluid_N = 64
+    #particle_system = pse.PyMasterParticleSystem(2,fluid_N,0.01,0.01,0.01)
+    #active_particles = []
+    
     VM_reference = None
+    PSM_reference = None
 
     def resize_children(self):
         for child in self.children:
             if 'resize_children' in child.__dir__():
                 child.resize_children()
 
+    """
+    def _test_PS(self):
+        self.particle_system.spawn_particles(3,
+                                             0,1.5,2,np.array([0,0],dtype=np.float64),
+                                             3.14,1.5,0.5,np.array([0,0],dtype=np.float64),
+                                             ord('u'[0]))
+        self.particle_system.iterate()
+
+        while self.active_particles:
+            self.canvas.remove(self.active_particles.pop()) 
+        
+        for i in range(self.particle_system.get_number_of_particles()):
+            particle_coords = self.particle_system.get_particle_coords(i)
+            particle_size = self.particle_system.get_particle_size(i)
+            particle_age = self.particle_system.get_particle_age(i)
+
+            particle_col = Color(random.random(),(42-particle_age)/42,1,(42-particle_age)/42)
+            particle_rect = Rectangle(pos=((particle_coords[0]*10)+400,(particle_coords[1]*10)+500),size=(particle_size,particle_size))
+            self.canvas.add(particle_col)
+            self.canvas.add(particle_rect)
+            self.active_particles.append(particle_col)
+            self.active_particles.append(particle_rect)
+    """
+
     def update(self,dt):
         self.pianoroll.update(dt)
         self.keybed.update(dt)
+        self.PSM_reference.update()
 
 class ProjectTimeline(Widget):
     stage = ObjectProperty(None)
@@ -318,6 +358,7 @@ class ProjectTimeline(Widget):
 class Menu(Widget):
     project_settings = ObjectProperty(None)
     style_settings = ObjectProperty(None)
+    particles_settings = ObjectProperty(None)
     export_settings = ObjectProperty(None)
     tabbed_panel = ObjectProperty(None)
 
@@ -361,6 +402,9 @@ class Workbench(Widget):
         self.project_timeline.stage = self.stage
         
         self.stage.VM_reference = self.menu.export_settings.VM
+        self.stage.PSM_reference = self.menu.particles_settings.PSM
+        self.stage.PSM_reference.stage = self.stage
+        self.stage.pianoroll.PSM_reference = self.menu.particles_settings.PSM
 
     def __init_stage(self):
         Clock.schedule_once(lambda dt: self.stage.keybed.draw_keybed())

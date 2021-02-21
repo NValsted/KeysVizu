@@ -1,0 +1,28 @@
+#:kivy 2.0.0
+
+<ParticlesSettings>
+
+    text: "Particles"
+
+    BoxLayout:
+        orientation: 'vertical'
+
+        BoxLayout:
+            id: tab_title_BoxL
+            orientation: 'horizontal'
+            size_hint_y: 0.05
+
+            Label:
+                text: "Particles settings"
+                font_size: root.tab_title_font_size
+
+        BoxLayout:
+            id: tab_content_BoxL
+            orientation: 'vertical'
+            size_hint_y: 1-tab_title_BoxL.size_hint_y
+            
+            ToggleButton:
+                text: "enable particles"
+
+            Label:
+                text: "chonk"

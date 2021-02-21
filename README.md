@@ -8,6 +8,7 @@ KeysVizu is a work-in-progress open-source application that visualizes MIDI file
 The application is Python-based and has only been tested on Python 3.8.5 so far. Certain heavy-lifting is done in C++ where Cython is used to create Python bindings.
 - Kivy 2.0.0
 - mido 1.2.9
+- NumPy 1.19.2
 - OpenCV 4.0.1 *might migrate to ffmpeg for video export
 - Cython 3.0
 

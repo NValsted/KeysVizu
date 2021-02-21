@@ -11,6 +11,7 @@
 #:include kvs/settings_tabs/project_settings.kv
 #:include kvs/settings_tabs/style_settings.kv
 #:include kvs/settings_tabs/export_settings.kv
+#:include kvs/settings_tabs/particles_settings.kv
 
 <TabbedPanelHeader>:
     background_normal: 'UI/menu/testB.png'
@@ -19,6 +20,7 @@
 <Menu>:
     project_settings: project_settings
     style_settings: style_settings
+    particles_settings: particles_settings
     export_settings: export_settings
     tabbed_panel: tabbed_panel
 
@@ -33,6 +35,9 @@
 
         StyleSettings:
             id: style_settings
+
+        ParticlesSettings:
+            id: particles_settings
 
         ExportSettings:
             id: export_settings
