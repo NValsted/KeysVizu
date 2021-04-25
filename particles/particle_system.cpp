@@ -22,10 +22,11 @@ Particle::~Particle()
     //delete [] velocity;
 };
 
-ParticleSystem::ParticleSystem(fluids::FluidField *FF, double d = 0.5)
+ParticleSystem::ParticleSystem(fluids::FluidField *FF, double d = 0.5, int lt = 50)
 {
     fluid = FF;
     drag_coef = d;
+    lifetime = lt;
     randomGenerator.seed(time(nullptr));
 };
 
@@ -111,7 +112,7 @@ void ParticleSystem::iterate()
 
     for (auto particle : particles)
     {
-        if ((*particle).age > 42)
+        if ((*particle).age > lifetime)
         {
             deadParticles++;
             continue;

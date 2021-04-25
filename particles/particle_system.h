@@ -24,7 +24,7 @@ namespace particles {
         public:
             std::deque<Particle*> particles;
 
-            ParticleSystem(fluids::FluidField *FF, double d);
+            ParticleSystem(fluids::FluidField *FF, double d, int lt);
             ~ParticleSystem();
 
             void spawnParticles(int N,
@@ -36,6 +36,7 @@ namespace particles {
         private:
             fluids::FluidField *fluid;
             double drag_coef;
+            int lifetime;
             std::default_random_engine randomGenerator;
 
             void enforceBoundaries(Particle &p);

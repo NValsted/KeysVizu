@@ -1,7 +1,13 @@
 #:kivy 2.0.0
 
 <ParticlesSettings>
-
+    spawn_N_slider: spawn_N_slider
+    angle_slider: angle_slider
+    speed_slider: speed_slider
+    size_slider: size_slider
+    angle_spread_slider: angle_spread_slider
+    speed_spread_slider: speed_spread_slider
+    size_spread_slider: size_spread_slider
     text: "Particles"
 
     BoxLayout:
@@ -23,6 +29,63 @@
             
             ToggleButton:
                 text: "enable particles"
+                on_press: root.toggle_particles(self.state)
+
+            NumericSliderSetting:
+                id: spawn_N_slider
+                label_text: "Particles per spawn"
+                slider_bounds: [1,10]
+                step: 1
+                callback: root.change_slider_setting
+                callback_args: ("spawn/N",self.slider)
+
+            NumericSliderSetting:
+                id: angle_slider
+                label_text: "Angle"
+                slider_bounds: [0,6.28]
+                step: 0.01
+                callback: root.change_slider_setting
+                callback_args: ("spawn/angle",self.slider)
+            
+            NumericSliderSetting:
+                id: speed_slider
+                label_text: "Speed"
+                slider_bounds: [0,10]
+                step: 0.01
+                callback: root.change_slider_setting
+                callback_args: ("spawn/speed",self.slider)
+
+            NumericSliderSetting:
+                id: size_slider
+                label_text: "Size"
+                slider_bounds: [0,10]
+                step: 0.1
+                callback: root.change_slider_setting
+                callback_args: ("spawn/size",self.slider)
+
+            NumericSliderSetting:
+                id: angle_spread_slider
+                label_text: "Angle spread"
+                slider_bounds: [0,6.28]
+                step: 0.01
+                callback: root.change_slider_setting
+                callback_args: ("spawn/angle_spread",self.slider)
+
+            NumericSliderSetting:
+                id: speed_spread_slider
+                label_text: "Speed spread"
+                slider_bounds: [0,10]
+                step: 0.01
+                callback: root.change_slider_setting
+                callback_args: ("spawn/speed_spread",self.slider)
+
+            NumericSliderSetting:
+                id: size_spread_slider
+                label_text: "Size spread"
+                slider_bounds: [0,10]
+                step: 0.1
+                callback: root.change_slider_setting
+                callback_args: ("spawn/size_spread",self.slider)
 
             Label:
                 text: "chonk"

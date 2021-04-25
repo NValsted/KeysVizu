@@ -1216,8 +1216,8 @@ struct __pyx_obj_19particle_system_ext_PyMasterParticleSystem {
  *         self.c_PS.iterate()
  * 
  * cdef class PySlaveParticleSystem(ParticleSystemInterface):             # <<<<<<<<<<<<<<
- *     def __cinit__(self,int d, PyMasterParticleSystem master):
- *         self.c_PS = new ParticleSystem(master.c_FF,d)
+ *     def __cinit__(self, int d, int lt, PyMasterParticleSystem master):
+ *         self.c_PS = new ParticleSystem(master.c_FF,d,lt)
  */
 struct __pyx_obj_19particle_system_ext_PySlaveParticleSystem {
   struct __pyx_obj_19particle_system_ext_ParticleSystemInterface __pyx_base;
@@ -2279,6 +2279,7 @@ static const char __pyx_k__3[] = "*";
 static const char __pyx_k__6[] = "'";
 static const char __pyx_k__7[] = ")";
 static const char __pyx_k_id[] = "id";
+static const char __pyx_k_lt[] = "lt";
 static const char __pyx_k_IDX[] = "IDX";
 static const char __pyx_k__53[] = "?";
 static const char __pyx_k_and[] = " and ";
@@ -2536,6 +2537,7 @@ static PyObject *__pyx_n_s_itemsize;
 static PyObject *__pyx_kp_s_itemsize_0_for_cython_array;
 static PyObject *__pyx_n_s_iterate;
 static PyObject *__pyx_n_s_j;
+static PyObject *__pyx_n_s_lt;
 static PyObject *__pyx_n_s_main;
 static PyObject *__pyx_n_s_master;
 static PyObject *__pyx_n_s_memview;
@@ -2602,7 +2604,7 @@ static PyObject *__pyx_pf_19particle_system_ext_23ParticleSystemInterface_12get_
 static PyObject *__pyx_pf_19particle_system_ext_23ParticleSystemInterface_14get_particle_age(struct __pyx_obj_19particle_system_ext_ParticleSystemInterface *__pyx_v_self, PyObject *__pyx_v_particle_idx); /* proto */
 static PyObject *__pyx_pf_19particle_system_ext_23ParticleSystemInterface_16__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_19particle_system_ext_ParticleSystemInterface *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_19particle_system_ext_23ParticleSystemInterface_18__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_19particle_system_ext_ParticleSystemInterface *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state); /* proto */
-static int __pyx_pf_19particle_system_ext_22PyMasterParticleSystem___cinit__(struct __pyx_obj_19particle_system_ext_PyMasterParticleSystem *__pyx_v_self, int __pyx_v_d, int __pyx_v_FF_N, double __pyx_v_FF_diffusivity, double __pyx_v_FF_viscosity, double __pyx_v_FF_dt); /* proto */
+static int __pyx_pf_19particle_system_ext_22PyMasterParticleSystem___cinit__(struct __pyx_obj_19particle_system_ext_PyMasterParticleSystem *__pyx_v_self, int __pyx_v_d, int __pyx_v_lt, int __pyx_v_FF_N, double __pyx_v_FF_diffusivity, double __pyx_v_FF_viscosity, double __pyx_v_FF_dt); /* proto */
 static void __pyx_pf_19particle_system_ext_22PyMasterParticleSystem_2__dealloc__(struct __pyx_obj_19particle_system_ext_PyMasterParticleSystem *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_19particle_system_ext_22PyMasterParticleSystem_4IDX(struct __pyx_obj_19particle_system_ext_PyMasterParticleSystem *__pyx_v_self, int __pyx_v_i, int __pyx_v_j); /* proto */
 static PyObject *__pyx_pf_19particle_system_ext_22PyMasterParticleSystem_6get_density(struct __pyx_obj_19particle_system_ext_PyMasterParticleSystem *__pyx_v_self, int __pyx_v_i, int __pyx_v_j); /* proto */
@@ -2613,7 +2615,7 @@ static PyObject *__pyx_pf_19particle_system_ext_22PyMasterParticleSystem_14add_v
 static PyObject *__pyx_pf_19particle_system_ext_22PyMasterParticleSystem_16iterate(struct __pyx_obj_19particle_system_ext_PyMasterParticleSystem *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_19particle_system_ext_22PyMasterParticleSystem_18__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_19particle_system_ext_PyMasterParticleSystem *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_19particle_system_ext_22PyMasterParticleSystem_20__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_19particle_system_ext_PyMasterParticleSystem *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state); /* proto */
-static int __pyx_pf_19particle_system_ext_21PySlaveParticleSystem___cinit__(struct __pyx_obj_19particle_system_ext_PySlaveParticleSystem *__pyx_v_self, int __pyx_v_d, struct __pyx_obj_19particle_system_ext_PyMasterParticleSystem *__pyx_v_master); /* proto */
+static int __pyx_pf_19particle_system_ext_21PySlaveParticleSystem___cinit__(struct __pyx_obj_19particle_system_ext_PySlaveParticleSystem *__pyx_v_self, int __pyx_v_d, int __pyx_v_lt, struct __pyx_obj_19particle_system_ext_PyMasterParticleSystem *__pyx_v_master); /* proto */
 static void __pyx_pf_19particle_system_ext_21PySlaveParticleSystem_2__dealloc__(struct __pyx_obj_19particle_system_ext_PySlaveParticleSystem *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_19particle_system_ext_21PySlaveParticleSystem_4__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_19particle_system_ext_PySlaveParticleSystem *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_19particle_system_ext_21PySlaveParticleSystem_6__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_19particle_system_ext_PySlaveParticleSystem *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state); /* proto */
@@ -2859,6 +2861,7 @@ typedef struct {
   PyObject *__pyx_kp_s_itemsize_0_for_cython_array;
   PyObject *__pyx_n_s_iterate;
   PyObject *__pyx_n_s_j;
+  PyObject *__pyx_n_s_lt;
   PyObject *__pyx_n_s_main;
   PyObject *__pyx_n_s_master;
   PyObject *__pyx_n_s_memview;
@@ -3120,6 +3123,7 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_kp_s_itemsize_0_for_cython_array);
   Py_CLEAR(clear_module_state->__pyx_n_s_iterate);
   Py_CLEAR(clear_module_state->__pyx_n_s_j);
+  Py_CLEAR(clear_module_state->__pyx_n_s_lt);
   Py_CLEAR(clear_module_state->__pyx_n_s_main);
   Py_CLEAR(clear_module_state->__pyx_n_s_master);
   Py_CLEAR(clear_module_state->__pyx_n_s_memview);
@@ -3368,6 +3372,7 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_kp_s_itemsize_0_for_cython_array);
   Py_VISIT(traverse_module_state->__pyx_n_s_iterate);
   Py_VISIT(traverse_module_state->__pyx_n_s_j);
+  Py_VISIT(traverse_module_state->__pyx_n_s_lt);
   Py_VISIT(traverse_module_state->__pyx_n_s_main);
   Py_VISIT(traverse_module_state->__pyx_n_s_master);
   Py_VISIT(traverse_module_state->__pyx_n_s_memview);
@@ -3613,6 +3618,7 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_kp_s_itemsize_0_for_cython_array __pyx_mstate_global->__pyx_kp_s_itemsize_0_for_cython_array
 #define __pyx_n_s_iterate __pyx_mstate_global->__pyx_n_s_iterate
 #define __pyx_n_s_j __pyx_mstate_global->__pyx_n_s_j
+#define __pyx_n_s_lt __pyx_mstate_global->__pyx_n_s_lt
 #define __pyx_n_s_main __pyx_mstate_global->__pyx_n_s_main
 #define __pyx_n_s_master __pyx_mstate_global->__pyx_n_s_master
 #define __pyx_n_s_memview __pyx_mstate_global->__pyx_n_s_memview
@@ -4792,7 +4798,7 @@ static PyObject *__pyx_pf_19particle_system_ext_23ParticleSystemInterface_18__se
 /* "particle_system_ext.pyx":46
  *     cdef deque[Particle*] pdeque
  * 
- *     def __cinit__(self, int d,             # <<<<<<<<<<<<<<
+ *     def __cinit__(self, int d, int lt,             # <<<<<<<<<<<<<<
  *                   int FF_N, double FF_diffusivity,
  *                   double FF_viscosity,double FF_dt):
  */
@@ -4801,6 +4807,7 @@ static PyObject *__pyx_pf_19particle_system_ext_23ParticleSystemInterface_18__se
 static int __pyx_pw_19particle_system_ext_22PyMasterParticleSystem_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
 static int __pyx_pw_19particle_system_ext_22PyMasterParticleSystem_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   int __pyx_v_d;
+  int __pyx_v_lt;
   int __pyx_v_FF_N;
   double __pyx_v_FF_diffusivity;
   double __pyx_v_FF_viscosity;
@@ -4815,14 +4822,16 @@ static int __pyx_pw_19particle_system_ext_22PyMasterParticleSystem_1__cinit__(Py
   __Pyx_RefNannySetupContext("__cinit__ (wrapper)", 0);
   {
     #if CYTHON_COMPILING_IN_LIMITED_API
-    PyObject **__pyx_pyargnames[] = {&__pyx_n_s_d,&__pyx_n_s_FF_N,&__pyx_n_s_FF_diffusivity,&__pyx_n_s_FF_viscosity,&__pyx_n_s_FF_dt,0};
+    PyObject **__pyx_pyargnames[] = {&__pyx_n_s_d,&__pyx_n_s_lt,&__pyx_n_s_FF_N,&__pyx_n_s_FF_diffusivity,&__pyx_n_s_FF_viscosity,&__pyx_n_s_FF_dt,0};
     #else
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_d,&__pyx_n_s_FF_N,&__pyx_n_s_FF_diffusivity,&__pyx_n_s_FF_viscosity,&__pyx_n_s_FF_dt,0};
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_d,&__pyx_n_s_lt,&__pyx_n_s_FF_N,&__pyx_n_s_FF_diffusivity,&__pyx_n_s_FF_viscosity,&__pyx_n_s_FF_dt,0};
     #endif
-    PyObject* values[5] = {0,0,0,0,0};
+    PyObject* values[6] = {0,0,0,0,0,0};
     if (__pyx_kwds) {
       Py_ssize_t kw_args;
       switch (__pyx_nargs) {
+        case  6: values[5] = __Pyx_Arg_VARARGS(__pyx_args, 5);
+        CYTHON_FALLTHROUGH;
         case  5: values[4] = __Pyx_Arg_VARARGS(__pyx_args, 4);
         CYTHON_FALLTHROUGH;
         case  4: values[3] = __Pyx_Arg_VARARGS(__pyx_args, 3);
@@ -4844,38 +4853,45 @@ static int __pyx_pw_19particle_system_ext_22PyMasterParticleSystem_1__cinit__(Py
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
-        if (likely((values[1] = __Pyx_GetKwValue_VARARGS(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_FF_N)) != 0)) kw_args--;
+        if (likely((values[1] = __Pyx_GetKwValue_VARARGS(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_lt)) != 0)) kw_args--;
         else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 46, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 5, 5, 1); __PYX_ERR(1, 46, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 6, 6, 1); __PYX_ERR(1, 46, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
-        if (likely((values[2] = __Pyx_GetKwValue_VARARGS(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_FF_diffusivity)) != 0)) kw_args--;
+        if (likely((values[2] = __Pyx_GetKwValue_VARARGS(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_FF_N)) != 0)) kw_args--;
         else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 46, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 5, 5, 2); __PYX_ERR(1, 46, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 6, 6, 2); __PYX_ERR(1, 46, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
-        if (likely((values[3] = __Pyx_GetKwValue_VARARGS(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_FF_viscosity)) != 0)) kw_args--;
+        if (likely((values[3] = __Pyx_GetKwValue_VARARGS(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_FF_diffusivity)) != 0)) kw_args--;
         else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 46, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 5, 5, 3); __PYX_ERR(1, 46, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 6, 6, 3); __PYX_ERR(1, 46, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  4:
-        if (likely((values[4] = __Pyx_GetKwValue_VARARGS(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_FF_dt)) != 0)) kw_args--;
+        if (likely((values[4] = __Pyx_GetKwValue_VARARGS(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_FF_viscosity)) != 0)) kw_args--;
         else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 46, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 5, 5, 4); __PYX_ERR(1, 46, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 6, 6, 4); __PYX_ERR(1, 46, __pyx_L3_error)
+        }
+        CYTHON_FALLTHROUGH;
+        case  5:
+        if (likely((values[5] = __Pyx_GetKwValue_VARARGS(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_FF_dt)) != 0)) kw_args--;
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 46, __pyx_L3_error)
+        else {
+          __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 6, 6, 5); __PYX_ERR(1, 46, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
         if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "__cinit__") < 0)) __PYX_ERR(1, 46, __pyx_L3_error)
       }
-    } else if (unlikely(__pyx_nargs != 5)) {
+    } else if (unlikely(__pyx_nargs != 6)) {
       goto __pyx_L5_argtuple_error;
     } else {
       values[0] = __Pyx_Arg_VARARGS(__pyx_args, 0);
@@ -4883,29 +4899,31 @@ static int __pyx_pw_19particle_system_ext_22PyMasterParticleSystem_1__cinit__(Py
       values[2] = __Pyx_Arg_VARARGS(__pyx_args, 2);
       values[3] = __Pyx_Arg_VARARGS(__pyx_args, 3);
       values[4] = __Pyx_Arg_VARARGS(__pyx_args, 4);
+      values[5] = __Pyx_Arg_VARARGS(__pyx_args, 5);
     }
     __pyx_v_d = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_d == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 46, __pyx_L3_error)
-    __pyx_v_FF_N = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_FF_N == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 47, __pyx_L3_error)
-    __pyx_v_FF_diffusivity = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_FF_diffusivity == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 47, __pyx_L3_error)
-    __pyx_v_FF_viscosity = __pyx_PyFloat_AsDouble(values[3]); if (unlikely((__pyx_v_FF_viscosity == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 48, __pyx_L3_error)
-    __pyx_v_FF_dt = __pyx_PyFloat_AsDouble(values[4]); if (unlikely((__pyx_v_FF_dt == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 48, __pyx_L3_error)
+    __pyx_v_lt = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_lt == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 46, __pyx_L3_error)
+    __pyx_v_FF_N = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_FF_N == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 47, __pyx_L3_error)
+    __pyx_v_FF_diffusivity = __pyx_PyFloat_AsDouble(values[3]); if (unlikely((__pyx_v_FF_diffusivity == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 47, __pyx_L3_error)
+    __pyx_v_FF_viscosity = __pyx_PyFloat_AsDouble(values[4]); if (unlikely((__pyx_v_FF_viscosity == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 48, __pyx_L3_error)
+    __pyx_v_FF_dt = __pyx_PyFloat_AsDouble(values[5]); if (unlikely((__pyx_v_FF_dt == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 48, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 5, 5, __pyx_nargs); __PYX_ERR(1, 46, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 6, 6, __pyx_nargs); __PYX_ERR(1, 46, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("particle_system_ext.PyMasterParticleSystem.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return -1;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_19particle_system_ext_22PyMasterParticleSystem___cinit__(((struct __pyx_obj_19particle_system_ext_PyMasterParticleSystem *)__pyx_v_self), __pyx_v_d, __pyx_v_FF_N, __pyx_v_FF_diffusivity, __pyx_v_FF_viscosity, __pyx_v_FF_dt);
+  __pyx_r = __pyx_pf_19particle_system_ext_22PyMasterParticleSystem___cinit__(((struct __pyx_obj_19particle_system_ext_PyMasterParticleSystem *)__pyx_v_self), __pyx_v_d, __pyx_v_lt, __pyx_v_FF_N, __pyx_v_FF_diffusivity, __pyx_v_FF_viscosity, __pyx_v_FF_dt);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_19particle_system_ext_22PyMasterParticleSystem___cinit__(struct __pyx_obj_19particle_system_ext_PyMasterParticleSystem *__pyx_v_self, int __pyx_v_d, int __pyx_v_FF_N, double __pyx_v_FF_diffusivity, double __pyx_v_FF_viscosity, double __pyx_v_FF_dt) {
+static int __pyx_pf_19particle_system_ext_22PyMasterParticleSystem___cinit__(struct __pyx_obj_19particle_system_ext_PyMasterParticleSystem *__pyx_v_self, int __pyx_v_d, int __pyx_v_lt, int __pyx_v_FF_N, double __pyx_v_FF_diffusivity, double __pyx_v_FF_viscosity, double __pyx_v_FF_dt) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   fluids::FluidField *__pyx_t_1;
@@ -4919,7 +4937,7 @@ static int __pyx_pf_19particle_system_ext_22PyMasterParticleSystem___cinit__(str
  *                   double FF_viscosity,double FF_dt):
  * 
  *         self.c_FF = new FluidField(FF_N,FF_diffusivity,FF_viscosity,FF_dt)             # <<<<<<<<<<<<<<
- *         self.c_PS = new ParticleSystem(self.c_FF,d)
+ *         self.c_PS = new ParticleSystem(self.c_FF,d,lt)
  * 
  */
   try {
@@ -4933,12 +4951,12 @@ static int __pyx_pf_19particle_system_ext_22PyMasterParticleSystem___cinit__(str
   /* "particle_system_ext.pyx":51
  * 
  *         self.c_FF = new FluidField(FF_N,FF_diffusivity,FF_viscosity,FF_dt)
- *         self.c_PS = new ParticleSystem(self.c_FF,d)             # <<<<<<<<<<<<<<
+ *         self.c_PS = new ParticleSystem(self.c_FF,d,lt)             # <<<<<<<<<<<<<<
  * 
  *     def __dealloc__(self):
  */
   try {
-    __pyx_t_2 = new particles::ParticleSystem(__pyx_v_self->c_FF, __pyx_v_d);
+    __pyx_t_2 = new particles::ParticleSystem(__pyx_v_self->c_FF, __pyx_v_d, __pyx_v_lt);
   } catch(...) {
     __Pyx_CppExn2PyErr();
     __PYX_ERR(1, 51, __pyx_L1_error)
@@ -4948,7 +4966,7 @@ static int __pyx_pf_19particle_system_ext_22PyMasterParticleSystem___cinit__(str
   /* "particle_system_ext.pyx":46
  *     cdef deque[Particle*] pdeque
  * 
- *     def __cinit__(self, int d,             # <<<<<<<<<<<<<<
+ *     def __cinit__(self, int d, int lt,             # <<<<<<<<<<<<<<
  *                   int FF_N, double FF_diffusivity,
  *                   double FF_viscosity,double FF_dt):
  */
@@ -4965,7 +4983,7 @@ static int __pyx_pf_19particle_system_ext_22PyMasterParticleSystem___cinit__(str
 }
 
 /* "particle_system_ext.pyx":53
- *         self.c_PS = new ParticleSystem(self.c_FF,d)
+ *         self.c_PS = new ParticleSystem(self.c_FF,d,lt)
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
  *         del self.c_PS
@@ -5007,7 +5025,7 @@ static void __pyx_pf_19particle_system_ext_22PyMasterParticleSystem_2__dealloc__
   delete __pyx_v_self->c_FF;
 
   /* "particle_system_ext.pyx":53
- *         self.c_PS = new ParticleSystem(self.c_FF,d)
+ *         self.c_PS = new ParticleSystem(self.c_FF,d,lt)
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
  *         del self.c_PS
@@ -6117,8 +6135,8 @@ static PyObject *__pyx_pf_19particle_system_ext_22PyMasterParticleSystem_20__set
 /* "particle_system_ext.pyx":80
  * 
  * cdef class PySlaveParticleSystem(ParticleSystemInterface):
- *     def __cinit__(self,int d, PyMasterParticleSystem master):             # <<<<<<<<<<<<<<
- *         self.c_PS = new ParticleSystem(master.c_FF,d)
+ *     def __cinit__(self, int d, int lt, PyMasterParticleSystem master):             # <<<<<<<<<<<<<<
+ *         self.c_PS = new ParticleSystem(master.c_FF,d,lt)
  * 
  */
 
@@ -6126,6 +6144,7 @@ static PyObject *__pyx_pf_19particle_system_ext_22PyMasterParticleSystem_20__set
 static int __pyx_pw_19particle_system_ext_21PySlaveParticleSystem_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
 static int __pyx_pw_19particle_system_ext_21PySlaveParticleSystem_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   int __pyx_v_d;
+  int __pyx_v_lt;
   struct __pyx_obj_19particle_system_ext_PyMasterParticleSystem *__pyx_v_master = 0;
   CYTHON_UNUSED const Py_ssize_t __pyx_nargs = PyTuple_GET_SIZE(__pyx_args);
   CYTHON_UNUSED PyObject *const *__pyx_kwvalues = __Pyx_KwValues_VARARGS(__pyx_args, __pyx_nargs);
@@ -6137,14 +6156,16 @@ static int __pyx_pw_19particle_system_ext_21PySlaveParticleSystem_1__cinit__(PyO
   __Pyx_RefNannySetupContext("__cinit__ (wrapper)", 0);
   {
     #if CYTHON_COMPILING_IN_LIMITED_API
-    PyObject **__pyx_pyargnames[] = {&__pyx_n_s_d,&__pyx_n_s_master,0};
+    PyObject **__pyx_pyargnames[] = {&__pyx_n_s_d,&__pyx_n_s_lt,&__pyx_n_s_master,0};
     #else
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_d,&__pyx_n_s_master,0};
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_d,&__pyx_n_s_lt,&__pyx_n_s_master,0};
     #endif
-    PyObject* values[2] = {0,0};
+    PyObject* values[3] = {0,0,0};
     if (__pyx_kwds) {
       Py_ssize_t kw_args;
       switch (__pyx_nargs) {
+        case  3: values[2] = __Pyx_Arg_VARARGS(__pyx_args, 2);
+        CYTHON_FALLTHROUGH;
         case  2: values[1] = __Pyx_Arg_VARARGS(__pyx_args, 1);
         CYTHON_FALLTHROUGH;
         case  1: values[0] = __Pyx_Arg_VARARGS(__pyx_args, 0);
@@ -6160,35 +6181,44 @@ static int __pyx_pw_19particle_system_ext_21PySlaveParticleSystem_1__cinit__(PyO
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
-        if (likely((values[1] = __Pyx_GetKwValue_VARARGS(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_master)) != 0)) kw_args--;
+        if (likely((values[1] = __Pyx_GetKwValue_VARARGS(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_lt)) != 0)) kw_args--;
         else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 80, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 2, 2, 1); __PYX_ERR(1, 80, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 3, 3, 1); __PYX_ERR(1, 80, __pyx_L3_error)
+        }
+        CYTHON_FALLTHROUGH;
+        case  2:
+        if (likely((values[2] = __Pyx_GetKwValue_VARARGS(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_master)) != 0)) kw_args--;
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 80, __pyx_L3_error)
+        else {
+          __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 3, 3, 2); __PYX_ERR(1, 80, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
         if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "__cinit__") < 0)) __PYX_ERR(1, 80, __pyx_L3_error)
       }
-    } else if (unlikely(__pyx_nargs != 2)) {
+    } else if (unlikely(__pyx_nargs != 3)) {
       goto __pyx_L5_argtuple_error;
     } else {
       values[0] = __Pyx_Arg_VARARGS(__pyx_args, 0);
       values[1] = __Pyx_Arg_VARARGS(__pyx_args, 1);
+      values[2] = __Pyx_Arg_VARARGS(__pyx_args, 2);
     }
     __pyx_v_d = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_d == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 80, __pyx_L3_error)
-    __pyx_v_master = ((struct __pyx_obj_19particle_system_ext_PyMasterParticleSystem *)values[1]);
+    __pyx_v_lt = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_lt == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 80, __pyx_L3_error)
+    __pyx_v_master = ((struct __pyx_obj_19particle_system_ext_PyMasterParticleSystem *)values[2]);
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 2, 2, __pyx_nargs); __PYX_ERR(1, 80, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 3, 3, __pyx_nargs); __PYX_ERR(1, 80, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("particle_system_ext.PySlaveParticleSystem.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return -1;
   __pyx_L4_argument_unpacking_done:;
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_master), __pyx_ptype_19particle_system_ext_PyMasterParticleSystem, 1, "master", 0))) __PYX_ERR(1, 80, __pyx_L1_error)
-  __pyx_r = __pyx_pf_19particle_system_ext_21PySlaveParticleSystem___cinit__(((struct __pyx_obj_19particle_system_ext_PySlaveParticleSystem *)__pyx_v_self), __pyx_v_d, __pyx_v_master);
+  __pyx_r = __pyx_pf_19particle_system_ext_21PySlaveParticleSystem___cinit__(((struct __pyx_obj_19particle_system_ext_PySlaveParticleSystem *)__pyx_v_self), __pyx_v_d, __pyx_v_lt, __pyx_v_master);
 
   /* function exit code */
   goto __pyx_L0;
@@ -6199,7 +6229,7 @@ static int __pyx_pw_19particle_system_ext_21PySlaveParticleSystem_1__cinit__(PyO
   return __pyx_r;
 }
 
-static int __pyx_pf_19particle_system_ext_21PySlaveParticleSystem___cinit__(struct __pyx_obj_19particle_system_ext_PySlaveParticleSystem *__pyx_v_self, int __pyx_v_d, struct __pyx_obj_19particle_system_ext_PyMasterParticleSystem *__pyx_v_master) {
+static int __pyx_pf_19particle_system_ext_21PySlaveParticleSystem___cinit__(struct __pyx_obj_19particle_system_ext_PySlaveParticleSystem *__pyx_v_self, int __pyx_v_d, int __pyx_v_lt, struct __pyx_obj_19particle_system_ext_PyMasterParticleSystem *__pyx_v_master) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   particles::ParticleSystem *__pyx_t_1;
@@ -6210,13 +6240,13 @@ static int __pyx_pf_19particle_system_ext_21PySlaveParticleSystem___cinit__(stru
 
   /* "particle_system_ext.pyx":81
  * cdef class PySlaveParticleSystem(ParticleSystemInterface):
- *     def __cinit__(self,int d, PyMasterParticleSystem master):
- *         self.c_PS = new ParticleSystem(master.c_FF,d)             # <<<<<<<<<<<<<<
+ *     def __cinit__(self, int d, int lt, PyMasterParticleSystem master):
+ *         self.c_PS = new ParticleSystem(master.c_FF,d,lt)             # <<<<<<<<<<<<<<
  * 
  *     def __dealloc__(self):
  */
   try {
-    __pyx_t_1 = new particles::ParticleSystem(__pyx_v_master->c_FF, __pyx_v_d);
+    __pyx_t_1 = new particles::ParticleSystem(__pyx_v_master->c_FF, __pyx_v_d, __pyx_v_lt);
   } catch(...) {
     __Pyx_CppExn2PyErr();
     __PYX_ERR(1, 81, __pyx_L1_error)
@@ -6226,8 +6256,8 @@ static int __pyx_pf_19particle_system_ext_21PySlaveParticleSystem___cinit__(stru
   /* "particle_system_ext.pyx":80
  * 
  * cdef class PySlaveParticleSystem(ParticleSystemInterface):
- *     def __cinit__(self,int d, PyMasterParticleSystem master):             # <<<<<<<<<<<<<<
- *         self.c_PS = new ParticleSystem(master.c_FF,d)
+ *     def __cinit__(self, int d, int lt, PyMasterParticleSystem master):             # <<<<<<<<<<<<<<
+ *         self.c_PS = new ParticleSystem(master.c_FF,d,lt)
  * 
  */
 
@@ -6243,7 +6273,7 @@ static int __pyx_pf_19particle_system_ext_21PySlaveParticleSystem___cinit__(stru
 }
 
 /* "particle_system_ext.pyx":83
- *         self.c_PS = new ParticleSystem(master.c_FF,d)
+ *         self.c_PS = new ParticleSystem(master.c_FF,d,lt)
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
  *         del self.c_PS
@@ -6273,7 +6303,7 @@ static void __pyx_pf_19particle_system_ext_21PySlaveParticleSystem_2__dealloc__(
   delete __pyx_v_self->__pyx_base.c_PS;
 
   /* "particle_system_ext.pyx":83
- *         self.c_PS = new ParticleSystem(master.c_FF,d)
+ *         self.c_PS = new ParticleSystem(master.c_FF,d,lt)
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
  *         del self.c_PS
@@ -21216,6 +21246,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {0, __pyx_k_itemsize_0_for_cython_array, sizeof(__pyx_k_itemsize_0_for_cython_array), 0, 0, 1, 0},
   {0, __pyx_k_iterate, sizeof(__pyx_k_iterate), 0, 0, 1, 1},
   {0, __pyx_k_j, sizeof(__pyx_k_j), 0, 0, 1, 1},
+  {0, __pyx_k_lt, sizeof(__pyx_k_lt), 0, 0, 1, 1},
   {0, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
   {0, __pyx_k_master, sizeof(__pyx_k_master), 0, 0, 1, 1},
   {0, __pyx_k_memview, sizeof(__pyx_k_memview), 0, 0, 1, 1},
@@ -21380,6 +21411,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_itemsize_0_for_cython_array, __pyx_k_itemsize_0_for_cython_array, sizeof(__pyx_k_itemsize_0_for_cython_array), 0, 0, 1, 0},
   {&__pyx_n_s_iterate, __pyx_k_iterate, sizeof(__pyx_k_iterate), 0, 0, 1, 1},
   {&__pyx_n_s_j, __pyx_k_j, sizeof(__pyx_k_j), 0, 0, 1, 1},
+  {&__pyx_n_s_lt, __pyx_k_lt, sizeof(__pyx_k_lt), 0, 0, 1, 1},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
   {&__pyx_n_s_master, __pyx_k_master, sizeof(__pyx_k_master), 0, 0, 1, 1},
   {&__pyx_n_s_memview, __pyx_k_memview, sizeof(__pyx_k_memview), 0, 0, 1, 1},
@@ -21885,60 +21917,61 @@ static CYTHON_SMALL_CODE int __Pyx_InitGlobals(void) {
   if (__Pyx_InitString(__pyx_string_tab[106], &__pyx_kp_s_itemsize_0_for_cython_array) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
   if (__Pyx_InitString(__pyx_string_tab[107], &__pyx_n_s_iterate) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
   if (__Pyx_InitString(__pyx_string_tab[108], &__pyx_n_s_j) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[109], &__pyx_n_s_main) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[110], &__pyx_n_s_master) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[111], &__pyx_n_s_memview) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[112], &__pyx_n_s_mode) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[113], &__pyx_n_s_name) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[114], &__pyx_n_s_name_2) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[115], &__pyx_n_s_ndim) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[116], &__pyx_n_s_new) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[117], &__pyx_kp_s_no_default___reduce___due_to_non) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[118], &__pyx_n_s_obj) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[119], &__pyx_n_s_pack) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[120], &__pyx_n_s_particle_idx) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[121], &__pyx_n_s_particle_system_ext) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[122], &__pyx_kp_s_particle_system_ext_pyx) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[123], &__pyx_n_s_pickle) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[124], &__pyx_n_s_position) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[125], &__pyx_n_s_position_spread) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[126], &__pyx_n_s_pyx_PickleError) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[127], &__pyx_n_s_pyx_checksum) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[128], &__pyx_n_s_pyx_getbuffer) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[129], &__pyx_n_s_pyx_result) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[130], &__pyx_n_s_pyx_state) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[131], &__pyx_n_s_pyx_type) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[132], &__pyx_n_s_pyx_unpickle_Enum) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[133], &__pyx_n_s_pyx_vtable) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[134], &__pyx_n_s_range) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[135], &__pyx_n_s_reduce) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[136], &__pyx_n_s_reduce_cython) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[137], &__pyx_n_s_reduce_ex) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[138], &__pyx_n_s_self) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[139], &__pyx_n_s_setstate) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[140], &__pyx_n_s_setstate_cython) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[141], &__pyx_n_s_shape) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[142], &__pyx_n_s_size) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[143], &__pyx_n_s_size_spread) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[144], &__pyx_n_s_spawn_particles) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[145], &__pyx_n_s_spec) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[146], &__pyx_n_s_speed) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[147], &__pyx_n_s_speed_spread) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[148], &__pyx_n_s_start) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[149], &__pyx_n_s_step) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[150], &__pyx_n_s_stop) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[151], &__pyx_kp_s_strided_and_direct) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[152], &__pyx_kp_s_strided_and_direct_or_indirect) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[153], &__pyx_kp_s_strided_and_indirect) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[154], &__pyx_kp_s_stringsource) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[155], &__pyx_n_s_struct) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[156], &__pyx_n_s_test) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[157], &__pyx_kp_s_unable_to_allocate_array_data) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[158], &__pyx_kp_s_unable_to_allocate_shape_and_str) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[159], &__pyx_n_s_unpack) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[160], &__pyx_n_s_update) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[161], &__pyx_n_s_x) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[162], &__pyx_n_s_y) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[109], &__pyx_n_s_lt) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[110], &__pyx_n_s_main) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[111], &__pyx_n_s_master) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[112], &__pyx_n_s_memview) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[113], &__pyx_n_s_mode) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[114], &__pyx_n_s_name) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[115], &__pyx_n_s_name_2) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[116], &__pyx_n_s_ndim) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[117], &__pyx_n_s_new) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[118], &__pyx_kp_s_no_default___reduce___due_to_non) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[119], &__pyx_n_s_obj) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[120], &__pyx_n_s_pack) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[121], &__pyx_n_s_particle_idx) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[122], &__pyx_n_s_particle_system_ext) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[123], &__pyx_kp_s_particle_system_ext_pyx) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[124], &__pyx_n_s_pickle) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[125], &__pyx_n_s_position) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[126], &__pyx_n_s_position_spread) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[127], &__pyx_n_s_pyx_PickleError) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[128], &__pyx_n_s_pyx_checksum) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[129], &__pyx_n_s_pyx_getbuffer) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[130], &__pyx_n_s_pyx_result) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[131], &__pyx_n_s_pyx_state) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[132], &__pyx_n_s_pyx_type) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[133], &__pyx_n_s_pyx_unpickle_Enum) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[134], &__pyx_n_s_pyx_vtable) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[135], &__pyx_n_s_range) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[136], &__pyx_n_s_reduce) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[137], &__pyx_n_s_reduce_cython) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[138], &__pyx_n_s_reduce_ex) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[139], &__pyx_n_s_self) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[140], &__pyx_n_s_setstate) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[141], &__pyx_n_s_setstate_cython) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[142], &__pyx_n_s_shape) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[143], &__pyx_n_s_size) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[144], &__pyx_n_s_size_spread) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[145], &__pyx_n_s_spawn_particles) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[146], &__pyx_n_s_spec) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[147], &__pyx_n_s_speed) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[148], &__pyx_n_s_speed_spread) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[149], &__pyx_n_s_start) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[150], &__pyx_n_s_step) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[151], &__pyx_n_s_stop) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[152], &__pyx_kp_s_strided_and_direct) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[153], &__pyx_kp_s_strided_and_direct_or_indirect) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[154], &__pyx_kp_s_strided_and_indirect) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[155], &__pyx_kp_s_stringsource) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[156], &__pyx_n_s_struct) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[157], &__pyx_n_s_test) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[158], &__pyx_kp_s_unable_to_allocate_array_data) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[159], &__pyx_kp_s_unable_to_allocate_shape_and_str) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[160], &__pyx_n_s_unpack) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[161], &__pyx_n_s_update) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[162], &__pyx_n_s_x) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[163], &__pyx_n_s_y) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
   #endif
   #if !CYTHON_COMPILING_IN_LIMITED_API
   if (__Pyx_InitStrings(__pyx_string_tab) < 0) __PYX_ERR(1, 1, __pyx_L1_error);

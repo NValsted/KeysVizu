@@ -284,7 +284,7 @@ class PianoRoll(Widget):
                 corresponding_key.canvas.add(Color(*child.color[:-1]) )
                 corresponding_key.canvas.add(Rectangle(size=corresponding_key.size,pos=corresponding_key.pos))
                 
-                self.PSM_reference.spawn_particles((corresponding_key.center_x,corresponding_key.top))
+                self.PSM_reference.trigger_hit((corresponding_key.center_x,corresponding_key.top))
 
             child.y -= TPS*dt # Use this to adjust speed and then use fixed note size
         

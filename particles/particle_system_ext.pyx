@@ -3,8 +3,6 @@
 from libcpp.deque cimport deque
 from particle_system cimport ParticleSystem, FluidField, Particle
 
-# Could look into creating two separate classes that represent slave particle systems and a master particle system through which the fluid field is adjusted.
-
 cdef class ParticleSystemInterface:
     cdef ParticleSystem *c_PS
     cdef double[:] *position
@@ -43,12 +41,12 @@ cdef class PyMasterParticleSystem(ParticleSystemInterface):
     cdef FluidField *c_FF
     cdef deque[Particle*] pdeque
 
-    def __cinit__(self, int d,
+    def __cinit__(self, int d, int lt,
                   int FF_N, double FF_diffusivity,
                   double FF_viscosity,double FF_dt):
                   
         self.c_FF = new FluidField(FF_N,FF_diffusivity,FF_viscosity,FF_dt)
-        self.c_PS = new ParticleSystem(self.c_FF,d)
+        self.c_PS = new ParticleSystem(self.c_FF,d,lt)
 
     def __dealloc__(self):
         del self.c_PS
@@ -77,8 +75,8 @@ cdef class PyMasterParticleSystem(ParticleSystemInterface):
         self.c_PS.iterate()
 
 cdef class PySlaveParticleSystem(ParticleSystemInterface):
-    def __cinit__(self,int d, PyMasterParticleSystem master):
-        self.c_PS = new ParticleSystem(master.c_FF,d)
+    def __cinit__(self, int d, int lt, PyMasterParticleSystem master):
+        self.c_PS = new ParticleSystem(master.c_FF,d,lt)
 
     def __dealloc__(self):
         del self.c_PS

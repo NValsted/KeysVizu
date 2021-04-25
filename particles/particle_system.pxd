@@ -12,7 +12,7 @@ cdef extern from "particle_system.h" namespace "particles":
         double size
 
     cdef cppclass ParticleSystem:
-        ParticleSystem(FluidField *, double) except +
+        ParticleSystem(FluidField *, double, int) except +
         deque[Particle*] particles
         
         void spawnParticles(int,

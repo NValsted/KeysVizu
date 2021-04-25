@@ -19,8 +19,8 @@ class ParticleScene(FloatLayout):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         
-        self.particle_system = particle_system_ext.PyMasterParticleSystem(2,N,0.01,0.01,0.01)
-        self.slave_particle_system = particle_system_ext.PySlaveParticleSystem(10,self.particle_system)
+        self.particle_system = particle_system_ext.PyMasterParticleSystem(2,20,N,0.01,0.01,0.01)
+        self.slave_particle_system = particle_system_ext.PySlaveParticleSystem(10,10,self.particle_system)
         Clock.schedule_interval(lambda dt: self.update_system(),1/30)
         
     def update_system(self):

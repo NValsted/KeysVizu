@@ -55,9 +55,8 @@ class StyleSettings(SettingsTab):
 
     def change_white_key_color(self,color):
         self.channel_styles[self.active_channel]['notes']['white_key_color'] = color[:-1] # alpha is the last entry and is excluded for note color
-        
         self.__update_preview()
 
-    def change_velocity_scaling(self):
+    def change_velocity_scaling(self,*args):
         self.channel_styles[self.active_channel]['notes']['velocity_scaling'] = self.velocity_scaling_slider.slider.value
         self.__update_preview()
