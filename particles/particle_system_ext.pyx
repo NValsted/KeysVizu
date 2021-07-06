@@ -14,12 +14,12 @@ cdef class ParticleSystemInterface:
     def __dealloc__(self):
         pass
 
-    def spawn_particles(self, int N,
+    def spawn_particles(self, int N, int t,
                         double angle, double speed, double size, double[:] position,
                         double angle_spread, double speed_spread, double size_spread,
                         double[:] position_spread, char distribution):
         
-        self.c_PS.spawnParticles(N,angle,speed,size,&position[0],angle_spread,speed_spread,size_spread,&position_spread[0],distribution)
+        self.c_PS.spawnParticles(N,t,angle,speed,size,&position[0],angle_spread,speed_spread,size_spread,&position_spread[0],distribution)
 
     def iterate(self):
         self.c_PS.iterate()

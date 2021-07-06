@@ -13,10 +13,13 @@ namespace particles {
             double coords[2];
             double velocity[2];
             double size;
+            int type;
             int age;
 
-            Particle(double c[2], double v[2], double s, int a);
+            Particle(double c[2], double v[2], double s, int t, int a);
             ~Particle();
+
+            void changeType(int t);
     };
 
     class ParticleSystem
@@ -27,7 +30,7 @@ namespace particles {
             ParticleSystem(fluids::FluidField *FF, double d, int lt);
             ~ParticleSystem();
 
-            void spawnParticles(int N,
+            void spawnParticles(int N, int t,
                                 double angle, double speed, double size, double position[2],
                                 double angleSpread, double speedSpread, double sizeSpread,
                                 double positionSpread[2], char distribution);

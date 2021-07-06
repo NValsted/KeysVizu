@@ -4,7 +4,7 @@
 using namespace std;
 using namespace particles;
 
-Particle::Particle(double c[2], double v[2], double s, int a = 0)
+Particle::Particle(double c[2], double v[2], double s, int t = 0, int a = 0)
 {
     for (int i = 0; i < 2; i++)
     {
@@ -12,6 +12,7 @@ Particle::Particle(double c[2], double v[2], double s, int a = 0)
         velocity[i] = v[i];
     }
 
+    type = t;
     size = s;
     age = a;
 };
@@ -20,6 +21,11 @@ Particle::~Particle()
 {
     //delete [] coords;
     //delete [] velocity;
+};
+
+void Particle::changeType(int t)
+{
+    type = t;
 };
 
 ParticleSystem::ParticleSystem(fluids::FluidField *FF, double d = 0.5, int lt = 50)
@@ -34,7 +40,7 @@ ParticleSystem::~ParticleSystem()
 {
 };
 
-void ParticleSystem::spawnParticles(int N,
+void ParticleSystem::spawnParticles(int N, int t,
                                     double angle, double speed, double size, double position[2],
                                     double angleSpread, double speedSpread, double sizeSpread,
                                     double positionSpread[2], char distribution = 'u') // want to add support for other types of distributions
@@ -62,7 +68,7 @@ void ParticleSystem::spawnParticles(int N,
         double randomizedVelocity[2] = {cos(randomizedAngle) * randomizedSpeed,
                                         sin(randomizedAngle) * randomizedSpeed};
         
-        Particle *p = new Particle(randomizedCoords,randomizedVelocity,randomizedSize);
+        Particle *p = new Particle(randomizedCoords, randomizedVelocity, randomizedSize ,t);
         
         particles.push_back(p);
     }
@@ -133,7 +139,7 @@ int main()
 
     double standardCoords[2] = {0,0};
     double standardPositionSpread[2] = {0,0};
-    PS.spawnParticles(3,0,1,1,standardCoords,0.1,0.1,0.1,standardPositionSpread);
+    PS.spawnParticles(3,0,0,1,1,standardCoords,0.1,0.1,0.1,standardPositionSpread);
     cout << (*PS.particles[0]).coords[0] << endl;
 
     int iterations = 3;

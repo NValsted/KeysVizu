@@ -24,13 +24,13 @@ class ParticleScene(FloatLayout):
         Clock.schedule_interval(lambda dt: self.update_system(),1/30)
         
     def update_system(self):
-        self.particle_system.spawn_particles(random.randint(-100,30),
+        self.particle_system.spawn_particles(random.randint(-100,30), 0,
                                              0,0.5,2,np.array([0,0],dtype=np.float64),
                                              3.14,0.5,0.1,np.array([0,0],dtype=np.float64),
                                              ord('u'[0]))
         self.particle_system.iterate()
 
-        self.slave_particle_system.spawn_particles(random.randint(-100,30),
+        self.slave_particle_system.spawn_particles(random.randint(-100,30), 1,
                                                    0,0.5,1,np.array([0,0],dtype=np.float64),
                                                    3.14,0.5,2,np.array([10,10],dtype=np.float64),
                                                    ord('u'[0]))

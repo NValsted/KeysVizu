@@ -1183,8 +1183,8 @@ struct __pyx_MemviewEnum_obj;
 struct __pyx_memoryview_obj;
 struct __pyx_memoryviewslice_obj;
 
-/* "particle_system_ext.pyx":8
- * # Could look into creating two separate classes that represent slave particle systems and a master particle system through which the fluid field is adjusted.
+/* "particle_system_ext.pyx":6
+ * from particle_system cimport ParticleSystem, FluidField, Particle
  * 
  * cdef class ParticleSystemInterface:             # <<<<<<<<<<<<<<
  *     cdef ParticleSystem *c_PS
@@ -1198,7 +1198,7 @@ struct __pyx_obj_19particle_system_ext_ParticleSystemInterface {
 };
 
 
-/* "particle_system_ext.pyx":42
+/* "particle_system_ext.pyx":40
  *         return self.c_PS.particles[particle_idx].age
  * 
  * cdef class PyMasterParticleSystem(ParticleSystemInterface):             # <<<<<<<<<<<<<<
@@ -1212,7 +1212,7 @@ struct __pyx_obj_19particle_system_ext_PyMasterParticleSystem {
 };
 
 
-/* "particle_system_ext.pyx":79
+/* "particle_system_ext.pyx":77
  *         self.c_PS.iterate()
  * 
  * cdef class PySlaveParticleSystem(ParticleSystemInterface):             # <<<<<<<<<<<<<<
@@ -2272,6 +2272,7 @@ static const char __pyx_k_c[] = "c";
 static const char __pyx_k_d[] = "d";
 static const char __pyx_k_i[] = "i";
 static const char __pyx_k_j[] = "j";
+static const char __pyx_k_t[] = "t";
 static const char __pyx_k_x[] = "x";
 static const char __pyx_k_y[] = "y";
 static const char __pyx_k__2[] = ".";
@@ -2585,6 +2586,7 @@ static PyObject *__pyx_kp_s_strided_and_direct_or_indirect;
 static PyObject *__pyx_kp_s_strided_and_indirect;
 static PyObject *__pyx_kp_s_stringsource;
 static PyObject *__pyx_n_s_struct;
+static PyObject *__pyx_n_s_t;
 static PyObject *__pyx_n_s_test;
 static PyObject *__pyx_kp_s_unable_to_allocate_array_data;
 static PyObject *__pyx_kp_s_unable_to_allocate_shape_and_str;
@@ -2596,7 +2598,7 @@ static PyObject *__pyx_n_s_y;
 /* #### Code section: decls ### */
 static int __pyx_pf_19particle_system_ext_23ParticleSystemInterface___cinit__(CYTHON_UNUSED struct __pyx_obj_19particle_system_ext_ParticleSystemInterface *__pyx_v_self); /* proto */
 static void __pyx_pf_19particle_system_ext_23ParticleSystemInterface_2__dealloc__(CYTHON_UNUSED struct __pyx_obj_19particle_system_ext_ParticleSystemInterface *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_19particle_system_ext_23ParticleSystemInterface_4spawn_particles(struct __pyx_obj_19particle_system_ext_ParticleSystemInterface *__pyx_v_self, int __pyx_v_N, double __pyx_v_angle, double __pyx_v_speed, double __pyx_v_size, __Pyx_memviewslice __pyx_v_position, double __pyx_v_angle_spread, double __pyx_v_speed_spread, double __pyx_v_size_spread, __Pyx_memviewslice __pyx_v_position_spread, char __pyx_v_distribution); /* proto */
+static PyObject *__pyx_pf_19particle_system_ext_23ParticleSystemInterface_4spawn_particles(struct __pyx_obj_19particle_system_ext_ParticleSystemInterface *__pyx_v_self, int __pyx_v_N, int __pyx_v_t, double __pyx_v_angle, double __pyx_v_speed, double __pyx_v_size, __Pyx_memviewslice __pyx_v_position, double __pyx_v_angle_spread, double __pyx_v_speed_spread, double __pyx_v_size_spread, __Pyx_memviewslice __pyx_v_position_spread, char __pyx_v_distribution); /* proto */
 static PyObject *__pyx_pf_19particle_system_ext_23ParticleSystemInterface_6iterate(struct __pyx_obj_19particle_system_ext_ParticleSystemInterface *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_19particle_system_ext_23ParticleSystemInterface_8get_number_of_particles(struct __pyx_obj_19particle_system_ext_ParticleSystemInterface *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_19particle_system_ext_23ParticleSystemInterface_10get_particle_coords(struct __pyx_obj_19particle_system_ext_ParticleSystemInterface *__pyx_v_self, PyObject *__pyx_v_particle_idx); /* proto */
@@ -2909,6 +2911,7 @@ typedef struct {
   PyObject *__pyx_kp_s_strided_and_indirect;
   PyObject *__pyx_kp_s_stringsource;
   PyObject *__pyx_n_s_struct;
+  PyObject *__pyx_n_s_t;
   PyObject *__pyx_n_s_test;
   PyObject *__pyx_kp_s_unable_to_allocate_array_data;
   PyObject *__pyx_kp_s_unable_to_allocate_shape_and_str;
@@ -3171,6 +3174,7 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_kp_s_strided_and_indirect);
   Py_CLEAR(clear_module_state->__pyx_kp_s_stringsource);
   Py_CLEAR(clear_module_state->__pyx_n_s_struct);
+  Py_CLEAR(clear_module_state->__pyx_n_s_t);
   Py_CLEAR(clear_module_state->__pyx_n_s_test);
   Py_CLEAR(clear_module_state->__pyx_kp_s_unable_to_allocate_array_data);
   Py_CLEAR(clear_module_state->__pyx_kp_s_unable_to_allocate_shape_and_str);
@@ -3420,6 +3424,7 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_kp_s_strided_and_indirect);
   Py_VISIT(traverse_module_state->__pyx_kp_s_stringsource);
   Py_VISIT(traverse_module_state->__pyx_n_s_struct);
+  Py_VISIT(traverse_module_state->__pyx_n_s_t);
   Py_VISIT(traverse_module_state->__pyx_n_s_test);
   Py_VISIT(traverse_module_state->__pyx_kp_s_unable_to_allocate_array_data);
   Py_VISIT(traverse_module_state->__pyx_kp_s_unable_to_allocate_shape_and_str);
@@ -3666,6 +3671,7 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_kp_s_strided_and_indirect __pyx_mstate_global->__pyx_kp_s_strided_and_indirect
 #define __pyx_kp_s_stringsource __pyx_mstate_global->__pyx_kp_s_stringsource
 #define __pyx_n_s_struct __pyx_mstate_global->__pyx_n_s_struct
+#define __pyx_n_s_t __pyx_mstate_global->__pyx_n_s_t
 #define __pyx_n_s_test __pyx_mstate_global->__pyx_n_s_test
 #define __pyx_kp_s_unable_to_allocate_array_data __pyx_mstate_global->__pyx_kp_s_unable_to_allocate_array_data
 #define __pyx_kp_s_unable_to_allocate_shape_and_str __pyx_mstate_global->__pyx_kp_s_unable_to_allocate_shape_and_str
@@ -3727,7 +3733,7 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #endif
 /* #### Code section: module_code ### */
 
-/* "particle_system_ext.pyx":13
+/* "particle_system_ext.pyx":11
  *     cdef double[:] *position_spread
  * 
  *     def __cinit__(self):             # <<<<<<<<<<<<<<
@@ -3764,7 +3770,7 @@ static int __pyx_pf_19particle_system_ext_23ParticleSystemInterface___cinit__(CY
   return __pyx_r;
 }
 
-/* "particle_system_ext.pyx":16
+/* "particle_system_ext.pyx":14
  *         pass
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
@@ -3792,10 +3798,10 @@ static void __pyx_pf_19particle_system_ext_23ParticleSystemInterface_2__dealloc_
   __Pyx_RefNannyFinishContext();
 }
 
-/* "particle_system_ext.pyx":19
+/* "particle_system_ext.pyx":17
  *         pass
  * 
- *     def spawn_particles(self, int N,             # <<<<<<<<<<<<<<
+ *     def spawn_particles(self, int N, int t,             # <<<<<<<<<<<<<<
  *                         double angle, double speed, double size, double[:] position,
  *                         double angle_spread, double speed_spread, double size_spread,
  */
@@ -3817,6 +3823,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ) {
   int __pyx_v_N;
+  int __pyx_v_t;
   double __pyx_v_angle;
   double __pyx_v_speed;
   double __pyx_v_size;
@@ -3838,14 +3845,16 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __Pyx_RefNannySetupContext("spawn_particles (wrapper)", 0);
   {
     #if CYTHON_COMPILING_IN_LIMITED_API
-    PyObject **__pyx_pyargnames[] = {&__pyx_n_s_N,&__pyx_n_s_angle,&__pyx_n_s_speed,&__pyx_n_s_size,&__pyx_n_s_position,&__pyx_n_s_angle_spread,&__pyx_n_s_speed_spread,&__pyx_n_s_size_spread,&__pyx_n_s_position_spread,&__pyx_n_s_distribution,0};
+    PyObject **__pyx_pyargnames[] = {&__pyx_n_s_N,&__pyx_n_s_t,&__pyx_n_s_angle,&__pyx_n_s_speed,&__pyx_n_s_size,&__pyx_n_s_position,&__pyx_n_s_angle_spread,&__pyx_n_s_speed_spread,&__pyx_n_s_size_spread,&__pyx_n_s_position_spread,&__pyx_n_s_distribution,0};
     #else
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_N,&__pyx_n_s_angle,&__pyx_n_s_speed,&__pyx_n_s_size,&__pyx_n_s_position,&__pyx_n_s_angle_spread,&__pyx_n_s_speed_spread,&__pyx_n_s_size_spread,&__pyx_n_s_position_spread,&__pyx_n_s_distribution,0};
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_N,&__pyx_n_s_t,&__pyx_n_s_angle,&__pyx_n_s_speed,&__pyx_n_s_size,&__pyx_n_s_position,&__pyx_n_s_angle_spread,&__pyx_n_s_speed_spread,&__pyx_n_s_size_spread,&__pyx_n_s_position_spread,&__pyx_n_s_distribution,0};
     #endif
-    PyObject* values[10] = {0,0,0,0,0,0,0,0,0,0};
+    PyObject* values[11] = {0,0,0,0,0,0,0,0,0,0,0};
     if (__pyx_kwds) {
       Py_ssize_t kw_args;
       switch (__pyx_nargs) {
+        case 11: values[10] = __Pyx_Arg_FASTCALL(__pyx_args, 10);
+        CYTHON_FALLTHROUGH;
         case 10: values[9] = __Pyx_Arg_FASTCALL(__pyx_args, 9);
         CYTHON_FALLTHROUGH;
         case  9: values[8] = __Pyx_Arg_FASTCALL(__pyx_args, 8);
@@ -3873,77 +3882,84 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       switch (__pyx_nargs) {
         case  0:
         if (likely((values[0] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_N)) != 0)) kw_args--;
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 19, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 17, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
-        if (likely((values[1] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_angle)) != 0)) kw_args--;
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 19, __pyx_L3_error)
+        if (likely((values[1] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_t)) != 0)) kw_args--;
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 17, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("spawn_particles", 1, 10, 10, 1); __PYX_ERR(1, 19, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("spawn_particles", 1, 11, 11, 1); __PYX_ERR(1, 17, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
-        if (likely((values[2] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_speed)) != 0)) kw_args--;
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 19, __pyx_L3_error)
+        if (likely((values[2] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_angle)) != 0)) kw_args--;
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 17, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("spawn_particles", 1, 10, 10, 2); __PYX_ERR(1, 19, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("spawn_particles", 1, 11, 11, 2); __PYX_ERR(1, 17, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
-        if (likely((values[3] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_size)) != 0)) kw_args--;
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 19, __pyx_L3_error)
+        if (likely((values[3] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_speed)) != 0)) kw_args--;
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 17, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("spawn_particles", 1, 10, 10, 3); __PYX_ERR(1, 19, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("spawn_particles", 1, 11, 11, 3); __PYX_ERR(1, 17, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  4:
-        if (likely((values[4] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_position)) != 0)) kw_args--;
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 19, __pyx_L3_error)
+        if (likely((values[4] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_size)) != 0)) kw_args--;
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 17, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("spawn_particles", 1, 10, 10, 4); __PYX_ERR(1, 19, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("spawn_particles", 1, 11, 11, 4); __PYX_ERR(1, 17, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  5:
-        if (likely((values[5] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_angle_spread)) != 0)) kw_args--;
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 19, __pyx_L3_error)
+        if (likely((values[5] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_position)) != 0)) kw_args--;
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 17, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("spawn_particles", 1, 10, 10, 5); __PYX_ERR(1, 19, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("spawn_particles", 1, 11, 11, 5); __PYX_ERR(1, 17, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  6:
-        if (likely((values[6] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_speed_spread)) != 0)) kw_args--;
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 19, __pyx_L3_error)
+        if (likely((values[6] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_angle_spread)) != 0)) kw_args--;
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 17, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("spawn_particles", 1, 10, 10, 6); __PYX_ERR(1, 19, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("spawn_particles", 1, 11, 11, 6); __PYX_ERR(1, 17, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  7:
-        if (likely((values[7] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_size_spread)) != 0)) kw_args--;
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 19, __pyx_L3_error)
+        if (likely((values[7] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_speed_spread)) != 0)) kw_args--;
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 17, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("spawn_particles", 1, 10, 10, 7); __PYX_ERR(1, 19, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("spawn_particles", 1, 11, 11, 7); __PYX_ERR(1, 17, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  8:
-        if (likely((values[8] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_position_spread)) != 0)) kw_args--;
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 19, __pyx_L3_error)
+        if (likely((values[8] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_size_spread)) != 0)) kw_args--;
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 17, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("spawn_particles", 1, 10, 10, 8); __PYX_ERR(1, 19, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("spawn_particles", 1, 11, 11, 8); __PYX_ERR(1, 17, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  9:
-        if (likely((values[9] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_distribution)) != 0)) kw_args--;
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 19, __pyx_L3_error)
+        if (likely((values[9] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_position_spread)) != 0)) kw_args--;
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 17, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("spawn_particles", 1, 10, 10, 9); __PYX_ERR(1, 19, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("spawn_particles", 1, 11, 11, 9); __PYX_ERR(1, 17, __pyx_L3_error)
+        }
+        CYTHON_FALLTHROUGH;
+        case 10:
+        if (likely((values[10] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_distribution)) != 0)) kw_args--;
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 17, __pyx_L3_error)
+        else {
+          __Pyx_RaiseArgtupleInvalid("spawn_particles", 1, 11, 11, 10); __PYX_ERR(1, 17, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "spawn_particles") < 0)) __PYX_ERR(1, 19, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "spawn_particles") < 0)) __PYX_ERR(1, 17, __pyx_L3_error)
       }
-    } else if (unlikely(__pyx_nargs != 10)) {
+    } else if (unlikely(__pyx_nargs != 11)) {
       goto __pyx_L5_argtuple_error;
     } else {
       values[0] = __Pyx_Arg_FASTCALL(__pyx_args, 0);
@@ -3956,34 +3972,36 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       values[7] = __Pyx_Arg_FASTCALL(__pyx_args, 7);
       values[8] = __Pyx_Arg_FASTCALL(__pyx_args, 8);
       values[9] = __Pyx_Arg_FASTCALL(__pyx_args, 9);
+      values[10] = __Pyx_Arg_FASTCALL(__pyx_args, 10);
     }
-    __pyx_v_N = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_N == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 19, __pyx_L3_error)
-    __pyx_v_angle = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_angle == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 20, __pyx_L3_error)
-    __pyx_v_speed = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_speed == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 20, __pyx_L3_error)
-    __pyx_v_size = __pyx_PyFloat_AsDouble(values[3]); if (unlikely((__pyx_v_size == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 20, __pyx_L3_error)
-    __pyx_v_position = __Pyx_PyObject_to_MemoryviewSlice_ds_double(values[4], PyBUF_WRITABLE); if (unlikely(!__pyx_v_position.memview)) __PYX_ERR(1, 20, __pyx_L3_error)
-    __pyx_v_angle_spread = __pyx_PyFloat_AsDouble(values[5]); if (unlikely((__pyx_v_angle_spread == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 21, __pyx_L3_error)
-    __pyx_v_speed_spread = __pyx_PyFloat_AsDouble(values[6]); if (unlikely((__pyx_v_speed_spread == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 21, __pyx_L3_error)
-    __pyx_v_size_spread = __pyx_PyFloat_AsDouble(values[7]); if (unlikely((__pyx_v_size_spread == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 21, __pyx_L3_error)
-    __pyx_v_position_spread = __Pyx_PyObject_to_MemoryviewSlice_ds_double(values[8], PyBUF_WRITABLE); if (unlikely(!__pyx_v_position_spread.memview)) __PYX_ERR(1, 22, __pyx_L3_error)
-    __pyx_v_distribution = __Pyx_PyInt_As_char(values[9]); if (unlikely((__pyx_v_distribution == (char)-1) && PyErr_Occurred())) __PYX_ERR(1, 22, __pyx_L3_error)
+    __pyx_v_N = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_N == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 17, __pyx_L3_error)
+    __pyx_v_t = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_t == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 17, __pyx_L3_error)
+    __pyx_v_angle = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_angle == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 18, __pyx_L3_error)
+    __pyx_v_speed = __pyx_PyFloat_AsDouble(values[3]); if (unlikely((__pyx_v_speed == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 18, __pyx_L3_error)
+    __pyx_v_size = __pyx_PyFloat_AsDouble(values[4]); if (unlikely((__pyx_v_size == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 18, __pyx_L3_error)
+    __pyx_v_position = __Pyx_PyObject_to_MemoryviewSlice_ds_double(values[5], PyBUF_WRITABLE); if (unlikely(!__pyx_v_position.memview)) __PYX_ERR(1, 18, __pyx_L3_error)
+    __pyx_v_angle_spread = __pyx_PyFloat_AsDouble(values[6]); if (unlikely((__pyx_v_angle_spread == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 19, __pyx_L3_error)
+    __pyx_v_speed_spread = __pyx_PyFloat_AsDouble(values[7]); if (unlikely((__pyx_v_speed_spread == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 19, __pyx_L3_error)
+    __pyx_v_size_spread = __pyx_PyFloat_AsDouble(values[8]); if (unlikely((__pyx_v_size_spread == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 19, __pyx_L3_error)
+    __pyx_v_position_spread = __Pyx_PyObject_to_MemoryviewSlice_ds_double(values[9], PyBUF_WRITABLE); if (unlikely(!__pyx_v_position_spread.memview)) __PYX_ERR(1, 20, __pyx_L3_error)
+    __pyx_v_distribution = __Pyx_PyInt_As_char(values[10]); if (unlikely((__pyx_v_distribution == (char)-1) && PyErr_Occurred())) __PYX_ERR(1, 20, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("spawn_particles", 1, 10, 10, __pyx_nargs); __PYX_ERR(1, 19, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("spawn_particles", 1, 11, 11, __pyx_nargs); __PYX_ERR(1, 17, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("particle_system_ext.ParticleSystemInterface.spawn_particles", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_19particle_system_ext_23ParticleSystemInterface_4spawn_particles(((struct __pyx_obj_19particle_system_ext_ParticleSystemInterface *)__pyx_v_self), __pyx_v_N, __pyx_v_angle, __pyx_v_speed, __pyx_v_size, __pyx_v_position, __pyx_v_angle_spread, __pyx_v_speed_spread, __pyx_v_size_spread, __pyx_v_position_spread, __pyx_v_distribution);
+  __pyx_r = __pyx_pf_19particle_system_ext_23ParticleSystemInterface_4spawn_particles(((struct __pyx_obj_19particle_system_ext_ParticleSystemInterface *)__pyx_v_self), __pyx_v_N, __pyx_v_t, __pyx_v_angle, __pyx_v_speed, __pyx_v_size, __pyx_v_position, __pyx_v_angle_spread, __pyx_v_speed_spread, __pyx_v_size_spread, __pyx_v_position_spread, __pyx_v_distribution);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_19particle_system_ext_23ParticleSystemInterface_4spawn_particles(struct __pyx_obj_19particle_system_ext_ParticleSystemInterface *__pyx_v_self, int __pyx_v_N, double __pyx_v_angle, double __pyx_v_speed, double __pyx_v_size, __Pyx_memviewslice __pyx_v_position, double __pyx_v_angle_spread, double __pyx_v_speed_spread, double __pyx_v_size_spread, __Pyx_memviewslice __pyx_v_position_spread, char __pyx_v_distribution) {
+static PyObject *__pyx_pf_19particle_system_ext_23ParticleSystemInterface_4spawn_particles(struct __pyx_obj_19particle_system_ext_ParticleSystemInterface *__pyx_v_self, int __pyx_v_N, int __pyx_v_t, double __pyx_v_angle, double __pyx_v_speed, double __pyx_v_size, __Pyx_memviewslice __pyx_v_position, double __pyx_v_angle_spread, double __pyx_v_speed_spread, double __pyx_v_size_spread, __Pyx_memviewslice __pyx_v_position_spread, char __pyx_v_distribution) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   Py_ssize_t __pyx_t_1;
@@ -3994,10 +4012,10 @@ static PyObject *__pyx_pf_19particle_system_ext_23ParticleSystemInterface_4spawn
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("spawn_particles", 0);
 
-  /* "particle_system_ext.pyx":24
+  /* "particle_system_ext.pyx":22
  *                         double[:] position_spread, char distribution):
  * 
- *         self.c_PS.spawnParticles(N,angle,speed,size,&position[0],angle_spread,speed_spread,size_spread,&position_spread[0],distribution)             # <<<<<<<<<<<<<<
+ *         self.c_PS.spawnParticles(N,t,angle,speed,size,&position[0],angle_spread,speed_spread,size_spread,&position_spread[0],distribution)             # <<<<<<<<<<<<<<
  * 
  *     def iterate(self):
  */
@@ -4009,7 +4027,7 @@ static PyObject *__pyx_pf_19particle_system_ext_23ParticleSystemInterface_4spawn
   } else if (unlikely(__pyx_t_1 >= __pyx_v_position.shape[0])) __pyx_t_2 = 0;
   if (unlikely(__pyx_t_2 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_2);
-    __PYX_ERR(1, 24, __pyx_L1_error)
+    __PYX_ERR(1, 22, __pyx_L1_error)
   }
   __pyx_t_3 = 0;
   __pyx_t_2 = -1;
@@ -4019,14 +4037,14 @@ static PyObject *__pyx_pf_19particle_system_ext_23ParticleSystemInterface_4spawn
   } else if (unlikely(__pyx_t_3 >= __pyx_v_position_spread.shape[0])) __pyx_t_2 = 0;
   if (unlikely(__pyx_t_2 != -1)) {
     __Pyx_RaiseBufferIndexError(__pyx_t_2);
-    __PYX_ERR(1, 24, __pyx_L1_error)
+    __PYX_ERR(1, 22, __pyx_L1_error)
   }
-  __pyx_v_self->c_PS->spawnParticles(__pyx_v_N, __pyx_v_angle, __pyx_v_speed, __pyx_v_size, (&(*((double *) ( /* dim=0 */ (__pyx_v_position.data + __pyx_t_1 * __pyx_v_position.strides[0]) )))), __pyx_v_angle_spread, __pyx_v_speed_spread, __pyx_v_size_spread, (&(*((double *) ( /* dim=0 */ (__pyx_v_position_spread.data + __pyx_t_3 * __pyx_v_position_spread.strides[0]) )))), __pyx_v_distribution);
+  __pyx_v_self->c_PS->spawnParticles(__pyx_v_N, __pyx_v_t, __pyx_v_angle, __pyx_v_speed, __pyx_v_size, (&(*((double *) ( /* dim=0 */ (__pyx_v_position.data + __pyx_t_1 * __pyx_v_position.strides[0]) )))), __pyx_v_angle_spread, __pyx_v_speed_spread, __pyx_v_size_spread, (&(*((double *) ( /* dim=0 */ (__pyx_v_position_spread.data + __pyx_t_3 * __pyx_v_position_spread.strides[0]) )))), __pyx_v_distribution);
 
-  /* "particle_system_ext.pyx":19
+  /* "particle_system_ext.pyx":17
  *         pass
  * 
- *     def spawn_particles(self, int N,             # <<<<<<<<<<<<<<
+ *     def spawn_particles(self, int N, int t,             # <<<<<<<<<<<<<<
  *                         double angle, double speed, double size, double[:] position,
  *                         double angle_spread, double speed_spread, double size_spread,
  */
@@ -4045,8 +4063,8 @@ static PyObject *__pyx_pf_19particle_system_ext_23ParticleSystemInterface_4spawn
   return __pyx_r;
 }
 
-/* "particle_system_ext.pyx":26
- *         self.c_PS.spawnParticles(N,angle,speed,size,&position[0],angle_spread,speed_spread,size_spread,&position_spread[0],distribution)
+/* "particle_system_ext.pyx":24
+ *         self.c_PS.spawnParticles(N,t,angle,speed,size,&position[0],angle_spread,speed_spread,size_spread,&position_spread[0],distribution)
  * 
  *     def iterate(self):             # <<<<<<<<<<<<<<
  *         self.c_PS.iterate()
@@ -4091,7 +4109,7 @@ static PyObject *__pyx_pf_19particle_system_ext_23ParticleSystemInterface_6itera
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("iterate", 0);
 
-  /* "particle_system_ext.pyx":27
+  /* "particle_system_ext.pyx":25
  * 
  *     def iterate(self):
  *         self.c_PS.iterate()             # <<<<<<<<<<<<<<
@@ -4100,8 +4118,8 @@ static PyObject *__pyx_pf_19particle_system_ext_23ParticleSystemInterface_6itera
  */
   __pyx_v_self->c_PS->iterate();
 
-  /* "particle_system_ext.pyx":26
- *         self.c_PS.spawnParticles(N,angle,speed,size,&position[0],angle_spread,speed_spread,size_spread,&position_spread[0],distribution)
+  /* "particle_system_ext.pyx":24
+ *         self.c_PS.spawnParticles(N,t,angle,speed,size,&position[0],angle_spread,speed_spread,size_spread,&position_spread[0],distribution)
  * 
  *     def iterate(self):             # <<<<<<<<<<<<<<
  *         self.c_PS.iterate()
@@ -4115,7 +4133,7 @@ static PyObject *__pyx_pf_19particle_system_ext_23ParticleSystemInterface_6itera
   return __pyx_r;
 }
 
-/* "particle_system_ext.pyx":29
+/* "particle_system_ext.pyx":27
  *         self.c_PS.iterate()
  * 
  *     def get_number_of_particles(self):             # <<<<<<<<<<<<<<
@@ -4165,7 +4183,7 @@ static PyObject *__pyx_pf_19particle_system_ext_23ParticleSystemInterface_8get_n
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("get_number_of_particles", 0);
 
-  /* "particle_system_ext.pyx":30
+  /* "particle_system_ext.pyx":28
  * 
  *     def get_number_of_particles(self):
  *         return self.c_PS.particles.size()             # <<<<<<<<<<<<<<
@@ -4173,13 +4191,13 @@ static PyObject *__pyx_pf_19particle_system_ext_23ParticleSystemInterface_8get_n
  *     def get_particle_coords(self,particle_idx):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_FromSize_t(__pyx_v_self->c_PS->particles.size()); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 30, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_FromSize_t(__pyx_v_self->c_PS->particles.size()); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 28, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "particle_system_ext.pyx":29
+  /* "particle_system_ext.pyx":27
  *         self.c_PS.iterate()
  * 
  *     def get_number_of_particles(self):             # <<<<<<<<<<<<<<
@@ -4198,7 +4216,7 @@ static PyObject *__pyx_pf_19particle_system_ext_23ParticleSystemInterface_8get_n
   return __pyx_r;
 }
 
-/* "particle_system_ext.pyx":32
+/* "particle_system_ext.pyx":30
  *         return self.c_PS.particles.size()
  * 
  *     def get_particle_coords(self,particle_idx):             # <<<<<<<<<<<<<<
@@ -4252,12 +4270,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       switch (__pyx_nargs) {
         case  0:
         if (likely((values[0] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_particle_idx)) != 0)) kw_args--;
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 32, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 30, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "get_particle_coords") < 0)) __PYX_ERR(1, 32, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "get_particle_coords") < 0)) __PYX_ERR(1, 30, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
@@ -4268,7 +4286,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("get_particle_coords", 1, 1, 1, __pyx_nargs); __PYX_ERR(1, 32, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("get_particle_coords", 1, 1, 1, __pyx_nargs); __PYX_ERR(1, 30, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("particle_system_ext.ParticleSystemInterface.get_particle_coords", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -4293,7 +4311,7 @@ static PyObject *__pyx_pf_19particle_system_ext_23ParticleSystemInterface_10get_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("get_particle_coords", 0);
 
-  /* "particle_system_ext.pyx":33
+  /* "particle_system_ext.pyx":31
  * 
  *     def get_particle_coords(self,particle_idx):
  *         return [ self.c_PS.particles[particle_idx].coords[0],             # <<<<<<<<<<<<<<
@@ -4301,29 +4319,29 @@ static PyObject *__pyx_pf_19particle_system_ext_23ParticleSystemInterface_10get_
  * 
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_As_size_t(__pyx_v_particle_idx); if (unlikely((__pyx_t_1 == (size_t)-1) && PyErr_Occurred())) __PYX_ERR(1, 33, __pyx_L1_error)
-  __pyx_t_2 = PyFloat_FromDouble(((__pyx_v_self->c_PS->particles[__pyx_t_1])->coords[0])); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 33, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_size_t(__pyx_v_particle_idx); if (unlikely((__pyx_t_1 == (size_t)-1) && PyErr_Occurred())) __PYX_ERR(1, 31, __pyx_L1_error)
+  __pyx_t_2 = PyFloat_FromDouble(((__pyx_v_self->c_PS->particles[__pyx_t_1])->coords[0])); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 31, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
 
-  /* "particle_system_ext.pyx":34
+  /* "particle_system_ext.pyx":32
  *     def get_particle_coords(self,particle_idx):
  *         return [ self.c_PS.particles[particle_idx].coords[0],
  *                  self.c_PS.particles[particle_idx].coords[1] ]             # <<<<<<<<<<<<<<
  * 
  *     def get_particle_size(self,particle_idx):
  */
-  __pyx_t_1 = __Pyx_PyInt_As_size_t(__pyx_v_particle_idx); if (unlikely((__pyx_t_1 == (size_t)-1) && PyErr_Occurred())) __PYX_ERR(1, 34, __pyx_L1_error)
-  __pyx_t_3 = PyFloat_FromDouble(((__pyx_v_self->c_PS->particles[__pyx_t_1])->coords[1])); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 34, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_size_t(__pyx_v_particle_idx); if (unlikely((__pyx_t_1 == (size_t)-1) && PyErr_Occurred())) __PYX_ERR(1, 32, __pyx_L1_error)
+  __pyx_t_3 = PyFloat_FromDouble(((__pyx_v_self->c_PS->particles[__pyx_t_1])->coords[1])); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 32, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
 
-  /* "particle_system_ext.pyx":33
+  /* "particle_system_ext.pyx":31
  * 
  *     def get_particle_coords(self,particle_idx):
  *         return [ self.c_PS.particles[particle_idx].coords[0],             # <<<<<<<<<<<<<<
  *                  self.c_PS.particles[particle_idx].coords[1] ]
  * 
  */
-  __pyx_t_4 = PyList_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 33, __pyx_L1_error)
+  __pyx_t_4 = PyList_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 31, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_GIVEREF(__pyx_t_2);
   PyList_SET_ITEM(__pyx_t_4, 0, __pyx_t_2);
@@ -4335,7 +4353,7 @@ static PyObject *__pyx_pf_19particle_system_ext_23ParticleSystemInterface_10get_
   __pyx_t_4 = 0;
   goto __pyx_L0;
 
-  /* "particle_system_ext.pyx":32
+  /* "particle_system_ext.pyx":30
  *         return self.c_PS.particles.size()
  * 
  *     def get_particle_coords(self,particle_idx):             # <<<<<<<<<<<<<<
@@ -4356,7 +4374,7 @@ static PyObject *__pyx_pf_19particle_system_ext_23ParticleSystemInterface_10get_
   return __pyx_r;
 }
 
-/* "particle_system_ext.pyx":36
+/* "particle_system_ext.pyx":34
  *                  self.c_PS.particles[particle_idx].coords[1] ]
  * 
  *     def get_particle_size(self,particle_idx):             # <<<<<<<<<<<<<<
@@ -4410,12 +4428,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       switch (__pyx_nargs) {
         case  0:
         if (likely((values[0] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_particle_idx)) != 0)) kw_args--;
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 36, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 34, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "get_particle_size") < 0)) __PYX_ERR(1, 36, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "get_particle_size") < 0)) __PYX_ERR(1, 34, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
@@ -4426,7 +4444,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("get_particle_size", 1, 1, 1, __pyx_nargs); __PYX_ERR(1, 36, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("get_particle_size", 1, 1, 1, __pyx_nargs); __PYX_ERR(1, 34, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("particle_system_ext.ParticleSystemInterface.get_particle_size", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -4449,7 +4467,7 @@ static PyObject *__pyx_pf_19particle_system_ext_23ParticleSystemInterface_12get_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("get_particle_size", 0);
 
-  /* "particle_system_ext.pyx":37
+  /* "particle_system_ext.pyx":35
  * 
  *     def get_particle_size(self,particle_idx):
  *         return self.c_PS.particles[particle_idx].size             # <<<<<<<<<<<<<<
@@ -4457,14 +4475,14 @@ static PyObject *__pyx_pf_19particle_system_ext_23ParticleSystemInterface_12get_
  *     def get_particle_age(self,particle_idx):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_As_size_t(__pyx_v_particle_idx); if (unlikely((__pyx_t_1 == (size_t)-1) && PyErr_Occurred())) __PYX_ERR(1, 37, __pyx_L1_error)
-  __pyx_t_2 = PyFloat_FromDouble((__pyx_v_self->c_PS->particles[__pyx_t_1])->size); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 37, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_size_t(__pyx_v_particle_idx); if (unlikely((__pyx_t_1 == (size_t)-1) && PyErr_Occurred())) __PYX_ERR(1, 35, __pyx_L1_error)
+  __pyx_t_2 = PyFloat_FromDouble((__pyx_v_self->c_PS->particles[__pyx_t_1])->size); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 35, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "particle_system_ext.pyx":36
+  /* "particle_system_ext.pyx":34
  *                  self.c_PS.particles[particle_idx].coords[1] ]
  * 
  *     def get_particle_size(self,particle_idx):             # <<<<<<<<<<<<<<
@@ -4483,7 +4501,7 @@ static PyObject *__pyx_pf_19particle_system_ext_23ParticleSystemInterface_12get_
   return __pyx_r;
 }
 
-/* "particle_system_ext.pyx":39
+/* "particle_system_ext.pyx":37
  *         return self.c_PS.particles[particle_idx].size
  * 
  *     def get_particle_age(self,particle_idx):             # <<<<<<<<<<<<<<
@@ -4537,12 +4555,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       switch (__pyx_nargs) {
         case  0:
         if (likely((values[0] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_particle_idx)) != 0)) kw_args--;
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 39, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 37, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "get_particle_age") < 0)) __PYX_ERR(1, 39, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "get_particle_age") < 0)) __PYX_ERR(1, 37, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
@@ -4553,7 +4571,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("get_particle_age", 1, 1, 1, __pyx_nargs); __PYX_ERR(1, 39, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("get_particle_age", 1, 1, 1, __pyx_nargs); __PYX_ERR(1, 37, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("particle_system_ext.ParticleSystemInterface.get_particle_age", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -4576,7 +4594,7 @@ static PyObject *__pyx_pf_19particle_system_ext_23ParticleSystemInterface_14get_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("get_particle_age", 0);
 
-  /* "particle_system_ext.pyx":40
+  /* "particle_system_ext.pyx":38
  * 
  *     def get_particle_age(self,particle_idx):
  *         return self.c_PS.particles[particle_idx].age             # <<<<<<<<<<<<<<
@@ -4584,14 +4602,14 @@ static PyObject *__pyx_pf_19particle_system_ext_23ParticleSystemInterface_14get_
  * cdef class PyMasterParticleSystem(ParticleSystemInterface):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_As_size_t(__pyx_v_particle_idx); if (unlikely((__pyx_t_1 == (size_t)-1) && PyErr_Occurred())) __PYX_ERR(1, 40, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_PyInt_From_int((__pyx_v_self->c_PS->particles[__pyx_t_1])->age); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 40, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_size_t(__pyx_v_particle_idx); if (unlikely((__pyx_t_1 == (size_t)-1) && PyErr_Occurred())) __PYX_ERR(1, 38, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_int((__pyx_v_self->c_PS->particles[__pyx_t_1])->age); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 38, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "particle_system_ext.pyx":39
+  /* "particle_system_ext.pyx":37
  *         return self.c_PS.particles[particle_idx].size
  * 
  *     def get_particle_age(self,particle_idx):             # <<<<<<<<<<<<<<
@@ -4795,7 +4813,7 @@ static PyObject *__pyx_pf_19particle_system_ext_23ParticleSystemInterface_18__se
   return __pyx_r;
 }
 
-/* "particle_system_ext.pyx":46
+/* "particle_system_ext.pyx":44
  *     cdef deque[Particle*] pdeque
  * 
  *     def __cinit__(self, int d, int lt,             # <<<<<<<<<<<<<<
@@ -4849,47 +4867,47 @@ static int __pyx_pw_19particle_system_ext_22PyMasterParticleSystem_1__cinit__(Py
       switch (__pyx_nargs) {
         case  0:
         if (likely((values[0] = __Pyx_GetKwValue_VARARGS(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_d)) != 0)) kw_args--;
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 46, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 44, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
         if (likely((values[1] = __Pyx_GetKwValue_VARARGS(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_lt)) != 0)) kw_args--;
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 46, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 44, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 6, 6, 1); __PYX_ERR(1, 46, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 6, 6, 1); __PYX_ERR(1, 44, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_GetKwValue_VARARGS(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_FF_N)) != 0)) kw_args--;
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 46, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 44, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 6, 6, 2); __PYX_ERR(1, 46, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 6, 6, 2); __PYX_ERR(1, 44, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
         if (likely((values[3] = __Pyx_GetKwValue_VARARGS(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_FF_diffusivity)) != 0)) kw_args--;
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 46, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 44, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 6, 6, 3); __PYX_ERR(1, 46, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 6, 6, 3); __PYX_ERR(1, 44, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  4:
         if (likely((values[4] = __Pyx_GetKwValue_VARARGS(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_FF_viscosity)) != 0)) kw_args--;
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 46, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 44, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 6, 6, 4); __PYX_ERR(1, 46, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 6, 6, 4); __PYX_ERR(1, 44, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  5:
         if (likely((values[5] = __Pyx_GetKwValue_VARARGS(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_FF_dt)) != 0)) kw_args--;
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 46, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 44, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 6, 6, 5); __PYX_ERR(1, 46, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 6, 6, 5); __PYX_ERR(1, 44, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "__cinit__") < 0)) __PYX_ERR(1, 46, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "__cinit__") < 0)) __PYX_ERR(1, 44, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 6)) {
       goto __pyx_L5_argtuple_error;
@@ -4901,16 +4919,16 @@ static int __pyx_pw_19particle_system_ext_22PyMasterParticleSystem_1__cinit__(Py
       values[4] = __Pyx_Arg_VARARGS(__pyx_args, 4);
       values[5] = __Pyx_Arg_VARARGS(__pyx_args, 5);
     }
-    __pyx_v_d = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_d == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 46, __pyx_L3_error)
-    __pyx_v_lt = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_lt == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 46, __pyx_L3_error)
-    __pyx_v_FF_N = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_FF_N == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 47, __pyx_L3_error)
-    __pyx_v_FF_diffusivity = __pyx_PyFloat_AsDouble(values[3]); if (unlikely((__pyx_v_FF_diffusivity == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 47, __pyx_L3_error)
-    __pyx_v_FF_viscosity = __pyx_PyFloat_AsDouble(values[4]); if (unlikely((__pyx_v_FF_viscosity == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 48, __pyx_L3_error)
-    __pyx_v_FF_dt = __pyx_PyFloat_AsDouble(values[5]); if (unlikely((__pyx_v_FF_dt == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 48, __pyx_L3_error)
+    __pyx_v_d = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_d == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 44, __pyx_L3_error)
+    __pyx_v_lt = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_lt == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 44, __pyx_L3_error)
+    __pyx_v_FF_N = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_FF_N == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 45, __pyx_L3_error)
+    __pyx_v_FF_diffusivity = __pyx_PyFloat_AsDouble(values[3]); if (unlikely((__pyx_v_FF_diffusivity == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 45, __pyx_L3_error)
+    __pyx_v_FF_viscosity = __pyx_PyFloat_AsDouble(values[4]); if (unlikely((__pyx_v_FF_viscosity == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 46, __pyx_L3_error)
+    __pyx_v_FF_dt = __pyx_PyFloat_AsDouble(values[5]); if (unlikely((__pyx_v_FF_dt == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 46, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 6, 6, __pyx_nargs); __PYX_ERR(1, 46, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 6, 6, __pyx_nargs); __PYX_ERR(1, 44, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("particle_system_ext.PyMasterParticleSystem.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -4933,7 +4951,7 @@ static int __pyx_pf_19particle_system_ext_22PyMasterParticleSystem___cinit__(str
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__cinit__", 0);
 
-  /* "particle_system_ext.pyx":50
+  /* "particle_system_ext.pyx":48
  *                   double FF_viscosity,double FF_dt):
  * 
  *         self.c_FF = new FluidField(FF_N,FF_diffusivity,FF_viscosity,FF_dt)             # <<<<<<<<<<<<<<
@@ -4944,11 +4962,11 @@ static int __pyx_pf_19particle_system_ext_22PyMasterParticleSystem___cinit__(str
     __pyx_t_1 = new fluids::FluidField(__pyx_v_FF_N, __pyx_v_FF_diffusivity, __pyx_v_FF_viscosity, __pyx_v_FF_dt);
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(1, 50, __pyx_L1_error)
+    __PYX_ERR(1, 48, __pyx_L1_error)
   }
   __pyx_v_self->c_FF = __pyx_t_1;
 
-  /* "particle_system_ext.pyx":51
+  /* "particle_system_ext.pyx":49
  * 
  *         self.c_FF = new FluidField(FF_N,FF_diffusivity,FF_viscosity,FF_dt)
  *         self.c_PS = new ParticleSystem(self.c_FF,d,lt)             # <<<<<<<<<<<<<<
@@ -4959,11 +4977,11 @@ static int __pyx_pf_19particle_system_ext_22PyMasterParticleSystem___cinit__(str
     __pyx_t_2 = new particles::ParticleSystem(__pyx_v_self->c_FF, __pyx_v_d, __pyx_v_lt);
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(1, 51, __pyx_L1_error)
+    __PYX_ERR(1, 49, __pyx_L1_error)
   }
   __pyx_v_self->__pyx_base.c_PS = __pyx_t_2;
 
-  /* "particle_system_ext.pyx":46
+  /* "particle_system_ext.pyx":44
  *     cdef deque[Particle*] pdeque
  * 
  *     def __cinit__(self, int d, int lt,             # <<<<<<<<<<<<<<
@@ -4982,7 +5000,7 @@ static int __pyx_pf_19particle_system_ext_22PyMasterParticleSystem___cinit__(str
   return __pyx_r;
 }
 
-/* "particle_system_ext.pyx":53
+/* "particle_system_ext.pyx":51
  *         self.c_PS = new ParticleSystem(self.c_FF,d,lt)
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
@@ -5006,7 +5024,7 @@ static void __pyx_pf_19particle_system_ext_22PyMasterParticleSystem_2__dealloc__
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__dealloc__", 0);
 
-  /* "particle_system_ext.pyx":54
+  /* "particle_system_ext.pyx":52
  * 
  *     def __dealloc__(self):
  *         del self.c_PS             # <<<<<<<<<<<<<<
@@ -5015,7 +5033,7 @@ static void __pyx_pf_19particle_system_ext_22PyMasterParticleSystem_2__dealloc__
  */
   delete __pyx_v_self->__pyx_base.c_PS;
 
-  /* "particle_system_ext.pyx":55
+  /* "particle_system_ext.pyx":53
  *     def __dealloc__(self):
  *         del self.c_PS
  *         del self.c_FF             # <<<<<<<<<<<<<<
@@ -5024,7 +5042,7 @@ static void __pyx_pf_19particle_system_ext_22PyMasterParticleSystem_2__dealloc__
  */
   delete __pyx_v_self->c_FF;
 
-  /* "particle_system_ext.pyx":53
+  /* "particle_system_ext.pyx":51
  *         self.c_PS = new ParticleSystem(self.c_FF,d,lt)
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
@@ -5036,7 +5054,7 @@ static void __pyx_pf_19particle_system_ext_22PyMasterParticleSystem_2__dealloc__
   __Pyx_RefNannyFinishContext();
 }
 
-/* "particle_system_ext.pyx":57
+/* "particle_system_ext.pyx":55
  *         del self.c_FF
  * 
  *     def IDX(self, int i, int j):             # <<<<<<<<<<<<<<
@@ -5093,19 +5111,19 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       switch (__pyx_nargs) {
         case  0:
         if (likely((values[0] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_i)) != 0)) kw_args--;
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 57, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 55, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
         if (likely((values[1] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_j)) != 0)) kw_args--;
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 57, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 55, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("IDX", 1, 2, 2, 1); __PYX_ERR(1, 57, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("IDX", 1, 2, 2, 1); __PYX_ERR(1, 55, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "IDX") < 0)) __PYX_ERR(1, 57, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "IDX") < 0)) __PYX_ERR(1, 55, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 2)) {
       goto __pyx_L5_argtuple_error;
@@ -5113,12 +5131,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       values[0] = __Pyx_Arg_FASTCALL(__pyx_args, 0);
       values[1] = __Pyx_Arg_FASTCALL(__pyx_args, 1);
     }
-    __pyx_v_i = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_i == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 57, __pyx_L3_error)
-    __pyx_v_j = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_j == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 57, __pyx_L3_error)
+    __pyx_v_i = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_i == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 55, __pyx_L3_error)
+    __pyx_v_j = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_j == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 55, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("IDX", 1, 2, 2, __pyx_nargs); __PYX_ERR(1, 57, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("IDX", 1, 2, 2, __pyx_nargs); __PYX_ERR(1, 55, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("particle_system_ext.PyMasterParticleSystem.IDX", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -5140,7 +5158,7 @@ static PyObject *__pyx_pf_19particle_system_ext_22PyMasterParticleSystem_4IDX(st
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("IDX", 0);
 
-  /* "particle_system_ext.pyx":58
+  /* "particle_system_ext.pyx":56
  * 
  *     def IDX(self, int i, int j):
  *         return self.c_FF.IDX(i,j)             # <<<<<<<<<<<<<<
@@ -5148,13 +5166,13 @@ static PyObject *__pyx_pf_19particle_system_ext_22PyMasterParticleSystem_4IDX(st
  *     def get_density(self, int i, int j):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->c_FF->IDX(__pyx_v_i, __pyx_v_j)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 58, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->c_FF->IDX(__pyx_v_i, __pyx_v_j)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 56, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "particle_system_ext.pyx":57
+  /* "particle_system_ext.pyx":55
  *         del self.c_FF
  * 
  *     def IDX(self, int i, int j):             # <<<<<<<<<<<<<<
@@ -5173,7 +5191,7 @@ static PyObject *__pyx_pf_19particle_system_ext_22PyMasterParticleSystem_4IDX(st
   return __pyx_r;
 }
 
-/* "particle_system_ext.pyx":60
+/* "particle_system_ext.pyx":58
  *         return self.c_FF.IDX(i,j)
  * 
  *     def get_density(self, int i, int j):             # <<<<<<<<<<<<<<
@@ -5230,19 +5248,19 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       switch (__pyx_nargs) {
         case  0:
         if (likely((values[0] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_i)) != 0)) kw_args--;
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 60, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 58, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
         if (likely((values[1] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_j)) != 0)) kw_args--;
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 60, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 58, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("get_density", 1, 2, 2, 1); __PYX_ERR(1, 60, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("get_density", 1, 2, 2, 1); __PYX_ERR(1, 58, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "get_density") < 0)) __PYX_ERR(1, 60, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "get_density") < 0)) __PYX_ERR(1, 58, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 2)) {
       goto __pyx_L5_argtuple_error;
@@ -5250,12 +5268,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       values[0] = __Pyx_Arg_FASTCALL(__pyx_args, 0);
       values[1] = __Pyx_Arg_FASTCALL(__pyx_args, 1);
     }
-    __pyx_v_i = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_i == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 60, __pyx_L3_error)
-    __pyx_v_j = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_j == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 60, __pyx_L3_error)
+    __pyx_v_i = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_i == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 58, __pyx_L3_error)
+    __pyx_v_j = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_j == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 58, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("get_density", 1, 2, 2, __pyx_nargs); __PYX_ERR(1, 60, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("get_density", 1, 2, 2, __pyx_nargs); __PYX_ERR(1, 58, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("particle_system_ext.PyMasterParticleSystem.get_density", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -5277,7 +5295,7 @@ static PyObject *__pyx_pf_19particle_system_ext_22PyMasterParticleSystem_6get_de
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("get_density", 0);
 
-  /* "particle_system_ext.pyx":61
+  /* "particle_system_ext.pyx":59
  * 
  *     def get_density(self, int i, int j):
  *         return self.c_FF.getDensity(i,j)             # <<<<<<<<<<<<<<
@@ -5285,13 +5303,13 @@ static PyObject *__pyx_pf_19particle_system_ext_22PyMasterParticleSystem_6get_de
  *     def get_velocity_x(self, int i, int j):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->c_FF->getDensity(__pyx_v_i, __pyx_v_j)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 61, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->c_FF->getDensity(__pyx_v_i, __pyx_v_j)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 59, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "particle_system_ext.pyx":60
+  /* "particle_system_ext.pyx":58
  *         return self.c_FF.IDX(i,j)
  * 
  *     def get_density(self, int i, int j):             # <<<<<<<<<<<<<<
@@ -5310,7 +5328,7 @@ static PyObject *__pyx_pf_19particle_system_ext_22PyMasterParticleSystem_6get_de
   return __pyx_r;
 }
 
-/* "particle_system_ext.pyx":63
+/* "particle_system_ext.pyx":61
  *         return self.c_FF.getDensity(i,j)
  * 
  *     def get_velocity_x(self, int i, int j):             # <<<<<<<<<<<<<<
@@ -5367,19 +5385,19 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       switch (__pyx_nargs) {
         case  0:
         if (likely((values[0] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_i)) != 0)) kw_args--;
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 63, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 61, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
         if (likely((values[1] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_j)) != 0)) kw_args--;
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 63, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 61, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("get_velocity_x", 1, 2, 2, 1); __PYX_ERR(1, 63, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("get_velocity_x", 1, 2, 2, 1); __PYX_ERR(1, 61, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "get_velocity_x") < 0)) __PYX_ERR(1, 63, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "get_velocity_x") < 0)) __PYX_ERR(1, 61, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 2)) {
       goto __pyx_L5_argtuple_error;
@@ -5387,12 +5405,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       values[0] = __Pyx_Arg_FASTCALL(__pyx_args, 0);
       values[1] = __Pyx_Arg_FASTCALL(__pyx_args, 1);
     }
-    __pyx_v_i = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_i == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 63, __pyx_L3_error)
-    __pyx_v_j = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_j == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 63, __pyx_L3_error)
+    __pyx_v_i = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_i == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 61, __pyx_L3_error)
+    __pyx_v_j = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_j == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 61, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("get_velocity_x", 1, 2, 2, __pyx_nargs); __PYX_ERR(1, 63, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("get_velocity_x", 1, 2, 2, __pyx_nargs); __PYX_ERR(1, 61, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("particle_system_ext.PyMasterParticleSystem.get_velocity_x", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -5414,7 +5432,7 @@ static PyObject *__pyx_pf_19particle_system_ext_22PyMasterParticleSystem_8get_ve
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("get_velocity_x", 0);
 
-  /* "particle_system_ext.pyx":64
+  /* "particle_system_ext.pyx":62
  * 
  *     def get_velocity_x(self, int i, int j):
  *         return self.c_FF.getVelocityX(i,j)             # <<<<<<<<<<<<<<
@@ -5422,13 +5440,13 @@ static PyObject *__pyx_pf_19particle_system_ext_22PyMasterParticleSystem_8get_ve
  *     def get_velocity_y(self, int i, int j):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->c_FF->getVelocityX(__pyx_v_i, __pyx_v_j)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 64, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->c_FF->getVelocityX(__pyx_v_i, __pyx_v_j)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 62, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "particle_system_ext.pyx":63
+  /* "particle_system_ext.pyx":61
  *         return self.c_FF.getDensity(i,j)
  * 
  *     def get_velocity_x(self, int i, int j):             # <<<<<<<<<<<<<<
@@ -5447,7 +5465,7 @@ static PyObject *__pyx_pf_19particle_system_ext_22PyMasterParticleSystem_8get_ve
   return __pyx_r;
 }
 
-/* "particle_system_ext.pyx":66
+/* "particle_system_ext.pyx":64
  *         return self.c_FF.getVelocityX(i,j)
  * 
  *     def get_velocity_y(self, int i, int j):             # <<<<<<<<<<<<<<
@@ -5504,19 +5522,19 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       switch (__pyx_nargs) {
         case  0:
         if (likely((values[0] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_i)) != 0)) kw_args--;
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 66, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 64, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
         if (likely((values[1] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_j)) != 0)) kw_args--;
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 66, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 64, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("get_velocity_y", 1, 2, 2, 1); __PYX_ERR(1, 66, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("get_velocity_y", 1, 2, 2, 1); __PYX_ERR(1, 64, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "get_velocity_y") < 0)) __PYX_ERR(1, 66, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "get_velocity_y") < 0)) __PYX_ERR(1, 64, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 2)) {
       goto __pyx_L5_argtuple_error;
@@ -5524,12 +5542,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       values[0] = __Pyx_Arg_FASTCALL(__pyx_args, 0);
       values[1] = __Pyx_Arg_FASTCALL(__pyx_args, 1);
     }
-    __pyx_v_i = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_i == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 66, __pyx_L3_error)
-    __pyx_v_j = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_j == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 66, __pyx_L3_error)
+    __pyx_v_i = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_i == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 64, __pyx_L3_error)
+    __pyx_v_j = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_j == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 64, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("get_velocity_y", 1, 2, 2, __pyx_nargs); __PYX_ERR(1, 66, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("get_velocity_y", 1, 2, 2, __pyx_nargs); __PYX_ERR(1, 64, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("particle_system_ext.PyMasterParticleSystem.get_velocity_y", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -5551,7 +5569,7 @@ static PyObject *__pyx_pf_19particle_system_ext_22PyMasterParticleSystem_10get_v
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("get_velocity_y", 0);
 
-  /* "particle_system_ext.pyx":67
+  /* "particle_system_ext.pyx":65
  * 
  *     def get_velocity_y(self, int i, int j):
  *         return self.c_FF.getVelocityY(i,j)             # <<<<<<<<<<<<<<
@@ -5559,13 +5577,13 @@ static PyObject *__pyx_pf_19particle_system_ext_22PyMasterParticleSystem_10get_v
  *     def add_density(self, int x, int y, double amount):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->c_FF->getVelocityY(__pyx_v_i, __pyx_v_j)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 67, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->c_FF->getVelocityY(__pyx_v_i, __pyx_v_j)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 65, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "particle_system_ext.pyx":66
+  /* "particle_system_ext.pyx":64
  *         return self.c_FF.getVelocityX(i,j)
  * 
  *     def get_velocity_y(self, int i, int j):             # <<<<<<<<<<<<<<
@@ -5584,7 +5602,7 @@ static PyObject *__pyx_pf_19particle_system_ext_22PyMasterParticleSystem_10get_v
   return __pyx_r;
 }
 
-/* "particle_system_ext.pyx":69
+/* "particle_system_ext.pyx":67
  *         return self.c_FF.getVelocityY(i,j)
  * 
  *     def add_density(self, int x, int y, double amount):             # <<<<<<<<<<<<<<
@@ -5644,26 +5662,26 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       switch (__pyx_nargs) {
         case  0:
         if (likely((values[0] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_x)) != 0)) kw_args--;
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 69, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 67, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
         if (likely((values[1] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_y)) != 0)) kw_args--;
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 69, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 67, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("add_density", 1, 3, 3, 1); __PYX_ERR(1, 69, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("add_density", 1, 3, 3, 1); __PYX_ERR(1, 67, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_amount)) != 0)) kw_args--;
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 69, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 67, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("add_density", 1, 3, 3, 2); __PYX_ERR(1, 69, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("add_density", 1, 3, 3, 2); __PYX_ERR(1, 67, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "add_density") < 0)) __PYX_ERR(1, 69, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "add_density") < 0)) __PYX_ERR(1, 67, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 3)) {
       goto __pyx_L5_argtuple_error;
@@ -5672,13 +5690,13 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       values[1] = __Pyx_Arg_FASTCALL(__pyx_args, 1);
       values[2] = __Pyx_Arg_FASTCALL(__pyx_args, 2);
     }
-    __pyx_v_x = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_x == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 69, __pyx_L3_error)
-    __pyx_v_y = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_y == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 69, __pyx_L3_error)
-    __pyx_v_amount = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_amount == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 69, __pyx_L3_error)
+    __pyx_v_x = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_x == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 67, __pyx_L3_error)
+    __pyx_v_y = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_y == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 67, __pyx_L3_error)
+    __pyx_v_amount = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_amount == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 67, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("add_density", 1, 3, 3, __pyx_nargs); __PYX_ERR(1, 69, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("add_density", 1, 3, 3, __pyx_nargs); __PYX_ERR(1, 67, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("particle_system_ext.PyMasterParticleSystem.add_density", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -5696,7 +5714,7 @@ static PyObject *__pyx_pf_19particle_system_ext_22PyMasterParticleSystem_12add_d
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("add_density", 0);
 
-  /* "particle_system_ext.pyx":70
+  /* "particle_system_ext.pyx":68
  * 
  *     def add_density(self, int x, int y, double amount):
  *         self.c_FF.addDensity(x,y,amount)             # <<<<<<<<<<<<<<
@@ -5705,7 +5723,7 @@ static PyObject *__pyx_pf_19particle_system_ext_22PyMasterParticleSystem_12add_d
  */
   __pyx_v_self->c_FF->addDensity(__pyx_v_x, __pyx_v_y, __pyx_v_amount);
 
-  /* "particle_system_ext.pyx":69
+  /* "particle_system_ext.pyx":67
  *         return self.c_FF.getVelocityY(i,j)
  * 
  *     def add_density(self, int x, int y, double amount):             # <<<<<<<<<<<<<<
@@ -5720,7 +5738,7 @@ static PyObject *__pyx_pf_19particle_system_ext_22PyMasterParticleSystem_12add_d
   return __pyx_r;
 }
 
-/* "particle_system_ext.pyx":72
+/* "particle_system_ext.pyx":70
  *         self.c_FF.addDensity(x,y,amount)
  * 
  *     def add_velocity(self, int x, int y, double amount_x, double amount_y):             # <<<<<<<<<<<<<<
@@ -5783,33 +5801,33 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       switch (__pyx_nargs) {
         case  0:
         if (likely((values[0] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_x)) != 0)) kw_args--;
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 72, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 70, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
         if (likely((values[1] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_y)) != 0)) kw_args--;
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 72, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 70, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("add_velocity", 1, 4, 4, 1); __PYX_ERR(1, 72, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("add_velocity", 1, 4, 4, 1); __PYX_ERR(1, 70, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_amount_x)) != 0)) kw_args--;
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 72, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 70, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("add_velocity", 1, 4, 4, 2); __PYX_ERR(1, 72, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("add_velocity", 1, 4, 4, 2); __PYX_ERR(1, 70, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
         if (likely((values[3] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_amount_y)) != 0)) kw_args--;
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 72, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 70, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("add_velocity", 1, 4, 4, 3); __PYX_ERR(1, 72, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("add_velocity", 1, 4, 4, 3); __PYX_ERR(1, 70, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "add_velocity") < 0)) __PYX_ERR(1, 72, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "add_velocity") < 0)) __PYX_ERR(1, 70, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 4)) {
       goto __pyx_L5_argtuple_error;
@@ -5819,14 +5837,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       values[2] = __Pyx_Arg_FASTCALL(__pyx_args, 2);
       values[3] = __Pyx_Arg_FASTCALL(__pyx_args, 3);
     }
-    __pyx_v_x = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_x == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 72, __pyx_L3_error)
-    __pyx_v_y = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_y == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 72, __pyx_L3_error)
-    __pyx_v_amount_x = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_amount_x == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 72, __pyx_L3_error)
-    __pyx_v_amount_y = __pyx_PyFloat_AsDouble(values[3]); if (unlikely((__pyx_v_amount_y == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 72, __pyx_L3_error)
+    __pyx_v_x = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_x == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 70, __pyx_L3_error)
+    __pyx_v_y = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_y == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 70, __pyx_L3_error)
+    __pyx_v_amount_x = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_amount_x == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 70, __pyx_L3_error)
+    __pyx_v_amount_y = __pyx_PyFloat_AsDouble(values[3]); if (unlikely((__pyx_v_amount_y == (double)-1) && PyErr_Occurred())) __PYX_ERR(1, 70, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("add_velocity", 1, 4, 4, __pyx_nargs); __PYX_ERR(1, 72, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("add_velocity", 1, 4, 4, __pyx_nargs); __PYX_ERR(1, 70, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("particle_system_ext.PyMasterParticleSystem.add_velocity", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -5844,7 +5862,7 @@ static PyObject *__pyx_pf_19particle_system_ext_22PyMasterParticleSystem_14add_v
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("add_velocity", 0);
 
-  /* "particle_system_ext.pyx":73
+  /* "particle_system_ext.pyx":71
  * 
  *     def add_velocity(self, int x, int y, double amount_x, double amount_y):
  *         self.c_FF.addVelocity(x,y,amount_x,amount_y)             # <<<<<<<<<<<<<<
@@ -5853,7 +5871,7 @@ static PyObject *__pyx_pf_19particle_system_ext_22PyMasterParticleSystem_14add_v
  */
   __pyx_v_self->c_FF->addVelocity(__pyx_v_x, __pyx_v_y, __pyx_v_amount_x, __pyx_v_amount_y);
 
-  /* "particle_system_ext.pyx":72
+  /* "particle_system_ext.pyx":70
  *         self.c_FF.addDensity(x,y,amount)
  * 
  *     def add_velocity(self, int x, int y, double amount_x, double amount_y):             # <<<<<<<<<<<<<<
@@ -5868,7 +5886,7 @@ static PyObject *__pyx_pf_19particle_system_ext_22PyMasterParticleSystem_14add_v
   return __pyx_r;
 }
 
-/* "particle_system_ext.pyx":75
+/* "particle_system_ext.pyx":73
  *         self.c_FF.addVelocity(x,y,amount_x,amount_y)
  * 
  *     def iterate(self):             # <<<<<<<<<<<<<<
@@ -5914,7 +5932,7 @@ static PyObject *__pyx_pf_19particle_system_ext_22PyMasterParticleSystem_16itera
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("iterate", 0);
 
-  /* "particle_system_ext.pyx":76
+  /* "particle_system_ext.pyx":74
  * 
  *     def iterate(self):
  *         self.c_FF.iterate()             # <<<<<<<<<<<<<<
@@ -5923,7 +5941,7 @@ static PyObject *__pyx_pf_19particle_system_ext_22PyMasterParticleSystem_16itera
  */
   __pyx_v_self->c_FF->iterate();
 
-  /* "particle_system_ext.pyx":77
+  /* "particle_system_ext.pyx":75
  *     def iterate(self):
  *         self.c_FF.iterate()
  *         self.c_PS.iterate()             # <<<<<<<<<<<<<<
@@ -5932,7 +5950,7 @@ static PyObject *__pyx_pf_19particle_system_ext_22PyMasterParticleSystem_16itera
  */
   __pyx_v_self->__pyx_base.c_PS->iterate();
 
-  /* "particle_system_ext.pyx":75
+  /* "particle_system_ext.pyx":73
  *         self.c_FF.addVelocity(x,y,amount_x,amount_y)
  * 
  *     def iterate(self):             # <<<<<<<<<<<<<<
@@ -6132,7 +6150,7 @@ static PyObject *__pyx_pf_19particle_system_ext_22PyMasterParticleSystem_20__set
   return __pyx_r;
 }
 
-/* "particle_system_ext.pyx":80
+/* "particle_system_ext.pyx":78
  * 
  * cdef class PySlaveParticleSystem(ParticleSystemInterface):
  *     def __cinit__(self, int d, int lt, PyMasterParticleSystem master):             # <<<<<<<<<<<<<<
@@ -6177,26 +6195,26 @@ static int __pyx_pw_19particle_system_ext_21PySlaveParticleSystem_1__cinit__(PyO
       switch (__pyx_nargs) {
         case  0:
         if (likely((values[0] = __Pyx_GetKwValue_VARARGS(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_d)) != 0)) kw_args--;
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 80, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 78, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
         if (likely((values[1] = __Pyx_GetKwValue_VARARGS(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_lt)) != 0)) kw_args--;
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 80, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 78, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 3, 3, 1); __PYX_ERR(1, 80, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 3, 3, 1); __PYX_ERR(1, 78, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_GetKwValue_VARARGS(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_master)) != 0)) kw_args--;
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 80, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 78, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 3, 3, 2); __PYX_ERR(1, 80, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 3, 3, 2); __PYX_ERR(1, 78, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "__cinit__") < 0)) __PYX_ERR(1, 80, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "__cinit__") < 0)) __PYX_ERR(1, 78, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 3)) {
       goto __pyx_L5_argtuple_error;
@@ -6205,19 +6223,19 @@ static int __pyx_pw_19particle_system_ext_21PySlaveParticleSystem_1__cinit__(PyO
       values[1] = __Pyx_Arg_VARARGS(__pyx_args, 1);
       values[2] = __Pyx_Arg_VARARGS(__pyx_args, 2);
     }
-    __pyx_v_d = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_d == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 80, __pyx_L3_error)
-    __pyx_v_lt = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_lt == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 80, __pyx_L3_error)
+    __pyx_v_d = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_d == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 78, __pyx_L3_error)
+    __pyx_v_lt = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_lt == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 78, __pyx_L3_error)
     __pyx_v_master = ((struct __pyx_obj_19particle_system_ext_PyMasterParticleSystem *)values[2]);
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 3, 3, __pyx_nargs); __PYX_ERR(1, 80, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 3, 3, __pyx_nargs); __PYX_ERR(1, 78, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("particle_system_ext.PySlaveParticleSystem.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return -1;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_master), __pyx_ptype_19particle_system_ext_PyMasterParticleSystem, 1, "master", 0))) __PYX_ERR(1, 80, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_master), __pyx_ptype_19particle_system_ext_PyMasterParticleSystem, 1, "master", 0))) __PYX_ERR(1, 78, __pyx_L1_error)
   __pyx_r = __pyx_pf_19particle_system_ext_21PySlaveParticleSystem___cinit__(((struct __pyx_obj_19particle_system_ext_PySlaveParticleSystem *)__pyx_v_self), __pyx_v_d, __pyx_v_lt, __pyx_v_master);
 
   /* function exit code */
@@ -6238,7 +6256,7 @@ static int __pyx_pf_19particle_system_ext_21PySlaveParticleSystem___cinit__(stru
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__cinit__", 0);
 
-  /* "particle_system_ext.pyx":81
+  /* "particle_system_ext.pyx":79
  * cdef class PySlaveParticleSystem(ParticleSystemInterface):
  *     def __cinit__(self, int d, int lt, PyMasterParticleSystem master):
  *         self.c_PS = new ParticleSystem(master.c_FF,d,lt)             # <<<<<<<<<<<<<<
@@ -6249,11 +6267,11 @@ static int __pyx_pf_19particle_system_ext_21PySlaveParticleSystem___cinit__(stru
     __pyx_t_1 = new particles::ParticleSystem(__pyx_v_master->c_FF, __pyx_v_d, __pyx_v_lt);
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(1, 81, __pyx_L1_error)
+    __PYX_ERR(1, 79, __pyx_L1_error)
   }
   __pyx_v_self->__pyx_base.c_PS = __pyx_t_1;
 
-  /* "particle_system_ext.pyx":80
+  /* "particle_system_ext.pyx":78
  * 
  * cdef class PySlaveParticleSystem(ParticleSystemInterface):
  *     def __cinit__(self, int d, int lt, PyMasterParticleSystem master):             # <<<<<<<<<<<<<<
@@ -6272,7 +6290,7 @@ static int __pyx_pf_19particle_system_ext_21PySlaveParticleSystem___cinit__(stru
   return __pyx_r;
 }
 
-/* "particle_system_ext.pyx":83
+/* "particle_system_ext.pyx":81
  *         self.c_PS = new ParticleSystem(master.c_FF,d,lt)
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
@@ -6295,14 +6313,14 @@ static void __pyx_pf_19particle_system_ext_21PySlaveParticleSystem_2__dealloc__(
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__dealloc__", 0);
 
-  /* "particle_system_ext.pyx":84
+  /* "particle_system_ext.pyx":82
  * 
  *     def __dealloc__(self):
  *         del self.c_PS             # <<<<<<<<<<<<<<
  */
   delete __pyx_v_self->__pyx_base.c_PS;
 
-  /* "particle_system_ext.pyx":83
+  /* "particle_system_ext.pyx":81
  *         self.c_PS = new ParticleSystem(master.c_FF,d,lt)
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
@@ -21294,6 +21312,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {0, __pyx_k_strided_and_indirect, sizeof(__pyx_k_strided_and_indirect), 0, 0, 1, 0},
   {0, __pyx_k_stringsource, sizeof(__pyx_k_stringsource), 0, 0, 1, 0},
   {0, __pyx_k_struct, sizeof(__pyx_k_struct), 0, 0, 1, 1},
+  {0, __pyx_k_t, sizeof(__pyx_k_t), 0, 0, 1, 1},
   {0, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
   {0, __pyx_k_unable_to_allocate_array_data, sizeof(__pyx_k_unable_to_allocate_array_data), 0, 0, 1, 0},
   {0, __pyx_k_unable_to_allocate_shape_and_str, sizeof(__pyx_k_unable_to_allocate_shape_and_str), 0, 0, 1, 0},
@@ -21459,6 +21478,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_strided_and_indirect, __pyx_k_strided_and_indirect, sizeof(__pyx_k_strided_and_indirect), 0, 0, 1, 0},
   {&__pyx_kp_s_stringsource, __pyx_k_stringsource, sizeof(__pyx_k_stringsource), 0, 0, 1, 0},
   {&__pyx_n_s_struct, __pyx_k_struct, sizeof(__pyx_k_struct), 0, 0, 1, 1},
+  {&__pyx_n_s_t, __pyx_k_t, sizeof(__pyx_k_t), 0, 0, 1, 1},
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
   {&__pyx_kp_s_unable_to_allocate_array_data, __pyx_k_unable_to_allocate_array_data, sizeof(__pyx_k_unable_to_allocate_array_data), 0, 0, 1, 0},
   {&__pyx_kp_s_unable_to_allocate_shape_and_str, __pyx_k_unable_to_allocate_shape_and_str, sizeof(__pyx_k_unable_to_allocate_shape_and_str), 0, 0, 1, 0},
@@ -21515,77 +21535,77 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_slice__5);
   __Pyx_GIVEREF(__pyx_slice__5);
 
-  /* "particle_system_ext.pyx":19
+  /* "particle_system_ext.pyx":17
  *         pass
  * 
- *     def spawn_particles(self, int N,             # <<<<<<<<<<<<<<
+ *     def spawn_particles(self, int N, int t,             # <<<<<<<<<<<<<<
  *                         double angle, double speed, double size, double[:] position,
  *                         double angle_spread, double speed_spread, double size_spread,
  */
-  __pyx_tuple__8 = PyTuple_Pack(11, __pyx_n_s_self, __pyx_n_s_N, __pyx_n_s_angle, __pyx_n_s_speed, __pyx_n_s_size, __pyx_n_s_position, __pyx_n_s_angle_spread, __pyx_n_s_speed_spread, __pyx_n_s_size_spread, __pyx_n_s_position_spread, __pyx_n_s_distribution); if (unlikely(!__pyx_tuple__8)) __PYX_ERR(1, 19, __pyx_L1_error)
+  __pyx_tuple__8 = PyTuple_Pack(12, __pyx_n_s_self, __pyx_n_s_N, __pyx_n_s_t, __pyx_n_s_angle, __pyx_n_s_speed, __pyx_n_s_size, __pyx_n_s_position, __pyx_n_s_angle_spread, __pyx_n_s_speed_spread, __pyx_n_s_size_spread, __pyx_n_s_position_spread, __pyx_n_s_distribution); if (unlikely(!__pyx_tuple__8)) __PYX_ERR(1, 17, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__8);
   __Pyx_GIVEREF(__pyx_tuple__8);
-  __pyx_codeobj__9 = (PyObject*)__Pyx_PyCode_New(11, 0, 0, 11, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__8, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_particle_system_ext_pyx, __pyx_n_s_spawn_particles, 19, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__9)) __PYX_ERR(1, 19, __pyx_L1_error)
+  __pyx_codeobj__9 = (PyObject*)__Pyx_PyCode_New(12, 0, 0, 12, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__8, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_particle_system_ext_pyx, __pyx_n_s_spawn_particles, 17, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__9)) __PYX_ERR(1, 17, __pyx_L1_error)
 
-  /* "particle_system_ext.pyx":26
- *         self.c_PS.spawnParticles(N,angle,speed,size,&position[0],angle_spread,speed_spread,size_spread,&position_spread[0],distribution)
+  /* "particle_system_ext.pyx":24
+ *         self.c_PS.spawnParticles(N,t,angle,speed,size,&position[0],angle_spread,speed_spread,size_spread,&position_spread[0],distribution)
  * 
  *     def iterate(self):             # <<<<<<<<<<<<<<
  *         self.c_PS.iterate()
  * 
  */
-  __pyx_tuple__10 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(1, 26, __pyx_L1_error)
+  __pyx_tuple__10 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__10)) __PYX_ERR(1, 24, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__10);
   __Pyx_GIVEREF(__pyx_tuple__10);
-  __pyx_codeobj__11 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__10, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_particle_system_ext_pyx, __pyx_n_s_iterate, 26, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__11)) __PYX_ERR(1, 26, __pyx_L1_error)
+  __pyx_codeobj__11 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__10, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_particle_system_ext_pyx, __pyx_n_s_iterate, 24, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__11)) __PYX_ERR(1, 24, __pyx_L1_error)
 
-  /* "particle_system_ext.pyx":29
+  /* "particle_system_ext.pyx":27
  *         self.c_PS.iterate()
  * 
  *     def get_number_of_particles(self):             # <<<<<<<<<<<<<<
  *         return self.c_PS.particles.size()
  * 
  */
-  __pyx_tuple__12 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__12)) __PYX_ERR(1, 29, __pyx_L1_error)
+  __pyx_tuple__12 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__12)) __PYX_ERR(1, 27, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__12);
   __Pyx_GIVEREF(__pyx_tuple__12);
-  __pyx_codeobj__13 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__12, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_particle_system_ext_pyx, __pyx_n_s_get_number_of_particles, 29, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__13)) __PYX_ERR(1, 29, __pyx_L1_error)
+  __pyx_codeobj__13 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__12, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_particle_system_ext_pyx, __pyx_n_s_get_number_of_particles, 27, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__13)) __PYX_ERR(1, 27, __pyx_L1_error)
 
-  /* "particle_system_ext.pyx":32
+  /* "particle_system_ext.pyx":30
  *         return self.c_PS.particles.size()
  * 
  *     def get_particle_coords(self,particle_idx):             # <<<<<<<<<<<<<<
  *         return [ self.c_PS.particles[particle_idx].coords[0],
  *                  self.c_PS.particles[particle_idx].coords[1] ]
  */
-  __pyx_tuple__14 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_particle_idx); if (unlikely(!__pyx_tuple__14)) __PYX_ERR(1, 32, __pyx_L1_error)
+  __pyx_tuple__14 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_particle_idx); if (unlikely(!__pyx_tuple__14)) __PYX_ERR(1, 30, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__14);
   __Pyx_GIVEREF(__pyx_tuple__14);
-  __pyx_codeobj__15 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__14, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_particle_system_ext_pyx, __pyx_n_s_get_particle_coords, 32, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__15)) __PYX_ERR(1, 32, __pyx_L1_error)
+  __pyx_codeobj__15 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__14, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_particle_system_ext_pyx, __pyx_n_s_get_particle_coords, 30, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__15)) __PYX_ERR(1, 30, __pyx_L1_error)
 
-  /* "particle_system_ext.pyx":36
+  /* "particle_system_ext.pyx":34
  *                  self.c_PS.particles[particle_idx].coords[1] ]
  * 
  *     def get_particle_size(self,particle_idx):             # <<<<<<<<<<<<<<
  *         return self.c_PS.particles[particle_idx].size
  * 
  */
-  __pyx_tuple__16 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_particle_idx); if (unlikely(!__pyx_tuple__16)) __PYX_ERR(1, 36, __pyx_L1_error)
+  __pyx_tuple__16 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_particle_idx); if (unlikely(!__pyx_tuple__16)) __PYX_ERR(1, 34, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__16);
   __Pyx_GIVEREF(__pyx_tuple__16);
-  __pyx_codeobj__17 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__16, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_particle_system_ext_pyx, __pyx_n_s_get_particle_size, 36, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__17)) __PYX_ERR(1, 36, __pyx_L1_error)
+  __pyx_codeobj__17 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__16, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_particle_system_ext_pyx, __pyx_n_s_get_particle_size, 34, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__17)) __PYX_ERR(1, 34, __pyx_L1_error)
 
-  /* "particle_system_ext.pyx":39
+  /* "particle_system_ext.pyx":37
  *         return self.c_PS.particles[particle_idx].size
  * 
  *     def get_particle_age(self,particle_idx):             # <<<<<<<<<<<<<<
  *         return self.c_PS.particles[particle_idx].age
  * 
  */
-  __pyx_tuple__18 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_particle_idx); if (unlikely(!__pyx_tuple__18)) __PYX_ERR(1, 39, __pyx_L1_error)
+  __pyx_tuple__18 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_particle_idx); if (unlikely(!__pyx_tuple__18)) __PYX_ERR(1, 37, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__18);
   __Pyx_GIVEREF(__pyx_tuple__18);
-  __pyx_codeobj__19 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__18, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_particle_system_ext_pyx, __pyx_n_s_get_particle_age, 39, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__19)) __PYX_ERR(1, 39, __pyx_L1_error)
+  __pyx_codeobj__19 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__18, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_particle_system_ext_pyx, __pyx_n_s_get_particle_age, 37, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__19)) __PYX_ERR(1, 37, __pyx_L1_error)
 
   /* "(tree fragment)":1
  * def __reduce_cython__(self):             # <<<<<<<<<<<<<<
@@ -21608,89 +21628,89 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__22);
   __pyx_codeobj__23 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__22, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_stringsource, __pyx_n_s_setstate_cython, 3, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__23)) __PYX_ERR(0, 3, __pyx_L1_error)
 
-  /* "particle_system_ext.pyx":57
+  /* "particle_system_ext.pyx":55
  *         del self.c_FF
  * 
  *     def IDX(self, int i, int j):             # <<<<<<<<<<<<<<
  *         return self.c_FF.IDX(i,j)
  * 
  */
-  __pyx_tuple__24 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_i, __pyx_n_s_j); if (unlikely(!__pyx_tuple__24)) __PYX_ERR(1, 57, __pyx_L1_error)
+  __pyx_tuple__24 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_i, __pyx_n_s_j); if (unlikely(!__pyx_tuple__24)) __PYX_ERR(1, 55, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__24);
   __Pyx_GIVEREF(__pyx_tuple__24);
-  __pyx_codeobj__25 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__24, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_particle_system_ext_pyx, __pyx_n_s_IDX, 57, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__25)) __PYX_ERR(1, 57, __pyx_L1_error)
+  __pyx_codeobj__25 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__24, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_particle_system_ext_pyx, __pyx_n_s_IDX, 55, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__25)) __PYX_ERR(1, 55, __pyx_L1_error)
 
-  /* "particle_system_ext.pyx":60
+  /* "particle_system_ext.pyx":58
  *         return self.c_FF.IDX(i,j)
  * 
  *     def get_density(self, int i, int j):             # <<<<<<<<<<<<<<
  *         return self.c_FF.getDensity(i,j)
  * 
  */
-  __pyx_tuple__26 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_i, __pyx_n_s_j); if (unlikely(!__pyx_tuple__26)) __PYX_ERR(1, 60, __pyx_L1_error)
+  __pyx_tuple__26 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_i, __pyx_n_s_j); if (unlikely(!__pyx_tuple__26)) __PYX_ERR(1, 58, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__26);
   __Pyx_GIVEREF(__pyx_tuple__26);
-  __pyx_codeobj__27 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__26, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_particle_system_ext_pyx, __pyx_n_s_get_density, 60, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__27)) __PYX_ERR(1, 60, __pyx_L1_error)
+  __pyx_codeobj__27 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__26, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_particle_system_ext_pyx, __pyx_n_s_get_density, 58, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__27)) __PYX_ERR(1, 58, __pyx_L1_error)
 
-  /* "particle_system_ext.pyx":63
+  /* "particle_system_ext.pyx":61
  *         return self.c_FF.getDensity(i,j)
  * 
  *     def get_velocity_x(self, int i, int j):             # <<<<<<<<<<<<<<
  *         return self.c_FF.getVelocityX(i,j)
  * 
  */
-  __pyx_tuple__28 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_i, __pyx_n_s_j); if (unlikely(!__pyx_tuple__28)) __PYX_ERR(1, 63, __pyx_L1_error)
+  __pyx_tuple__28 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_i, __pyx_n_s_j); if (unlikely(!__pyx_tuple__28)) __PYX_ERR(1, 61, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__28);
   __Pyx_GIVEREF(__pyx_tuple__28);
-  __pyx_codeobj__29 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__28, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_particle_system_ext_pyx, __pyx_n_s_get_velocity_x, 63, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__29)) __PYX_ERR(1, 63, __pyx_L1_error)
+  __pyx_codeobj__29 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__28, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_particle_system_ext_pyx, __pyx_n_s_get_velocity_x, 61, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__29)) __PYX_ERR(1, 61, __pyx_L1_error)
 
-  /* "particle_system_ext.pyx":66
+  /* "particle_system_ext.pyx":64
  *         return self.c_FF.getVelocityX(i,j)
  * 
  *     def get_velocity_y(self, int i, int j):             # <<<<<<<<<<<<<<
  *         return self.c_FF.getVelocityY(i,j)
  * 
  */
-  __pyx_tuple__30 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_i, __pyx_n_s_j); if (unlikely(!__pyx_tuple__30)) __PYX_ERR(1, 66, __pyx_L1_error)
+  __pyx_tuple__30 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_i, __pyx_n_s_j); if (unlikely(!__pyx_tuple__30)) __PYX_ERR(1, 64, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__30);
   __Pyx_GIVEREF(__pyx_tuple__30);
-  __pyx_codeobj__31 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__30, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_particle_system_ext_pyx, __pyx_n_s_get_velocity_y, 66, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__31)) __PYX_ERR(1, 66, __pyx_L1_error)
+  __pyx_codeobj__31 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__30, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_particle_system_ext_pyx, __pyx_n_s_get_velocity_y, 64, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__31)) __PYX_ERR(1, 64, __pyx_L1_error)
 
-  /* "particle_system_ext.pyx":69
+  /* "particle_system_ext.pyx":67
  *         return self.c_FF.getVelocityY(i,j)
  * 
  *     def add_density(self, int x, int y, double amount):             # <<<<<<<<<<<<<<
  *         self.c_FF.addDensity(x,y,amount)
  * 
  */
-  __pyx_tuple__32 = PyTuple_Pack(4, __pyx_n_s_self, __pyx_n_s_x, __pyx_n_s_y, __pyx_n_s_amount); if (unlikely(!__pyx_tuple__32)) __PYX_ERR(1, 69, __pyx_L1_error)
+  __pyx_tuple__32 = PyTuple_Pack(4, __pyx_n_s_self, __pyx_n_s_x, __pyx_n_s_y, __pyx_n_s_amount); if (unlikely(!__pyx_tuple__32)) __PYX_ERR(1, 67, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__32);
   __Pyx_GIVEREF(__pyx_tuple__32);
-  __pyx_codeobj__33 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__32, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_particle_system_ext_pyx, __pyx_n_s_add_density, 69, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__33)) __PYX_ERR(1, 69, __pyx_L1_error)
+  __pyx_codeobj__33 = (PyObject*)__Pyx_PyCode_New(4, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__32, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_particle_system_ext_pyx, __pyx_n_s_add_density, 67, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__33)) __PYX_ERR(1, 67, __pyx_L1_error)
 
-  /* "particle_system_ext.pyx":72
+  /* "particle_system_ext.pyx":70
  *         self.c_FF.addDensity(x,y,amount)
  * 
  *     def add_velocity(self, int x, int y, double amount_x, double amount_y):             # <<<<<<<<<<<<<<
  *         self.c_FF.addVelocity(x,y,amount_x,amount_y)
  * 
  */
-  __pyx_tuple__34 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_x, __pyx_n_s_y, __pyx_n_s_amount_x, __pyx_n_s_amount_y); if (unlikely(!__pyx_tuple__34)) __PYX_ERR(1, 72, __pyx_L1_error)
+  __pyx_tuple__34 = PyTuple_Pack(5, __pyx_n_s_self, __pyx_n_s_x, __pyx_n_s_y, __pyx_n_s_amount_x, __pyx_n_s_amount_y); if (unlikely(!__pyx_tuple__34)) __PYX_ERR(1, 70, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__34);
   __Pyx_GIVEREF(__pyx_tuple__34);
-  __pyx_codeobj__35 = (PyObject*)__Pyx_PyCode_New(5, 0, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__34, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_particle_system_ext_pyx, __pyx_n_s_add_velocity, 72, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__35)) __PYX_ERR(1, 72, __pyx_L1_error)
+  __pyx_codeobj__35 = (PyObject*)__Pyx_PyCode_New(5, 0, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__34, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_particle_system_ext_pyx, __pyx_n_s_add_velocity, 70, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__35)) __PYX_ERR(1, 70, __pyx_L1_error)
 
-  /* "particle_system_ext.pyx":75
+  /* "particle_system_ext.pyx":73
  *         self.c_FF.addVelocity(x,y,amount_x,amount_y)
  * 
  *     def iterate(self):             # <<<<<<<<<<<<<<
  *         self.c_FF.iterate()
  *         self.c_PS.iterate()
  */
-  __pyx_tuple__36 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__36)) __PYX_ERR(1, 75, __pyx_L1_error)
+  __pyx_tuple__36 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__36)) __PYX_ERR(1, 73, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__36);
   __Pyx_GIVEREF(__pyx_tuple__36);
-  __pyx_codeobj__37 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__36, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_particle_system_ext_pyx, __pyx_n_s_iterate, 75, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__37)) __PYX_ERR(1, 75, __pyx_L1_error)
+  __pyx_codeobj__37 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__36, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_particle_system_ext_pyx, __pyx_n_s_iterate, 73, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__37)) __PYX_ERR(1, 73, __pyx_L1_error)
 
   /* "(tree fragment)":1
  * def __reduce_cython__(self):             # <<<<<<<<<<<<<<
@@ -21965,13 +21985,14 @@ static CYTHON_SMALL_CODE int __Pyx_InitGlobals(void) {
   if (__Pyx_InitString(__pyx_string_tab[154], &__pyx_kp_s_strided_and_indirect) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
   if (__Pyx_InitString(__pyx_string_tab[155], &__pyx_kp_s_stringsource) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
   if (__Pyx_InitString(__pyx_string_tab[156], &__pyx_n_s_struct) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[157], &__pyx_n_s_test) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[158], &__pyx_kp_s_unable_to_allocate_array_data) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[159], &__pyx_kp_s_unable_to_allocate_shape_and_str) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[160], &__pyx_n_s_unpack) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[161], &__pyx_n_s_update) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[162], &__pyx_n_s_x) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
-  if (__Pyx_InitString(__pyx_string_tab[163], &__pyx_n_s_y) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[157], &__pyx_n_s_t) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[158], &__pyx_n_s_test) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[159], &__pyx_kp_s_unable_to_allocate_array_data) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[160], &__pyx_kp_s_unable_to_allocate_shape_and_str) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[161], &__pyx_n_s_unpack) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[162], &__pyx_n_s_update) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[163], &__pyx_n_s_x) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
+  if (__Pyx_InitString(__pyx_string_tab[164], &__pyx_n_s_y) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
   #endif
   #if !CYTHON_COMPILING_IN_LIMITED_API
   if (__Pyx_InitStrings(__pyx_string_tab) < 0) __PYX_ERR(1, 1, __pyx_L1_error);
@@ -22032,9 +22053,9 @@ static int __Pyx_modinit_type_init_code(void) {
   __Pyx_RefNannySetupContext("__Pyx_modinit_type_init_code", 0);
   /*--- Type init code ---*/
   #if CYTHON_COMPILING_IN_LIMITED_API
-  __pyx_type_19particle_system_ext_ParticleSystemInterface = PyType_FromSpec(&__pyx_type_19particle_system_ext_ParticleSystemInterface_spec); if (unlikely(!__pyx_type_19particle_system_ext_ParticleSystemInterface)) __PYX_ERR(1, 8, __pyx_L1_error)
+  __pyx_type_19particle_system_ext_ParticleSystemInterface = PyType_FromSpec(&__pyx_type_19particle_system_ext_ParticleSystemInterface_spec); if (unlikely(!__pyx_type_19particle_system_ext_ParticleSystemInterface)) __PYX_ERR(1, 6, __pyx_L1_error)
   #else
-  if (PyType_Ready(&__pyx_type_19particle_system_ext_ParticleSystemInterface) < 0) __PYX_ERR(1, 8, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_19particle_system_ext_ParticleSystemInterface) < 0) __PYX_ERR(1, 6, __pyx_L1_error)
   #if PY_MAJOR_VERSION < 3
   __pyx_type_19particle_system_ext_ParticleSystemInterface.tp_print = 0;
   #endif
@@ -22043,12 +22064,12 @@ static int __Pyx_modinit_type_init_code(void) {
   }
   #endif
   #if CYTHON_COMPILING_IN_LIMITED_API
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_ParticleSystemInterface, __pyx_type_19particle_system_ext_ParticleSystemInterface) < 0) __PYX_ERR(1, 8, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_ParticleSystemInterface, __pyx_type_19particle_system_ext_ParticleSystemInterface) < 0) __PYX_ERR(1, 6, __pyx_L1_error)
   #else
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_ParticleSystemInterface, (PyObject *)&__pyx_type_19particle_system_ext_ParticleSystemInterface) < 0) __PYX_ERR(1, 8, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_ParticleSystemInterface, (PyObject *)&__pyx_type_19particle_system_ext_ParticleSystemInterface) < 0) __PYX_ERR(1, 6, __pyx_L1_error)
   #endif
   #if !CYTHON_COMPILING_IN_LIMITED_API
-  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_19particle_system_ext_ParticleSystemInterface) < 0) __PYX_ERR(1, 8, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_19particle_system_ext_ParticleSystemInterface) < 0) __PYX_ERR(1, 6, __pyx_L1_error)
   #endif
   #if CYTHON_COMPILING_IN_LIMITED_API
   __pyx_ptype_19particle_system_ext_ParticleSystemInterface = (PyTypeObject *)__pyx_type_19particle_system_ext_ParticleSystemInterface;
@@ -22056,13 +22077,13 @@ static int __Pyx_modinit_type_init_code(void) {
   __pyx_ptype_19particle_system_ext_ParticleSystemInterface = &__pyx_type_19particle_system_ext_ParticleSystemInterface;
   #endif
   #if CYTHON_COMPILING_IN_LIMITED_API
-  __pyx_t_1 = PyTuple_Pack(1, (PyObject *)__pyx_ptype_19particle_system_ext_ParticleSystemInterface); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 42, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_Pack(1, (PyObject *)__pyx_ptype_19particle_system_ext_ParticleSystemInterface); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 40, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_type_19particle_system_ext_PyMasterParticleSystem = PyType_FromSpecWithBases(&__pyx_type_19particle_system_ext_PyMasterParticleSystem_spec, __pyx_t_1); if (unlikely(!__pyx_type_19particle_system_ext_PyMasterParticleSystem)) __PYX_ERR(1, 42, __pyx_L1_error)
+  __pyx_type_19particle_system_ext_PyMasterParticleSystem = PyType_FromSpecWithBases(&__pyx_type_19particle_system_ext_PyMasterParticleSystem_spec, __pyx_t_1); if (unlikely(!__pyx_type_19particle_system_ext_PyMasterParticleSystem)) __PYX_ERR(1, 40, __pyx_L1_error)
   __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
   #else
   __pyx_type_19particle_system_ext_PyMasterParticleSystem.tp_base = __pyx_ptype_19particle_system_ext_ParticleSystemInterface;
-  if (PyType_Ready(&__pyx_type_19particle_system_ext_PyMasterParticleSystem) < 0) __PYX_ERR(1, 42, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_19particle_system_ext_PyMasterParticleSystem) < 0) __PYX_ERR(1, 40, __pyx_L1_error)
   #if PY_MAJOR_VERSION < 3
   __pyx_type_19particle_system_ext_PyMasterParticleSystem.tp_print = 0;
   #endif
@@ -22071,12 +22092,12 @@ static int __Pyx_modinit_type_init_code(void) {
   }
   #endif
   #if CYTHON_COMPILING_IN_LIMITED_API
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_PyMasterParticleSystem, __pyx_type_19particle_system_ext_PyMasterParticleSystem) < 0) __PYX_ERR(1, 42, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_PyMasterParticleSystem, __pyx_type_19particle_system_ext_PyMasterParticleSystem) < 0) __PYX_ERR(1, 40, __pyx_L1_error)
   #else
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_PyMasterParticleSystem, (PyObject *)&__pyx_type_19particle_system_ext_PyMasterParticleSystem) < 0) __PYX_ERR(1, 42, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_PyMasterParticleSystem, (PyObject *)&__pyx_type_19particle_system_ext_PyMasterParticleSystem) < 0) __PYX_ERR(1, 40, __pyx_L1_error)
   #endif
   #if !CYTHON_COMPILING_IN_LIMITED_API
-  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_19particle_system_ext_PyMasterParticleSystem) < 0) __PYX_ERR(1, 42, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_19particle_system_ext_PyMasterParticleSystem) < 0) __PYX_ERR(1, 40, __pyx_L1_error)
   #endif
   #if CYTHON_COMPILING_IN_LIMITED_API
   __pyx_ptype_19particle_system_ext_PyMasterParticleSystem = (PyTypeObject *)__pyx_type_19particle_system_ext_PyMasterParticleSystem;
@@ -22084,13 +22105,13 @@ static int __Pyx_modinit_type_init_code(void) {
   __pyx_ptype_19particle_system_ext_PyMasterParticleSystem = &__pyx_type_19particle_system_ext_PyMasterParticleSystem;
   #endif
   #if CYTHON_COMPILING_IN_LIMITED_API
-  __pyx_t_1 = PyTuple_Pack(1, (PyObject *)__pyx_ptype_19particle_system_ext_ParticleSystemInterface); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 79, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_Pack(1, (PyObject *)__pyx_ptype_19particle_system_ext_ParticleSystemInterface); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 77, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_type_19particle_system_ext_PySlaveParticleSystem = PyType_FromSpecWithBases(&__pyx_type_19particle_system_ext_PySlaveParticleSystem_spec, __pyx_t_1); if (unlikely(!__pyx_type_19particle_system_ext_PySlaveParticleSystem)) __PYX_ERR(1, 79, __pyx_L1_error)
+  __pyx_type_19particle_system_ext_PySlaveParticleSystem = PyType_FromSpecWithBases(&__pyx_type_19particle_system_ext_PySlaveParticleSystem_spec, __pyx_t_1); if (unlikely(!__pyx_type_19particle_system_ext_PySlaveParticleSystem)) __PYX_ERR(1, 77, __pyx_L1_error)
   __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
   #else
   __pyx_type_19particle_system_ext_PySlaveParticleSystem.tp_base = __pyx_ptype_19particle_system_ext_ParticleSystemInterface;
-  if (PyType_Ready(&__pyx_type_19particle_system_ext_PySlaveParticleSystem) < 0) __PYX_ERR(1, 79, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_19particle_system_ext_PySlaveParticleSystem) < 0) __PYX_ERR(1, 77, __pyx_L1_error)
   #if PY_MAJOR_VERSION < 3
   __pyx_type_19particle_system_ext_PySlaveParticleSystem.tp_print = 0;
   #endif
@@ -22099,12 +22120,12 @@ static int __Pyx_modinit_type_init_code(void) {
   }
   #endif
   #if CYTHON_COMPILING_IN_LIMITED_API
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_PySlaveParticleSystem, __pyx_type_19particle_system_ext_PySlaveParticleSystem) < 0) __PYX_ERR(1, 79, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_PySlaveParticleSystem, __pyx_type_19particle_system_ext_PySlaveParticleSystem) < 0) __PYX_ERR(1, 77, __pyx_L1_error)
   #else
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_PySlaveParticleSystem, (PyObject *)&__pyx_type_19particle_system_ext_PySlaveParticleSystem) < 0) __PYX_ERR(1, 79, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_PySlaveParticleSystem, (PyObject *)&__pyx_type_19particle_system_ext_PySlaveParticleSystem) < 0) __PYX_ERR(1, 77, __pyx_L1_error)
   #endif
   #if !CYTHON_COMPILING_IN_LIMITED_API
-  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_19particle_system_ext_PySlaveParticleSystem) < 0) __PYX_ERR(1, 79, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_19particle_system_ext_PySlaveParticleSystem) < 0) __PYX_ERR(1, 77, __pyx_L1_error)
   #endif
   #if CYTHON_COMPILING_IN_LIMITED_API
   __pyx_ptype_19particle_system_ext_PySlaveParticleSystem = (PyTypeObject *)__pyx_type_19particle_system_ext_PySlaveParticleSystem;
@@ -22520,81 +22541,81 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_patch_abc() < 0) __PYX_ERR(1, 1, __pyx_L1_error)
   #endif
 
-  /* "particle_system_ext.pyx":19
+  /* "particle_system_ext.pyx":17
  *         pass
  * 
- *     def spawn_particles(self, int N,             # <<<<<<<<<<<<<<
+ *     def spawn_particles(self, int N, int t,             # <<<<<<<<<<<<<<
  *                         double angle, double speed, double size, double[:] position,
  *                         double angle_spread, double speed_spread, double size_spread,
  */
-  __pyx_t_1 = __Pyx_CyFunction_New(&__pyx_mdef_19particle_system_ext_23ParticleSystemInterface_5spawn_particles, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_ParticleSystemInterface_spawn_pa, NULL, __pyx_n_s_particle_system_ext, __pyx_d, ((PyObject *)__pyx_codeobj__9)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 19, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_New(&__pyx_mdef_19particle_system_ext_23ParticleSystemInterface_5spawn_particles, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_ParticleSystemInterface_spawn_pa, NULL, __pyx_n_s_particle_system_ext, __pyx_d, ((PyObject *)__pyx_codeobj__9)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 17, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_19particle_system_ext_ParticleSystemInterface->tp_dict, __pyx_n_s_spawn_particles, __pyx_t_1) < 0) __PYX_ERR(1, 19, __pyx_L1_error)
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_19particle_system_ext_ParticleSystemInterface->tp_dict, __pyx_n_s_spawn_particles, __pyx_t_1) < 0) __PYX_ERR(1, 17, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   PyType_Modified(__pyx_ptype_19particle_system_ext_ParticleSystemInterface);
 
-  /* "particle_system_ext.pyx":26
- *         self.c_PS.spawnParticles(N,angle,speed,size,&position[0],angle_spread,speed_spread,size_spread,&position_spread[0],distribution)
+  /* "particle_system_ext.pyx":24
+ *         self.c_PS.spawnParticles(N,t,angle,speed,size,&position[0],angle_spread,speed_spread,size_spread,&position_spread[0],distribution)
  * 
  *     def iterate(self):             # <<<<<<<<<<<<<<
  *         self.c_PS.iterate()
  * 
  */
-  __pyx_t_1 = __Pyx_CyFunction_New(&__pyx_mdef_19particle_system_ext_23ParticleSystemInterface_7iterate, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_ParticleSystemInterface_iterate, NULL, __pyx_n_s_particle_system_ext, __pyx_d, ((PyObject *)__pyx_codeobj__11)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 26, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_New(&__pyx_mdef_19particle_system_ext_23ParticleSystemInterface_7iterate, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_ParticleSystemInterface_iterate, NULL, __pyx_n_s_particle_system_ext, __pyx_d, ((PyObject *)__pyx_codeobj__11)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 24, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_19particle_system_ext_ParticleSystemInterface->tp_dict, __pyx_n_s_iterate, __pyx_t_1) < 0) __PYX_ERR(1, 26, __pyx_L1_error)
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_19particle_system_ext_ParticleSystemInterface->tp_dict, __pyx_n_s_iterate, __pyx_t_1) < 0) __PYX_ERR(1, 24, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   PyType_Modified(__pyx_ptype_19particle_system_ext_ParticleSystemInterface);
 
-  /* "particle_system_ext.pyx":29
+  /* "particle_system_ext.pyx":27
  *         self.c_PS.iterate()
  * 
  *     def get_number_of_particles(self):             # <<<<<<<<<<<<<<
  *         return self.c_PS.particles.size()
  * 
  */
-  __pyx_t_1 = __Pyx_CyFunction_New(&__pyx_mdef_19particle_system_ext_23ParticleSystemInterface_9get_number_of_particles, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_ParticleSystemInterface_get_numb, NULL, __pyx_n_s_particle_system_ext, __pyx_d, ((PyObject *)__pyx_codeobj__13)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 29, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_New(&__pyx_mdef_19particle_system_ext_23ParticleSystemInterface_9get_number_of_particles, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_ParticleSystemInterface_get_numb, NULL, __pyx_n_s_particle_system_ext, __pyx_d, ((PyObject *)__pyx_codeobj__13)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 27, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_19particle_system_ext_ParticleSystemInterface->tp_dict, __pyx_n_s_get_number_of_particles, __pyx_t_1) < 0) __PYX_ERR(1, 29, __pyx_L1_error)
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_19particle_system_ext_ParticleSystemInterface->tp_dict, __pyx_n_s_get_number_of_particles, __pyx_t_1) < 0) __PYX_ERR(1, 27, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   PyType_Modified(__pyx_ptype_19particle_system_ext_ParticleSystemInterface);
 
-  /* "particle_system_ext.pyx":32
+  /* "particle_system_ext.pyx":30
  *         return self.c_PS.particles.size()
  * 
  *     def get_particle_coords(self,particle_idx):             # <<<<<<<<<<<<<<
  *         return [ self.c_PS.particles[particle_idx].coords[0],
  *                  self.c_PS.particles[particle_idx].coords[1] ]
  */
-  __pyx_t_1 = __Pyx_CyFunction_New(&__pyx_mdef_19particle_system_ext_23ParticleSystemInterface_11get_particle_coords, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_ParticleSystemInterface_get_part, NULL, __pyx_n_s_particle_system_ext, __pyx_d, ((PyObject *)__pyx_codeobj__15)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 32, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_New(&__pyx_mdef_19particle_system_ext_23ParticleSystemInterface_11get_particle_coords, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_ParticleSystemInterface_get_part, NULL, __pyx_n_s_particle_system_ext, __pyx_d, ((PyObject *)__pyx_codeobj__15)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 30, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_19particle_system_ext_ParticleSystemInterface->tp_dict, __pyx_n_s_get_particle_coords, __pyx_t_1) < 0) __PYX_ERR(1, 32, __pyx_L1_error)
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_19particle_system_ext_ParticleSystemInterface->tp_dict, __pyx_n_s_get_particle_coords, __pyx_t_1) < 0) __PYX_ERR(1, 30, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   PyType_Modified(__pyx_ptype_19particle_system_ext_ParticleSystemInterface);
 
-  /* "particle_system_ext.pyx":36
+  /* "particle_system_ext.pyx":34
  *                  self.c_PS.particles[particle_idx].coords[1] ]
  * 
  *     def get_particle_size(self,particle_idx):             # <<<<<<<<<<<<<<
  *         return self.c_PS.particles[particle_idx].size
  * 
  */
-  __pyx_t_1 = __Pyx_CyFunction_New(&__pyx_mdef_19particle_system_ext_23ParticleSystemInterface_13get_particle_size, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_ParticleSystemInterface_get_part_2, NULL, __pyx_n_s_particle_system_ext, __pyx_d, ((PyObject *)__pyx_codeobj__17)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 36, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_New(&__pyx_mdef_19particle_system_ext_23ParticleSystemInterface_13get_particle_size, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_ParticleSystemInterface_get_part_2, NULL, __pyx_n_s_particle_system_ext, __pyx_d, ((PyObject *)__pyx_codeobj__17)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 34, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_19particle_system_ext_ParticleSystemInterface->tp_dict, __pyx_n_s_get_particle_size, __pyx_t_1) < 0) __PYX_ERR(1, 36, __pyx_L1_error)
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_19particle_system_ext_ParticleSystemInterface->tp_dict, __pyx_n_s_get_particle_size, __pyx_t_1) < 0) __PYX_ERR(1, 34, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   PyType_Modified(__pyx_ptype_19particle_system_ext_ParticleSystemInterface);
 
-  /* "particle_system_ext.pyx":39
+  /* "particle_system_ext.pyx":37
  *         return self.c_PS.particles[particle_idx].size
  * 
  *     def get_particle_age(self,particle_idx):             # <<<<<<<<<<<<<<
  *         return self.c_PS.particles[particle_idx].age
  * 
  */
-  __pyx_t_1 = __Pyx_CyFunction_New(&__pyx_mdef_19particle_system_ext_23ParticleSystemInterface_15get_particle_age, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_ParticleSystemInterface_get_part_3, NULL, __pyx_n_s_particle_system_ext, __pyx_d, ((PyObject *)__pyx_codeobj__19)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 39, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_New(&__pyx_mdef_19particle_system_ext_23ParticleSystemInterface_15get_particle_age, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_ParticleSystemInterface_get_part_3, NULL, __pyx_n_s_particle_system_ext, __pyx_d, ((PyObject *)__pyx_codeobj__19)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 37, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_19particle_system_ext_ParticleSystemInterface->tp_dict, __pyx_n_s_get_particle_age, __pyx_t_1) < 0) __PYX_ERR(1, 39, __pyx_L1_error)
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_19particle_system_ext_ParticleSystemInterface->tp_dict, __pyx_n_s_get_particle_age, __pyx_t_1) < 0) __PYX_ERR(1, 37, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   PyType_Modified(__pyx_ptype_19particle_system_ext_ParticleSystemInterface);
 
@@ -22619,94 +22640,94 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_setstate_cython, __pyx_t_1) < 0) __PYX_ERR(0, 3, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "particle_system_ext.pyx":57
+  /* "particle_system_ext.pyx":55
  *         del self.c_FF
  * 
  *     def IDX(self, int i, int j):             # <<<<<<<<<<<<<<
  *         return self.c_FF.IDX(i,j)
  * 
  */
-  __pyx_t_1 = __Pyx_CyFunction_New(&__pyx_mdef_19particle_system_ext_22PyMasterParticleSystem_5IDX, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_PyMasterParticleSystem_IDX, NULL, __pyx_n_s_particle_system_ext, __pyx_d, ((PyObject *)__pyx_codeobj__25)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 57, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_New(&__pyx_mdef_19particle_system_ext_22PyMasterParticleSystem_5IDX, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_PyMasterParticleSystem_IDX, NULL, __pyx_n_s_particle_system_ext, __pyx_d, ((PyObject *)__pyx_codeobj__25)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 55, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_19particle_system_ext_PyMasterParticleSystem->tp_dict, __pyx_n_s_IDX, __pyx_t_1) < 0) __PYX_ERR(1, 57, __pyx_L1_error)
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_19particle_system_ext_PyMasterParticleSystem->tp_dict, __pyx_n_s_IDX, __pyx_t_1) < 0) __PYX_ERR(1, 55, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   PyType_Modified(__pyx_ptype_19particle_system_ext_PyMasterParticleSystem);
 
-  /* "particle_system_ext.pyx":60
+  /* "particle_system_ext.pyx":58
  *         return self.c_FF.IDX(i,j)
  * 
  *     def get_density(self, int i, int j):             # <<<<<<<<<<<<<<
  *         return self.c_FF.getDensity(i,j)
  * 
  */
-  __pyx_t_1 = __Pyx_CyFunction_New(&__pyx_mdef_19particle_system_ext_22PyMasterParticleSystem_7get_density, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_PyMasterParticleSystem_get_densi, NULL, __pyx_n_s_particle_system_ext, __pyx_d, ((PyObject *)__pyx_codeobj__27)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 60, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_New(&__pyx_mdef_19particle_system_ext_22PyMasterParticleSystem_7get_density, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_PyMasterParticleSystem_get_densi, NULL, __pyx_n_s_particle_system_ext, __pyx_d, ((PyObject *)__pyx_codeobj__27)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 58, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_19particle_system_ext_PyMasterParticleSystem->tp_dict, __pyx_n_s_get_density, __pyx_t_1) < 0) __PYX_ERR(1, 60, __pyx_L1_error)
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_19particle_system_ext_PyMasterParticleSystem->tp_dict, __pyx_n_s_get_density, __pyx_t_1) < 0) __PYX_ERR(1, 58, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   PyType_Modified(__pyx_ptype_19particle_system_ext_PyMasterParticleSystem);
 
-  /* "particle_system_ext.pyx":63
+  /* "particle_system_ext.pyx":61
  *         return self.c_FF.getDensity(i,j)
  * 
  *     def get_velocity_x(self, int i, int j):             # <<<<<<<<<<<<<<
  *         return self.c_FF.getVelocityX(i,j)
  * 
  */
-  __pyx_t_1 = __Pyx_CyFunction_New(&__pyx_mdef_19particle_system_ext_22PyMasterParticleSystem_9get_velocity_x, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_PyMasterParticleSystem_get_veloc, NULL, __pyx_n_s_particle_system_ext, __pyx_d, ((PyObject *)__pyx_codeobj__29)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 63, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_New(&__pyx_mdef_19particle_system_ext_22PyMasterParticleSystem_9get_velocity_x, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_PyMasterParticleSystem_get_veloc, NULL, __pyx_n_s_particle_system_ext, __pyx_d, ((PyObject *)__pyx_codeobj__29)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 61, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_19particle_system_ext_PyMasterParticleSystem->tp_dict, __pyx_n_s_get_velocity_x, __pyx_t_1) < 0) __PYX_ERR(1, 63, __pyx_L1_error)
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_19particle_system_ext_PyMasterParticleSystem->tp_dict, __pyx_n_s_get_velocity_x, __pyx_t_1) < 0) __PYX_ERR(1, 61, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   PyType_Modified(__pyx_ptype_19particle_system_ext_PyMasterParticleSystem);
 
-  /* "particle_system_ext.pyx":66
+  /* "particle_system_ext.pyx":64
  *         return self.c_FF.getVelocityX(i,j)
  * 
  *     def get_velocity_y(self, int i, int j):             # <<<<<<<<<<<<<<
  *         return self.c_FF.getVelocityY(i,j)
  * 
  */
-  __pyx_t_1 = __Pyx_CyFunction_New(&__pyx_mdef_19particle_system_ext_22PyMasterParticleSystem_11get_velocity_y, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_PyMasterParticleSystem_get_veloc_2, NULL, __pyx_n_s_particle_system_ext, __pyx_d, ((PyObject *)__pyx_codeobj__31)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 66, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_New(&__pyx_mdef_19particle_system_ext_22PyMasterParticleSystem_11get_velocity_y, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_PyMasterParticleSystem_get_veloc_2, NULL, __pyx_n_s_particle_system_ext, __pyx_d, ((PyObject *)__pyx_codeobj__31)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 64, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_19particle_system_ext_PyMasterParticleSystem->tp_dict, __pyx_n_s_get_velocity_y, __pyx_t_1) < 0) __PYX_ERR(1, 66, __pyx_L1_error)
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_19particle_system_ext_PyMasterParticleSystem->tp_dict, __pyx_n_s_get_velocity_y, __pyx_t_1) < 0) __PYX_ERR(1, 64, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   PyType_Modified(__pyx_ptype_19particle_system_ext_PyMasterParticleSystem);
 
-  /* "particle_system_ext.pyx":69
+  /* "particle_system_ext.pyx":67
  *         return self.c_FF.getVelocityY(i,j)
  * 
  *     def add_density(self, int x, int y, double amount):             # <<<<<<<<<<<<<<
  *         self.c_FF.addDensity(x,y,amount)
  * 
  */
-  __pyx_t_1 = __Pyx_CyFunction_New(&__pyx_mdef_19particle_system_ext_22PyMasterParticleSystem_13add_density, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_PyMasterParticleSystem_add_densi, NULL, __pyx_n_s_particle_system_ext, __pyx_d, ((PyObject *)__pyx_codeobj__33)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 69, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_New(&__pyx_mdef_19particle_system_ext_22PyMasterParticleSystem_13add_density, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_PyMasterParticleSystem_add_densi, NULL, __pyx_n_s_particle_system_ext, __pyx_d, ((PyObject *)__pyx_codeobj__33)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 67, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_19particle_system_ext_PyMasterParticleSystem->tp_dict, __pyx_n_s_add_density, __pyx_t_1) < 0) __PYX_ERR(1, 69, __pyx_L1_error)
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_19particle_system_ext_PyMasterParticleSystem->tp_dict, __pyx_n_s_add_density, __pyx_t_1) < 0) __PYX_ERR(1, 67, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   PyType_Modified(__pyx_ptype_19particle_system_ext_PyMasterParticleSystem);
 
-  /* "particle_system_ext.pyx":72
+  /* "particle_system_ext.pyx":70
  *         self.c_FF.addDensity(x,y,amount)
  * 
  *     def add_velocity(self, int x, int y, double amount_x, double amount_y):             # <<<<<<<<<<<<<<
  *         self.c_FF.addVelocity(x,y,amount_x,amount_y)
  * 
  */
-  __pyx_t_1 = __Pyx_CyFunction_New(&__pyx_mdef_19particle_system_ext_22PyMasterParticleSystem_15add_velocity, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_PyMasterParticleSystem_add_veloc, NULL, __pyx_n_s_particle_system_ext, __pyx_d, ((PyObject *)__pyx_codeobj__35)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 72, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_New(&__pyx_mdef_19particle_system_ext_22PyMasterParticleSystem_15add_velocity, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_PyMasterParticleSystem_add_veloc, NULL, __pyx_n_s_particle_system_ext, __pyx_d, ((PyObject *)__pyx_codeobj__35)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 70, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_19particle_system_ext_PyMasterParticleSystem->tp_dict, __pyx_n_s_add_velocity, __pyx_t_1) < 0) __PYX_ERR(1, 72, __pyx_L1_error)
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_19particle_system_ext_PyMasterParticleSystem->tp_dict, __pyx_n_s_add_velocity, __pyx_t_1) < 0) __PYX_ERR(1, 70, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   PyType_Modified(__pyx_ptype_19particle_system_ext_PyMasterParticleSystem);
 
-  /* "particle_system_ext.pyx":75
+  /* "particle_system_ext.pyx":73
  *         self.c_FF.addVelocity(x,y,amount_x,amount_y)
  * 
  *     def iterate(self):             # <<<<<<<<<<<<<<
  *         self.c_FF.iterate()
  *         self.c_PS.iterate()
  */
-  __pyx_t_1 = __Pyx_CyFunction_New(&__pyx_mdef_19particle_system_ext_22PyMasterParticleSystem_17iterate, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_PyMasterParticleSystem_iterate, NULL, __pyx_n_s_particle_system_ext, __pyx_d, ((PyObject *)__pyx_codeobj__37)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 75, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_New(&__pyx_mdef_19particle_system_ext_22PyMasterParticleSystem_17iterate, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_PyMasterParticleSystem_iterate, NULL, __pyx_n_s_particle_system_ext, __pyx_d, ((PyObject *)__pyx_codeobj__37)); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 73, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_19particle_system_ext_PyMasterParticleSystem->tp_dict, __pyx_n_s_iterate, __pyx_t_1) < 0) __PYX_ERR(1, 75, __pyx_L1_error)
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_19particle_system_ext_PyMasterParticleSystem->tp_dict, __pyx_n_s_iterate, __pyx_t_1) < 0) __PYX_ERR(1, 73, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   PyType_Modified(__pyx_ptype_19particle_system_ext_PyMasterParticleSystem);
 

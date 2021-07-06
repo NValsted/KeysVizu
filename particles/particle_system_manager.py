@@ -120,9 +120,14 @@ class ParticleSystemManager:
             particle_size = particle_system.get_particle_size(i)
             particle_age = particle_system.get_particle_age(i)
 
-            particle_col = Color(random.random(),
-                                 (self.particle_lifetime-particle_age)/self.particle_lifetime,
-                                 1,
+            #particle_col = Color(random.random(),
+            #                     (self.particle_lifetime-particle_age)/self.particle_lifetime,
+            #                     1,
+            #                     (self.particle_lifetime-particle_age)/self.particle_lifetime)
+
+            particle_col = Color(235 / 255 * (self.particle_lifetime-particle_age)/self.particle_lifetime + 203 / 255 * (self.particle_lifetime-particle_age)/self.particle_lifetime,
+                                 198 / 255 * (self.particle_lifetime-particle_age)/self.particle_lifetime + 174 / 255 * (self.particle_lifetime-particle_age)/self.particle_lifetime,
+                                 199 / 255 * (self.particle_lifetime-particle_age)/self.particle_lifetime + 50 / 255 * (self.particle_lifetime-particle_age)/self.particle_lifetime,
                                  (self.particle_lifetime-particle_age)/self.particle_lifetime)
 
             particle_rect = Rectangle(pos=(particle_coords[0],particle_coords[1]),size=(particle_size,particle_size))
