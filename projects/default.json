@@ -31,6 +31,18 @@
             "size_spread" : 1.0,
             "position_spread" : [1.0,0.0],
             "distribution": "u"
+        },
+        "style":
+        {
+            "color":
+            {
+                "RGBA":
+                [
+                    [0.3, 0.5, 1, 1],
+                    [0, 0, 0, 0]
+                ],
+                "stops": [0, 1.0]
+            }
         }
     }
 }
