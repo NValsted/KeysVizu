@@ -8,6 +8,9 @@
     angle_spread_slider: angle_spread_slider
     speed_spread_slider: speed_spread_slider
     size_spread_slider: size_spread_slider
+
+    active_system: self.active_system
+    active_channels: active_channels
     text: "Particles"
 
     BoxLayout:
@@ -26,10 +29,49 @@
             id: tab_content_BoxL
             orientation: 'vertical'
             size_hint_y: 1-tab_title_BoxL.size_hint_y
-            
-            ToggleButton:
-                text: "enable particles"
-                on_press: root.toggle_particles(self.state)
+
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint_y: 0.25
+
+                Label:
+                    text: "Particles preview"
+                    size_hint_x: 0.5
+
+                BoxLayout:
+                    orientation: 'vertical'
+                    size_hint_x: 0.5
+                    ToggleButton:
+                        text: "enable particles"
+                        on_press: root.toggle_particles(self.state)
+
+                    BoxLayout:
+                        orientation: 'horizontal'
+                        BoxLayout:
+                            orientation: 'vertical'
+                            size_hint_x: None
+                            width: self.height
+                            Label:
+                                text: str(root.active_system)
+                            BoxLayout:
+                                orientation: 'horizontal'
+                                Button:
+                                    text: "<"
+                                    on_press: root.change_system(-1)
+                                Button:
+                                    text: ">"
+                                    on_press: root.change_system(1)
+                        Label:
+                            text: "System"
+                    Label:
+                        text: "Channels"
+
+                    ChannelGrid:
+                        id: active_channels
+
+            Label:
+                text: "Color gradient"
+                size_hint_y: 0.1
 
             NumericSliderSetting:
                 id: spawn_N_slider
@@ -37,55 +79,55 @@
                 slider_bounds: [1,10]
                 step: 1
                 callback: root.change_slider_setting
-                callback_args: ("spawn/N",self.slider)
+                callback_args: ("spawn/N", self.slider)
 
             NumericSliderSetting:
                 id: angle_slider
                 label_text: "Angle"
-                slider_bounds: [0,6.28]
+                slider_bounds: [0, 6.28]
                 step: 0.01
                 callback: root.change_slider_setting
-                callback_args: ("spawn/angle",self.slider)
-            
+                callback_args: ("spawn/angle", self.slider)
+
             NumericSliderSetting:
                 id: speed_slider
                 label_text: "Speed"
-                slider_bounds: [0,10]
+                slider_bounds: [0, 10]
                 step: 0.01
                 callback: root.change_slider_setting
-                callback_args: ("spawn/speed",self.slider)
+                callback_args: ("spawn/speed", self.slider)
 
             NumericSliderSetting:
                 id: size_slider
                 label_text: "Size"
-                slider_bounds: [0,10]
+                slider_bounds: [0, 10]
                 step: 0.1
                 callback: root.change_slider_setting
-                callback_args: ("spawn/size",self.slider)
+                callback_args: ("spawn/size", self.slider)
 
             NumericSliderSetting:
                 id: angle_spread_slider
                 label_text: "Angle spread"
-                slider_bounds: [0,6.28]
+                slider_bounds: [0, 6.28]
                 step: 0.01
                 callback: root.change_slider_setting
-                callback_args: ("spawn/angle_spread",self.slider)
+                callback_args: ("spawn/angle_spread", self.slider)
 
             NumericSliderSetting:
                 id: speed_spread_slider
                 label_text: "Speed spread"
-                slider_bounds: [0,10]
+                slider_bounds: [0, 10]
                 step: 0.01
                 callback: root.change_slider_setting
-                callback_args: ("spawn/speed_spread",self.slider)
+                callback_args: ("spawn/speed_spread", self.slider)
 
             NumericSliderSetting:
                 id: size_spread_slider
                 label_text: "Size spread"
-                slider_bounds: [0,10]
+                slider_bounds: [0, 10]
                 step: 0.1
                 callback: root.change_slider_setting
-                callback_args: ("spawn/size_spread",self.slider)
+                callback_args: ("spawn/size_spread", self.slider)
 
             Label:
                 text: "chonk"
