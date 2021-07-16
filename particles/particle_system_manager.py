@@ -12,16 +12,17 @@ from particles import particle_system_ext as pse
 
 
 class ParticleSystemManager:
-    systems = [None]  # 0 is master system
-    styles = [None]
-    channel_map = [{i} for i in range(16)]  # Maps channel to particle systems 
-
     stage = None
     active_particles = []
     ON_status = False
 
     def __init__(self):
-        pass
+        self.__init_collections()
+
+    def __init_collections(self):
+        self.systems = [None]  # 0 is master system
+        self.styles = [None]
+        self.channel_map = [{i} for i in range(16)]  # Maps channel to particle systems 
 
     def init_master(self, parameters):
         self.styles[0] = deepcopy(parameters)
@@ -46,6 +47,27 @@ class ParticleSystemManager:
         )
 
         self.systems.append(new_system)
+
+    def delete_slave(self, system_idx, project_properties):
+        self.systems.pop(system_idx)
+        self.styles.pop(system_idx)
+        for i in range(len(self.channel_map)):
+            new_map = set()
+            for system in self.channel_map[i]:
+                if system < system_idx:
+                    new_map.add(system)
+                elif system > system_idx:
+                    new_map.add(system-1)
+            self.channel_map[i] = new_map
+
+        if len(self.systems) == 0:  # Reinitialize standard when deleting last system
+            self.__init_collections()
+            self.init_master(project_properties["particles"])
+        elif system_idx == 0:  # Assign new system at index to be master, when deleting previous master system
+            self.init_master(self.styles[0])
+            for i in range(1, len(self.systems)):
+                self.systems.pop(i)
+                self.add_slave(self.styles.pop(i))
 
     def update_style_parameters(self, system_idx, kwargs):
         parameter = self.styles[system_idx]

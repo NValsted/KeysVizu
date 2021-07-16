@@ -69,6 +69,15 @@ class ParticlesSettings(SettingsTab):
                 parameter = parameter[key]
             slider.slider.value = parameter
 
+    def add_system(self):
+        self.PSM.add_slave(self.project_properties["particles"])
+        self.change_system(float("inf"))
+
+    def delete_system(self):
+        # Handle case when deleting last system - should probably just reinitialize a standard system at index 0 in this case
+        self.PSM.delete_slave(self.active_system, self.project_properties)
+        self.change_system(-1)
+
     def update_channel_map(self, button):
         channel_map = self.PSM.channel_map[button.channel_id]
         if button.state == "down":

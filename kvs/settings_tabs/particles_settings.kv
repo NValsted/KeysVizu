@@ -61,6 +61,14 @@
                                 Button:
                                     text: ">"
                                     on_press: root.change_system(1)
+                        BoxLayout:
+                            orientation: 'vertical'
+                            Button:
+                                text: "Add"
+                                on_press: root.add_system()
+                            Button:
+                                text: "Delete"
+                                on_press: root.delete_system()
                         Label:
                             text: "System"
                     Label:
