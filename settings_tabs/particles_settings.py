@@ -10,6 +10,7 @@ from misc.numeric_setting import NumericSliderSetting
 import c_utils
 config = c_utils.load_config()
 
+
 class ParticlesSettings(SettingsTab):
     spawn_N_slider = ObjectProperty(NumericSliderSetting)
     angle_slider = ObjectProperty(NumericSliderSetting)
@@ -71,7 +72,7 @@ class ParticlesSettings(SettingsTab):
 
     def add_system(self):
         self.PSM.add_slave(self.project_properties["particles"])
-        self.change_system(float("inf"))
+        self.change_system(float("inf"))  # Always changes to newly added system
 
     def delete_system(self):
         # Handle case when deleting last system - should probably just reinitialize a standard system at index 0 in this case

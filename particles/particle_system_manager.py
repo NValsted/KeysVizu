@@ -2,6 +2,7 @@ from kivy.graphics import Color, Rectangle
 
 from copy import deepcopy
 import random
+import traceback
 
 import numpy as np
 
@@ -13,7 +14,6 @@ from particles import particle_system_ext as pse
 
 class ParticleSystemManager:
     stage = None
-    active_particles = []
     ON_status = False
 
     def __init__(self):
@@ -22,6 +22,7 @@ class ParticleSystemManager:
     def __init_collections(self):
         self.systems = [None]  # 0 is master system
         self.styles = [None]
+        self.active_particles = [None]
         self.channel_map = [{i} for i in range(16)]  # Maps channel to particle systems 
 
     def init_master(self, parameters):
@@ -34,6 +35,7 @@ class ParticleSystemManager:
             self.styles[0]["init"]["viscosity"],
             self.styles[0]["init"]["dt"]
         )
+        self.active_particles[0] = []
 
         self.fluid_N = self.styles[0]["init"]["fluid_N"]
         self.particle_lifetime = self.styles[0]["init"]["lifetime"]
@@ -45,12 +47,13 @@ class ParticleSystemManager:
             self.styles[-1]["init"]["lifetime"],
             self.systems[0]
         )
-
+        self.active_particles.append([])
         self.systems.append(new_system)
 
     def delete_slave(self, system_idx, project_properties):
         self.systems.pop(system_idx)
         self.styles.pop(system_idx)
+        self.active_particles.pop(system_idx)
         for i in range(len(self.channel_map)):
             new_map = set()
             for system in self.channel_map[i]:
@@ -141,9 +144,10 @@ class ParticleSystemManager:
 
     def redraw_particles(self, ps_idx, particle_system):
         style = self.styles[ps_idx]
-        
-        while self.active_particles:
-            self.stage.canvas.remove(self.active_particles.pop())
+        active_particles = self.active_particles[ps_idx]
+
+        while active_particles:
+            self.stage.canvas.remove(active_particles.pop())
 
         for i in range(particle_system.get_number_of_particles()):
 
@@ -167,14 +171,15 @@ class ParticleSystemManager:
 
             self.stage.canvas.add(particle_col)
             self.stage.canvas.add(particle_rect)
-            self.active_particles.append(particle_col)
-            self.active_particles.append(particle_rect)
+            active_particles.append(particle_col)
+            active_particles.append(particle_rect)
 
     def spawn_particles(self, pos, channel):
         for i in self.channel_map[channel]:
             try:
                 system = self.systems[i]
             except IndexError:
+                print(traceback.format_exc())
                 # channel maps to system that does not exist.
                 continue
 
@@ -209,11 +214,3 @@ class ParticleSystemManager:
         if self.ON_status:
             self.spawn_particles(pos, channel)
             self.strike_fluid(pos)
-
-
-def main():
-    pass
-
-
-if __name__ == '__main__':
-    main()
