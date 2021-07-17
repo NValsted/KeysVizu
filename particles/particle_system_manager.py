@@ -17,9 +17,9 @@ class ParticleSystemManager:
     ON_status = False
 
     def __init__(self):
-        self.__init_collections()
+        self._init_collections()
 
-    def __init_collections(self):
+    def _init_collections(self):
         self.systems = [None]  # 0 is master system
         self.styles = [None]
         self.active_particles = [None]
@@ -64,7 +64,7 @@ class ParticleSystemManager:
             self.channel_map[i] = new_map
 
         if len(self.systems) == 0:  # Reinitialize standard when deleting last system
-            self.__init_collections()
+            self._init_collections()
             self.init_master(project_properties["particles"])
         elif system_idx == 0:  # Assign new system at index to be master, when deleting previous master system
             self.init_master(self.styles[0])

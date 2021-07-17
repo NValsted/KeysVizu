@@ -6,19 +6,25 @@ from settings_tabs.settings_tab import SettingsTab
 from particles.particle_system_manager import ParticleSystemManager
 from misc.custom_buttons import ChannelGrid
 from misc.numeric_setting import NumericSliderSetting
+from misc.gradient_setting import ColorGradientBar
 
 import c_utils
 config = c_utils.load_config()
 
 
 class ParticlesSettings(SettingsTab):
+    lifetime_slider = ObjectProperty(NumericSliderSetting)  # Need to properly implement this - should probably make adjustments to c++ source
+
     spawn_N_slider = ObjectProperty(NumericSliderSetting)
     angle_slider = ObjectProperty(NumericSliderSetting)
     speed_slider = ObjectProperty(NumericSliderSetting)
     size_slider = ObjectProperty(NumericSliderSetting)
+    
     angle_spread_slider = ObjectProperty(NumericSliderSetting)
     speed_spread_slider = ObjectProperty(NumericSliderSetting)
     size_spread_slider = ObjectProperty(NumericSliderSetting)
+
+    color_gradient_bar = ObjectProperty(ColorGradientBar)
 
     active_system = NumericProperty(0)
     active_channels = ObjectProperty(ChannelGrid)
@@ -75,7 +81,6 @@ class ParticlesSettings(SettingsTab):
         self.change_system(float("inf"))  # Always changes to newly added system
 
     def delete_system(self):
-        # Handle case when deleting last system - should probably just reinitialize a standard system at index 0 in this case
         self.PSM.delete_slave(self.active_system, self.project_properties)
         self.change_system(-1)
 

@@ -1,24 +1,29 @@
 #:kivy 2.0.0
 
 <ParticlesSettings>
+    lifetime_slider: lifetime_slider
+
     spawn_N_slider: spawn_N_slider
     angle_slider: angle_slider
     speed_slider: speed_slider
     size_slider: size_slider
+
     angle_spread_slider: angle_spread_slider
     speed_spread_slider: speed_spread_slider
     size_spread_slider: size_spread_slider
+
+    color_gradient_bar: color_gradient_bar
 
     active_system: self.active_system
     active_channels: active_channels
     text: "Particles"
 
     BoxLayout:
-        orientation: 'vertical'
+        orientation: "vertical"
 
         BoxLayout:
             id: tab_title_BoxL
-            orientation: 'horizontal'
+            orientation: "horizontal"
             size_hint_y: 0.05
 
             Label:
@@ -27,11 +32,11 @@
 
         BoxLayout:
             id: tab_content_BoxL
-            orientation: 'vertical'
+            orientation: "vertical"
             size_hint_y: 1-tab_title_BoxL.size_hint_y
 
             BoxLayout:
-                orientation: 'horizontal'
+                orientation: "horizontal"
                 size_hint_y: 0.25
 
                 Label:
@@ -39,22 +44,22 @@
                     size_hint_x: 0.5
 
                 BoxLayout:
-                    orientation: 'vertical'
+                    orientation: "vertical"
                     size_hint_x: 0.5
                     ToggleButton:
                         text: "enable particles"
                         on_press: root.toggle_particles(self.state)
 
                     BoxLayout:
-                        orientation: 'horizontal'
+                        orientation: "horizontal"
                         BoxLayout:
-                            orientation: 'vertical'
+                            orientation: "vertical"
                             size_hint_x: None
                             width: self.height
                             Label:
                                 text: str(root.active_system)
                             BoxLayout:
-                                orientation: 'horizontal'
+                                orientation: "horizontal"
                                 Button:
                                     text: "<"
                                     on_press: root.change_system(-1)
@@ -62,7 +67,7 @@
                                     text: ">"
                                     on_press: root.change_system(1)
                         BoxLayout:
-                            orientation: 'vertical'
+                            orientation: "vertical"
                             Button:
                                 text: "Add"
                                 on_press: root.add_system()
@@ -77,9 +82,22 @@
                     ChannelGrid:
                         id: active_channels
 
-            Label:
-                text: "Color gradient"
+            BoxLayout:
+                orientation: "horizontal"
                 size_hint_y: 0.1
+                Label:
+                    text: "Colors"
+                    size_hint_x: 0.25
+                ColorGradientBar:
+                    id: color_gradient_bar
+
+            NumericSliderSetting:
+                id: lifetime_slider
+                label_text: "Lifetime"
+                slider_bounds: [1,150]
+                step: 1
+                callback: root.change_slider_setting
+                callback_args: ("init/lifetime", self.slider)
 
             NumericSliderSetting:
                 id: spawn_N_slider
