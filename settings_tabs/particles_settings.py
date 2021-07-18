@@ -38,15 +38,19 @@ class ParticlesSettings(SettingsTab):
         self.PSM.init_master(self.project_properties["particles"])
         self.active_channels.callback = self.update_channel_map
 
-        Clock.create_trigger(self._set_slider_references)()
-        Clock.create_trigger(lambda *args: self.change_system(0))()  # initializes style parameter to proper values
+    def tab_active_init(self, *args):
+        color_properties = self.PSM.styles[0]["style"]["color"]
+        self.color_gradient_bar.color_properties = color_properties
+        
+        self._set_slider_references()
+        self.change_system(0) # initializes style parameter to proper values
 
     def _set_slider_references(self, *args):
         self.sliders = [
-            self.spawn_N_slider, self.angle_slider,
-            self.speed_slider, self.size_slider, 
-            self.angle_spread_slider, self.speed_spread_slider,
-            self.size_spread_slider
+            self.lifetime_slider, self.spawn_N_slider,
+            self.angle_slider, self.speed_slider,
+            self.size_slider,  self.angle_spread_slider,
+            self.speed_spread_slider, self.size_spread_slider
         ]
 
     def __update_preview(self):
@@ -68,6 +72,10 @@ class ParticlesSettings(SettingsTab):
             self.active_channels.channel_buttons[i].state = "normal"
             if self.active_system in self.PSM.channel_map[i]:
                 self.active_channels.channel_buttons[i].state = "down"
+
+        color_properties = self.PSM.styles[self.active_system]["style"]["color"]
+        self.color_gradient_bar.color_properties = color_properties
+        self.color_gradient_bar.update()
 
         for slider in self.sliders:
             parameter = self.PSM.styles[self.active_system]

@@ -134,3 +134,6 @@ dmypy.json
 
 # midi files
 /midi_data/*.mid
+
+# VS Code
+.vscode

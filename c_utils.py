@@ -29,3 +29,34 @@ def interpolate_color(color_gradient, t):
             return color
 
     return color_gradient["RGBA"][-1]
+
+
+def valid_color_gradient(color_gradient):
+    """
+    Ensures stops are sorted and within the bounds [0, 1], as well as
+    making sure the color values are valid.
+    """
+    idx_map = []
+    new_stops = []
+    new_rgba = []
+    for _ in range(len(color_gradient["stops"])):  # number of steps expected to be low, so runtime is acceptable altough inefficient
+        lo_idx = color_gradient["stops"].index(min(color_gradient["stops"]))
+        idx_map.append(lo_idx)
+        new_stops.append(
+            min(max(color_gradient["stops"][lo_idx], 0), 1)
+        )
+        new_rgba.append(
+            list(
+                map(
+                    lambda x: min(max(x, 0), 1),
+                    color_gradient["RGBA"][lo_idx]
+                )
+            )
+        )
+    
+        color_gradient["stops"][lo_idx] = float("inf")
+
+    color_gradient["stops"] = new_stops
+    color_gradient["RGBA"] = new_rgba
+
+    return color_gradient, idx_map
