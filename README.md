@@ -1,17 +1,16 @@
 # KeysVizu
 
-## What is KeysVizu?
-
 KeysVizu is a work-in-progress open-source application that visualizes MIDI files meant to be played on a piano. Notes are shown above the corresponding keys and fall down onto the keybed.
 
-## Dependencies
-The application is Python-based and has only been tested on Python 3.8.5 so far. Certain heavy-lifting is done in C++ where Cython is used to create Python bindings.
-- Kivy 2.0.0
-- mido 1.2.9
-- OpenCV 4.0.1 *might migrate to ffmpeg for video export
-- Cython 3.0
+## Getting started
+The easiest way to run this project is to build the provided [docker](https://www.docker.com/) image and run the container. Simply run the following commands from the root of this repository:
 
-## Results
+```bash
+docker build -t keysvizu .
+docker run --rm -it -v $(pwd -W):/KeysVizu keysvizu
+```
+
+## Demo
 A demo of what the application can generate can be found below and on the corresponding channel
 
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=vIfca9RSyOE
