@@ -7,7 +7,7 @@ The easiest way to run this project is to build the provided [docker](https://ww
 
 ```bash
 docker build -t keysvizu .
-docker run --rm -it -v $(pwd -W):/KeysVizu keysvizu
+docker run --rm -it --net=host --ipc=host -e DISPLAY=$DISPLAY --env="_X11_NO_MITSHM=1" -v $(pwd):/KeysVizu keysvizu
 ```
 
 ## Demo

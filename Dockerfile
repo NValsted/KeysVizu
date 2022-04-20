@@ -1,4 +1,6 @@
-FROM ubuntu:20.04
+FROM nvidia/opengl:base-ubuntu20.04
+
+ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt update -yq && apt install software-properties-common -yq
 RUN add-apt-repository ppa:deadsnakes/ppa
@@ -17,7 +19,9 @@ RUN apt-get update -yq && apt-get install -yq \
     python3-setuptools \
     ffmpeg \
     libsm6 \
-    libxext6
+    libxext6 \
+    libmtdev1
+RUN apt-get clean -y
 
 RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
 RUN python3.9 get-pip.py
